@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">all-rise</string>
+
+    <string name="coppied">Coppied!</string>
+    <string name="click_to_copy">Click the text to copy</string>
+    <string name="create_invitecode">Generate invitecode</string>
+
 </resources>

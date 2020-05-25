@@ -5,45 +5,34 @@ import java.util.ArrayList;
 
 public class Department {
 
-    private int id;
+    private int id, officeId;
     private String name, description;
-
-    private LocalTime deadline;
 
     private ArrayList<Employee> employees;
 
-    public Department(int id, String name, String description){
+    public Department(int id, int officeId, String name, String description){
         this.id = id;
+        this.officeId = officeId;
         this.name = name;
         this.description = description;
 
-        this.deadline = LocalTime.NOON;
-        this.employees = new ArrayList<Employee>();
+        this.employees = new ArrayList<>();
     }
 
-    public Department(int id, String name, String description, ArrayList<Employee> employees){
+    public Department(int id, int officeId, String name, String description, ArrayList<Employee> employees){
         this.id = id;
+        this.officeId = officeId;
         this.name = name;
         this.description = description;
-
-        this.deadline = LocalTime.NOON;
 
         this.employees = employees;
     }
 
-    public Department(int id, String name, String description, LocalTime deadline){
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.deadline = deadline;
-        this.employees = new ArrayList<Employee>();
-    }
-
-    public void addUser(Employee employee){
+    public void addEmployee(Employee employee){
         employees.add(employee);
     }
 
-    public void removeUser(Employee employee){
+    public void removeEmployee(Employee employee){
         employees.remove(employee);
     }
 
@@ -71,14 +60,6 @@ public class Department {
         this.description = description;
     }
 
-    public LocalTime getDeadline() {
-        return deadline;
-    }
-
-    public void setDeadline(LocalTime deadline) {
-        this.deadline = deadline;
-    }
-
     public ArrayList<Employee> getEmployees() {
         return employees;
     }
@@ -87,7 +68,11 @@ public class Department {
         this.employees = employees;
     }
 
-    public String toString(){
-        return id + " " + name + " " + deadline;
+    public int getOfficeId() {
+        return officeId;
+    }
+
+    public void setOfficeId(int officeId) {
+        this.officeId = officeId;
     }
 }

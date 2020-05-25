@@ -2,15 +2,10 @@ package nl.topicus.all_rise.model;
 
 import java.io.Serializable;
 
-/**
- * Class is used to test the employeeResponse.
- */
-
 public class Employee implements Serializable {
     private int id, departmentId;
     private String name, surname, activationCode;
     private boolean verified;
-
 
     public Employee(int id, int departmentId, String name, String surname) {
         this.id = id;

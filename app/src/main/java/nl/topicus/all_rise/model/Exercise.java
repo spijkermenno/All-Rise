@@ -26,4 +26,12 @@ public class Exercise {
     public String getName() {
         return name;
     }
+
+    public int getExerciseTypeId() {
+        return exerciseTypeId;
+    }
+
+    public void setExerciseTypeId(int exerciseTypeId) {
+        this.exerciseTypeId = exerciseTypeId;
+    }
 }
