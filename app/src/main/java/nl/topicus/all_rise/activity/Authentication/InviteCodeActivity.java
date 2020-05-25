@@ -11,16 +11,17 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.VolleyError;
-import com.lunchmaster.lunchapp.R;
-import com.lunchmaster.lunchapp.activity.MainActivity;
-import com.lunchmaster.lunchapp.data.DataProvider;
-import com.lunchmaster.lunchapp.data.FileReader;
-import com.lunchmaster.lunchapp.data.response.JsonObjectResponse;
-import com.lunchmaster.lunchapp.data.response.UserResponse;
-import com.lunchmaster.lunchapp.model.User;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import nl.topicus.all_rise.R;
+import nl.topicus.all_rise.activity.MainActivity;
+import nl.topicus.all_rise.data.DataProvider;
+import nl.topicus.all_rise.data.FileReader;
+import nl.topicus.all_rise.data.response.EmployeeResponse;
+import nl.topicus.all_rise.data.response.JsonObjectResponse;
+import nl.topicus.all_rise.model.Employee;
 
 public class InviteCodeActivity extends AppCompatActivity {
     private final String LOCALSTORAGEFILENAME = "storage.json";
@@ -59,6 +60,16 @@ public class InviteCodeActivity extends AppCompatActivity {
                 DataProvider dp = new DataProvider(getApplicationContext());
 
                 if (submittedInviteCode.length() == 8) {
+                    // TODO: REMOVE BACKDOOR
+
+                    if (submittedInviteCode.equals("all-rise")) {
+                        System.out.println("BACKDOOR ACIVATED");
+                        Intent overviewIntent = new Intent(InviteCodeActivity.this, MainActivity.class);
+                        overviewIntent.putExtra("userId", 0);
+                        startActivity(overviewIntent);
+                        return;
+                    }
+
                     dp.request(DataProvider.GET_INVITECODE, submittedInviteCode, null, new JsonObjectResponse() {
                         @Override
                         public void response(JSONObject data) {
@@ -73,15 +84,17 @@ public class InviteCodeActivity extends AppCompatActivity {
                                     } else {
                                         try {
                                             DataProvider dp = new DataProvider(InviteCodeActivity.this);
-                                            dp.request(DataProvider.GET_USER, data.getString("user_id"), null, new UserResponse() {
+                                            dp.request(DataProvider.GET_EMPLOYEE, data.getString("user_id"), null, new EmployeeResponse() {
                                                 @Override
-                                                public void response(User data) {
+                                                public void response(Employee data) {
                                                     try {
                                                         JSONObject obj = new JSONObject();
 
                                                         obj.put("id", data.getId());
-                                                        obj.put("username", data.getUsername());
-                                                        obj.put("email", data.getEmail());
+                                                        obj.put("department_id", data.getDepartmentId());
+                                                        obj.put("name", data.getName());
+                                                        obj.put("surname", data.getSurName());
+                                                        obj.put("activationCode", data.getActivationCode());
 
                                                         FileReader fr = new FileReader();
                                                         fr.create(InviteCodeActivity.this, LOCALSTORAGEFILENAME, obj.toString());

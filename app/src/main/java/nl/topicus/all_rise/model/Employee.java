@@ -7,11 +7,12 @@ public class Employee implements Serializable {
     private String name, surname, activationCode;
     private boolean verified;
 
-    public Employee(int id, int departmentId, String name, String surname) {
+    public Employee(int id, int departmentId, String name, String surname, String activationCode) {
         this.id = id;
         this.departmentId = departmentId;
         this.name = name;
         this.surname = surname;
+        this.activationCode = activationCode;
     }
 
     public int getId() {

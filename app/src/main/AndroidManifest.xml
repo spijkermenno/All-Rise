@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="nl.topicus.all_rise">
+
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -8,7 +12,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
+
         <activity android:name="nl.topicus.all_rise.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -16,7 +22,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.Authentication.GenerateInviteCode" />
+        <activity
+            android:name=".activity.Authentication.GenerateInviteCode"
+            tools:ignore="InnerClassSeparator" />
+        <activity
+            android:name=".activity.Authentication.SignInActivity"
+            tools:ignore="InnerClassSeparator" />
+        <activity
+            android:name=".activity.Authentication.InviteCodeActivity"
+            tools:ignore="InnerClassSeparator" />
     </application>
 
 </manifest>

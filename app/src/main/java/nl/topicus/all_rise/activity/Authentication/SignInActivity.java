@@ -13,14 +13,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
 import com.android.volley.VolleyError;
-import com.lunchmaster.lunchapp.R;
-import com.lunchmaster.lunchapp.activity.MainActivity;
-import com.lunchmaster.lunchapp.data.DataProvider;
-import com.lunchmaster.lunchapp.data.FileReader;
-import com.lunchmaster.lunchapp.data.response.JsonObjectResponse;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import nl.topicus.all_rise.R;
+import nl.topicus.all_rise.activity.MainActivity;
+import nl.topicus.all_rise.data.DataProvider;
+import nl.topicus.all_rise.data.FileReader;
+import nl.topicus.all_rise.data.response.JsonObjectResponse;
 
 public class SignInActivity extends AppCompatActivity {
     private final String LOCALSTORAGEFILENAME = "storage.json";

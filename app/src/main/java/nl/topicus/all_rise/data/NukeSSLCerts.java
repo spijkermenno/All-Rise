@@ -1,4 +1,4 @@
-package nl.topicus.all_rise.activity.data;
+package nl.topicus.all_rise.data;
 
 import java.security.SecureRandom;
 import java.security.cert.X509Certificate;

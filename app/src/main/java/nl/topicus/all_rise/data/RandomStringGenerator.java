@@ -1,4 +1,4 @@
-package nl.topicus.all_rise.activity.data;
+package nl.topicus.all_rise.data;
 
 public class RandomStringGenerator {
     public static String getAlphaNumericString(int n)

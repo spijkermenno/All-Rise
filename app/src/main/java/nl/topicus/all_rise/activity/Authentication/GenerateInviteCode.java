@@ -14,8 +14,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import nl.topicus.all_rise.R;
-import nl.topicus.all_rise.activity.data.DataProvider;
-import nl.topicus.all_rise.activity.data.RandomStringGenerator;
+import nl.topicus.all_rise.data.DataProvider;
+import nl.topicus.all_rise.data.RandomStringGenerator;
 import nl.topicus.all_rise.data.response.JsonObjectResponse;
 
 public class GenerateInviteCode extends AppCompatActivity {

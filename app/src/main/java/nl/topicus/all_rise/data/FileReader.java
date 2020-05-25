@@ -1,4 +1,4 @@
-package nl.topicus.all_rise.activity.data;
+package nl.topicus.all_rise.data;
 
 import android.content.Context;
 

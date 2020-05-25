@@ -40,20 +40,20 @@ public class DataProvider {
     private final static String API = "API URL HERE";
 
     //Actions
-    private static final String GET_EMPLOYEE = "GET_EMPLOYEE";
-    private static final String GET_EMPLOYEES = "GET_EMPLOYEES";
+    public static final String GET_EMPLOYEE = "GET_EMPLOYEE";
+    public static final String GET_EMPLOYEES = "GET_EMPLOYEES";
 
-    private static final String GET_WORKOUT = "GET_WORKOUT";
-    private static final String GET_WORKOUTS = "GET_WORKOUTS";
+    public static final String GET_WORKOUT = "GET_WORKOUT";
+    public static final String GET_WORKOUTS = "GET_WORKOUTS";
 
-    private static final String GET_DEPARTMENT = "GET_DEPARTMENT";
-    private static final String GET_DEPARTMENTS = "GET_DEPARTMENTS";
+    public static final String GET_DEPARTMENT = "GET_DEPARTMENT";
+    public static final String GET_DEPARTMENTS = "GET_DEPARTMENTS";
 
-    private static final String GET_INVITECODE = "GET_INVITECODE";
+    public static final String GET_INVITECODE = "GET_INVITECODE";
 
     public DataProvider(Context ctx) {
         this.ctx = ctx;
-        nl.topicus.all_rise.activity.data.NukeSSLCerts.nuke();
+        nl.topicus.all_rise.data.NukeSSLCerts.nuke();
     }
 
     /**
@@ -132,7 +132,8 @@ public class DataProvider {
                                             response.getInt("id"),
                                             response.getInt("department_id"),
                                             response.getString("name"),
-                                            response.getString("surname")
+                                            response.getString("surname"),
+                                            response.getString("activation_code")
                                     );
                                     employeeResponse.response(employee);
                                     break;
@@ -211,11 +212,10 @@ public class DataProvider {
                                         employees.add(
                                                 new Employee(
                                                         response.getJSONObject(i).getInt("id"),
-                                                        response.getJSONObject(i).getInt(
-                                                                "department_id"),
+                                                        response.getJSONObject(i).getInt("department_id"),
                                                         response.getJSONObject(i).getString("name"),
-                                                        response.getJSONObject(i).getString(
-                                                                "surname")
+                                                        response.getJSONObject(i).getString("surname"),
+                                                        response.getJSONObject(i).getString("activation_code")
                                                 )
                                         );
                                     }

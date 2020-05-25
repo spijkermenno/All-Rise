@@ -21,7 +21,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/ma_it_blue"
+        android:background="@color/colorPrimary"
         android:textColor="@android:color/white" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
