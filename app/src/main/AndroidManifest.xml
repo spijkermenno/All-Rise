@@ -26,9 +26,6 @@
             android:name=".activity.Authentication.GenerateInviteCode"
             tools:ignore="InnerClassSeparator" />
         <activity
-            android:name=".activity.Authentication.SignInActivity"
-            tools:ignore="InnerClassSeparator" />
-        <activity
             android:name=".activity.Authentication.InviteCodeActivity"
             tools:ignore="InnerClassSeparator" />
     </application>

@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.VolleyError;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import nl.topicus.all_rise.R;
@@ -20,8 +19,8 @@ import nl.topicus.all_rise.activity.MainActivity;
 import nl.topicus.all_rise.data.DataProvider;
 import nl.topicus.all_rise.data.FileReader;
 import nl.topicus.all_rise.data.response.EmployeeResponse;
-import nl.topicus.all_rise.data.response.JsonObjectResponse;
 import nl.topicus.all_rise.model.Employee;
+import nl.topicus.all_rise.utility.Print;
 
 public class InviteCodeActivity extends AppCompatActivity {
     private final String LOCALSTORAGEFILENAME = "storage.json";
@@ -53,6 +52,7 @@ public class InviteCodeActivity extends AppCompatActivity {
         inviteCodeSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Making sure the inviteCodeHelpText is empty when user submits new data.
                 inviteCodeHelpText.setText(null);
 
                 String submittedInviteCode = inviteCodeInputField.getText().toString();
@@ -64,74 +64,82 @@ public class InviteCodeActivity extends AppCompatActivity {
 
                     if (submittedInviteCode.equals("all-rise")) {
                         System.out.println("BACKDOOR ACIVATED");
-                        Intent overviewIntent = new Intent(InviteCodeActivity.this, MainActivity.class);
-                        overviewIntent.putExtra("userId", 0);
-                        startActivity(overviewIntent);
+
+                        try {
+                            JSONObject obj = new JSONObject();
+
+                            obj.put("id", 0);
+                            obj.put("department_id", 0);
+                            obj.put("name", "Backdoor");
+                            obj.put("surname", "Please fix");
+                            obj.put("activationCode", "all-rise");
+
+                            // Write user data to local file.
+                            FileReader fr = new FileReader();
+                            fr.create(
+                                    InviteCodeActivity.this,
+                                    LOCALSTORAGEFILENAME,
+                                    obj.toString());
+
+                            Intent overviewIntent = new Intent(InviteCodeActivity.this,
+                                    MainActivity.class);
+                            overviewIntent.putExtra("userId", 0);
+                            startActivity(overviewIntent);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                         return;
                     }
 
-                    dp.request(DataProvider.GET_INVITECODE, submittedInviteCode, null, new JsonObjectResponse() {
-                        @Override
-                        public void response(JSONObject data) {
+                    // Requesting user-data from the API
+                    dp.request(DataProvider.GET_EMPLOYEE, submittedInviteCode, null,
+                            new EmployeeResponse() {
 
-                            try {
-                                if (data != null) {
-                                    inviteCodeHelpText.setText("");
-                                    if (!data.getString("active").equals("1")) {
-                                        Intent menuIntent = new Intent(InviteCodeActivity.this, SignInActivity.class);
-                                        menuIntent.putExtra("user_credentials", data.toString());
-                                        startActivity(menuIntent);
-                                    } else {
-                                        try {
-                                            DataProvider dp = new DataProvider(InviteCodeActivity.this);
-                                            dp.request(DataProvider.GET_EMPLOYEE, data.getString("user_id"), null, new EmployeeResponse() {
-                                                @Override
-                                                public void response(Employee data) {
-                                                    try {
-                                                        JSONObject obj = new JSONObject();
+                                @Override
+                                public void response(Employee data) {
+                                    try {
+                                        if (data != null) {
+                                            Print.echo(data.toString(), Color.MAGENTA);
 
-                                                        obj.put("id", data.getId());
-                                                        obj.put("department_id", data.getDepartmentId());
-                                                        obj.put("name", data.getName());
-                                                        obj.put("surname", data.getSurName());
-                                                        obj.put("activationCode", data.getActivationCode());
+                                            inviteCodeHelpText.setText("");
 
-                                                        FileReader fr = new FileReader();
-                                                        fr.create(InviteCodeActivity.this, LOCALSTORAGEFILENAME, obj.toString());
+                                            JSONObject obj = new JSONObject();
 
-                                                        Intent overviewIntent = new Intent(InviteCodeActivity.this, MainActivity.class);
-                                                        overviewIntent.putExtra("userId", data.getId());
-                                                        startActivity(overviewIntent);
-                                                    } catch (JSONException e) {
-                                                        e.printStackTrace();
-                                                    }
-                                                }
+                                            obj.put("id", data.getId());
+                                            obj.put("department_id", data.getDepartmentId());
+                                            obj.put("name", data.getName());
+                                            obj.put("surname", data.getSurName());
+                                            obj.put("activationCode", data.getActivationCode());
 
-                                                @Override
-                                                public void error(VolleyError error) {
-                                                    error.printStackTrace();
-                                                }
-                                            });
+                                            // Write user data to local file.
+                                            FileReader fr = new FileReader();
+                                            fr.create(
+                                                    InviteCodeActivity.this,
+                                                    LOCALSTORAGEFILENAME,
+                                                    obj.toString());
 
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
+                                            // Open new Intent with main screen.
+                                            Intent overviewIntent = new Intent(
+                                                    InviteCodeActivity.this,
+                                                    MainActivity.class
+                                            );
+                                            overviewIntent.putExtra("userId", data.getId());
+                                            startActivity(overviewIntent);
+                                        } else {
+                                            inviteCodeHelpText.setTextColor(Color.RED);
+                                            inviteCodeHelpText.setText(R.string.code_invalid);
                                         }
+                                    } catch (
+                                            Exception e) {
+                                        e.printStackTrace();
                                     }
-                                } else {
-                                    inviteCodeHelpText.setTextColor(Color.RED);
-                                    inviteCodeHelpText.setText(R.string.code_invalid);
                                 }
-                            } catch (
-                                    Exception e) {
-                                e.printStackTrace();
-                            }
-                        }
 
-                        @Override
-                        public void error(VolleyError error) {
-                            error.printStackTrace();
-                        }
-                    });
+                                @Override
+                                public void error(VolleyError error) {
+                                    error.printStackTrace();
+                                }
+                            });
                 } else if (submittedInviteCode.length() > 0 && submittedInviteCode.length() < 8) {
                     inviteCodeHelpText.setTextColor(Color.RED);
                     inviteCodeHelpText.setText(R.string.code_short);
