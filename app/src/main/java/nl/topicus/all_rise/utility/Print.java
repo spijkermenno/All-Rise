@@ -11,9 +11,9 @@ public class Print {
 
     public static void echo (String line, int color) {
         if (debug) {
-            System.out.println(color);
+            System.out.print(color);
             System.out.println(line);
-            System.out.println(Color.RESET);
+            System.out.print(Color.RESET);
         }
     }
 
@@ -25,9 +25,9 @@ public class Print {
 
     public static void echo (int line, int color) {
         if (debug) {
-            System.out.println(color);
+            System.out.print(color);
             System.out.println(line);
-            System.out.println(Color.RESET);
+            System.out.print(Color.RESET);
         }
     }
 
@@ -39,9 +39,9 @@ public class Print {
 
     public static void echo (double line, int color) {
         if (debug) {
-            System.out.println(color);
+            System.out.print(color);
             System.out.println(line);
-            System.out.println(Color.RESET);
+            System.out.print(Color.RESET);
         }
     }
 }

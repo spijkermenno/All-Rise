@@ -63,7 +63,7 @@ public class InviteCodeActivity extends AppCompatActivity {
                     // TODO: REMOVE BACKDOOR
 
                     if (submittedInviteCode.equals("all-rise")) {
-                        System.out.println("BACKDOOR ACIVATED");
+                        Print.echo("BACKDOOR ACIVATED", Color.RED);
 
                         try {
                             JSONObject obj = new JSONObject();
