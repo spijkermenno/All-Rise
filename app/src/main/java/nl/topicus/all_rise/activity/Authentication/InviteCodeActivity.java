@@ -14,8 +14,8 @@ import com.android.volley.VolleyError;
 
 import org.json.JSONObject;
 
+import nl.topicus.all_rise.MainActivity;
 import nl.topicus.all_rise.R;
-import nl.topicus.all_rise.activity.MainActivity;
 import nl.topicus.all_rise.data.DataProvider;
 import nl.topicus.all_rise.data.FileReader;
 import nl.topicus.all_rise.data.response.EmployeeResponse;
@@ -143,6 +143,9 @@ public class InviteCodeActivity extends AppCompatActivity {
                 } else if (submittedInviteCode.length() > 0 && submittedInviteCode.length() < 8) {
                     inviteCodeHelpText.setTextColor(Color.RED);
                     inviteCodeHelpText.setText(R.string.code_short);
+                } else if (submittedInviteCode.length() > 8 ) {
+                    inviteCodeHelpText.setTextColor(Color.RED);
+                    inviteCodeHelpText.setText(R.string.code_long);
                 } else {
                     inviteCodeHelpText.setTextColor(Color.RED);
                     inviteCodeHelpText.setText(R.string.code_empty);

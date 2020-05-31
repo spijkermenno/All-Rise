@@ -12,6 +12,7 @@
     <string name="code_invalid">The code you\'ve submitted is not correct.</string>
     <string name="code_empty">The code you\'ve entered cannot be empty.</string>
     <string name="code_short">The code you\'ve entered is to short, all codes are 8 characters long.</string>
+    <string name="code_long">The code you\'ve entered is to long, all codes are 8 characters long.</string>
     <string name="code_inactive">This code is already activated.</string>
     <string name="email_not_valid">Email is not valid.</string>
     <string name="filledCredentialsInvalid">The data entered does not meet the requirements.</string>
