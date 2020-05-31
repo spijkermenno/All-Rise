@@ -3,12 +3,13 @@ package nl.topicus.all_rise.model;
 public class Exercise {
 
     private int id, exerciseTypeId;
-    private String name;
+    private String name, description;
 
-    public Exercise(int id, int exerciseTypeId, String name) {
+    public Exercise(int id, int exerciseTypeId, String name, String description) {
         this.id = id;
         this.exerciseTypeId = exerciseTypeId;
         this.name = name;
+        this.description = description;
     }
 
     public int getId() {
@@ -33,5 +34,13 @@ public class Exercise {
 
     public void setExerciseTypeId(int exerciseTypeId) {
         this.exerciseTypeId = exerciseTypeId;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
