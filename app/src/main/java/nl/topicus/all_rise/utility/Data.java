@@ -4,11 +4,13 @@ import android.content.Context;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.InterruptedIOException;
 
 import nl.topicus.all_rise.data.FileReader;
+import nl.topicus.all_rise.model.Employee;
 
 public class Data {
     private Context ctx;
@@ -38,15 +40,18 @@ public class Data {
         return !fileData.equals("{}");
     }
 
-    public JSONObject getUserData() {
+    public Employee getUserData() {
         try {
             FileReader fr = new FileReader();
             if (checkIfUserLoggedIn(fr)) {
-                return getUserDataFromLocalStorage(fr);
+                JSONObject j = getUserDataFromLocalStorage(fr);
+
+                System.out.println(j);
+                return new Employee(j.getInt("id"), j.getInt("department_id"), j.getString("name"), j.getString("surname"), j.getString("activationCode"), j.getBoolean("verified"));
             } else {
                 throw new InterruptedIOException("User not signed in.");
             }
-        } catch (InterruptedIOException e) {
+        } catch (InterruptedIOException | JSONException e) {
             e.printStackTrace();
         }
         return null;

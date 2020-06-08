@@ -57,6 +57,8 @@ public class DataProvider {
 
     public static final String GET_INVITECODE = "GET_INVITECODE";
 
+    private String code = "";
+
     public DataProvider(Context ctx) {
         this.ctx = ctx;
         nl.topicus.all_rise.data.NukeSSLCerts.nuke();
@@ -74,6 +76,7 @@ public class DataProvider {
     public void request(final String action, final String id,
             final HashMap<String, String> parameters, final ProviderResponse providerResponse) {
         String URL = "";
+        this.code = id;
 
         boolean objectRequest = false;
 
@@ -113,7 +116,7 @@ public class DataProvider {
         }
     }
 
-    private void objectRequest(final String action, String URL, final JSONObject parameters,
+    private void objectRequest(final String action, final String URL, final JSONObject parameters,
             final ProviderResponse providerResponse) {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL, null,
                 new Response.Listener<JSONObject>() {
@@ -130,14 +133,23 @@ public class DataProvider {
                                     JSONArray t = new JSONArray(response.get("data").toString());
                                     JSONObject j = t.getJSONObject(0);
 
+                                    System.out.println("RECIEVED DATA");
+                                    System.out.println(j);
+
                                     Employee employee = new Employee(
                                             j.getInt("ID"),
                                             j.getInt("Department_ID"),
                                             j.getString("Firstname"),
                                             j.getString("Lastname"),
-                                            j.getString("Code")
+                                            j.getString("Code"),
+                                            j.getInt("Verfied") == 1
                                     );
                                     employeeResponse.response(employee);
+                                    break;
+
+                                case GET_VERIFIED:
+                                    System.out.println(" RESPONSE ");
+                                    System.out.println(response);
                                     break;
                             }
                         } catch (JSONException e) {
@@ -159,7 +171,14 @@ public class DataProvider {
                 Map<String, String> params = new HashMap<String, String>();
                 Data data = new Data(ctx);
 
-                params.put("verify", "87654321");
+
+                System.out.println(URL);
+                if (!URL.contains("/register/") && data.getUserData() == null) {
+                    params.put("verify", code);
+                } else if (data.getUserData() != null) {
+                    params.put("verify", data.getUserData().getActivationCode());
+                }
+
                 params.put("Content-Type", "application/json");
                 return params;
             }
@@ -174,7 +193,7 @@ public class DataProvider {
                 jsonObjectRequest);
     }
 
-    private void arrayRequest(final String action, String URL, final JSONObject parameters,
+    private void arrayRequest(final String action, final String URL, final JSONObject parameters,
             final ProviderResponse providerResponse) {
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest
                 (Request.Method.GET, URL, null, new Response.Listener<JSONArray>() {
@@ -196,7 +215,9 @@ public class DataProvider {
                                                         response.getJSONObject(i).getString(
                                                                 "Lastname"),
                                                         response.getJSONObject(i).getString(
-                                                                "Code")
+                                                                "Code"),
+                                                        response.getJSONObject(i).getBoolean(
+                                                                "Verfied")
                                                 )
                                         );
                                     }
@@ -218,7 +239,10 @@ public class DataProvider {
                 Map<String, String> params = new HashMap<String, String>();
                 Data data = new Data(ctx);
 
-                params.put("verify", "87654321");
+                if (!URL.contains("/register/")) {
+                    params.put("verify", data.getUserData().getActivationCode());
+                }
+
                 params.put("Content-Type", "application/json");
                 return params;
             }

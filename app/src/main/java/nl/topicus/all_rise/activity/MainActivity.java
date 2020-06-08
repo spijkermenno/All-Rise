@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -12,16 +13,22 @@ import android.os.Bundle;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.android.volley.VolleyError;
+
 import org.json.JSONObject;
 
 import java.io.InterruptedIOException;
 
 import nl.topicus.all_rise.R;
 import nl.topicus.all_rise.activity.Authentication.InviteCodeActivity;
+import nl.topicus.all_rise.data.DataProvider;
 import nl.topicus.all_rise.data.FileReader;
+import nl.topicus.all_rise.data.response.EmployeeResponse;
+import nl.topicus.all_rise.model.Employee;
 import nl.topicus.all_rise.utility.Data;
 
 public class MainActivity extends AppCompatActivity {
+    private final String LOCALSTORAGEFILENAME = "storage.json";
 
     private Context context;
     public JSONObject USERDATA;
@@ -51,10 +58,55 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        // User is not logged in.
         if (USERDATA == null || USERDATA.toString().equals("{}")) {
             System.out.println("====== SIGN IN ======");
             Intent overviewIntent = new Intent(MainActivity.this, InviteCodeActivity.class);
             startActivity(overviewIntent);
+        } else {
+            final Context ctx = this;
+            final DataProvider dp = new DataProvider(getApplicationContext());
+
+            dp.request(DataProvider.GET_EMPLOYEE_BY_CODE,
+                    data.getUserData().getActivationCode(), null,
+                    new EmployeeResponse() {
+
+                        @Override
+                        public void response(Employee data) {
+                            try {
+                                if (data != null) {
+                                    JSONObject obj = new JSONObject();
+
+                                    obj.put("id", data.getId());
+                                    obj.put("department_id", data
+                                            .getDepartmentId());
+                                    obj.put("name", data.getName());
+                                    obj.put("surname", data.getSurName());
+                                    obj.put("activationCode", data
+                                            .getActivationCode());
+                                    obj.put("verified", data
+                                            .isVerified());
+
+                                    System.out.println(obj);
+
+                                    // Write user data to local file.
+                                    FileReader fr = new FileReader();
+                                    fr.create(ctx,
+                                            LOCALSTORAGEFILENAME,
+                                            obj.toString());
+                                }
+                            } catch (
+                                    Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void error(VolleyError error) {
+                            error.printStackTrace();
+                        }
+                    });
+
         }
 
         // SENSORS
