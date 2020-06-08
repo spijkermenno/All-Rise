@@ -24,6 +24,7 @@ import java.io.InterruptedIOException;
 
 import nl.topicus.all_rise.R;
 import nl.topicus.all_rise.activity.Authentication.InviteCodeActivity;
+import nl.topicus.all_rise.activity.Workout.WorkoutActivity;
 import nl.topicus.all_rise.data.DataProvider;
 import nl.topicus.all_rise.data.FileReader;
 import nl.topicus.all_rise.data.response.EmployeeResponse;
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private double prevMagn = 0;
     boolean moving = false;
     TextView tvValMotion, tvWelcome;
-    Button btnRankings, btnStatistics, btnHistory, btnPreferences, btnZenmode;
+    Button btnWorkout, btnRankings, btnStatistics, btnHistory, btnPreferences, btnZenmode;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -137,6 +138,19 @@ public class MainActivity extends AppCompatActivity {
             tvWelcome = findViewById(R.id.tv_welcome);
             //TODO Waar "Jan" staat moet naam van gebruiker komen.
             tvWelcome.setText("Welkom, " + data.getUserData().getName());
+
+            btnWorkout = findViewById(R.id.btn_workout);
+            btnWorkout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Intent naar WorkoutActivity
+                    Intent view = new Intent(
+                            MainActivity.this,
+                            WorkoutActivity.class
+                    );
+                    startActivity(view);
+                }
+            });
 
             btnRankings = findViewById(R.id.btn_rankings);
             btnRankings.setOnClickListener(new View.OnClickListener() {
