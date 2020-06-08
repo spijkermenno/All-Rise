@@ -9,7 +9,9 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.TextView;
 
 import org.json.JSONObject;
@@ -27,11 +29,13 @@ public class MainActivity extends AppCompatActivity {
     private SensorManager sensorManager;
     private double prevMagn = 0;
     boolean moving = false;
-    TextView tvValMotion;
+    TextView tvValMotion, tvWelcome;
+    Button btnRankings, btnStatistics, btnHistory, btnPreferences, btnZenmode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
 
         context = MainActivity.this;
@@ -54,6 +58,52 @@ public class MainActivity extends AppCompatActivity {
             startActivity(overviewIntent);
         }
 
+        // MAIN MENU
+        tvWelcome = findViewById(R.id.tv_welcome);
+        //TODO Waar "Jan" staat moet naam van gebruiker komen.
+        tvWelcome.setText("Welkom, " + "Jan");
+
+        btnRankings = findViewById(R.id.btn_rankings);
+        btnRankings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Intent naar RankingsActivity
+            }
+        });
+
+        btnStatistics = findViewById(R.id.btn_statistics);
+        btnStatistics.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Intent naar StatisticsActivity
+            }
+        });
+
+        btnHistory = findViewById(R.id.btn_history);
+        btnHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Intent naar HistoryActivity
+            }
+        });
+
+        btnPreferences = findViewById(R.id.btn_preferences);
+        btnPreferences.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Intent naar PreferencesActivity
+            }
+        });
+
+        btnZenmode = findViewById(R.id.btn_zenmode);
+        btnZenmode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Intent naar ZenmodeActivity
+            }
+        });
+
+
         // SENSORS
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         tvValMotion = findViewById(R.id.tv_valMotion);
@@ -61,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
-        SensorEventListener stepDetector = new SensorEventListener() {
+        SensorEventListener motionDetector = new SensorEventListener() {
             @Override
             public void onSensorChanged(SensorEvent event) {
                 if (event != null) {
@@ -86,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        sensorManager.registerListener(stepDetector, sensor, SensorManager.SENSOR_DELAY_NORMAL);
+        sensorManager.registerListener(motionDetector, sensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     protected boolean checkIfUserLoggedIn(FileReader fr) {
