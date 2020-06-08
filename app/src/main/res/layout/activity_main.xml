@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".activity.MainActivity">
 
+    <Button
+        android:id="@+id/sign_off"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#00FFFFFF"
+        android:text="@string/sign_off"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="175dp"
@@ -18,6 +30,16 @@
         app:layout_constraintVertical_bias="0.56"
         app:srcCompat="@drawable/all_rise_x_small" />
 
+    <TextView
+        android:id="@+id/tv_valMotion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        tools:text="false" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="323dp"
@@ -29,27 +51,37 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
+            android:id="@+id/btn_workout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@color/all_rise_green"
+            android:text="@string/workout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_welcome" />
+
+        <Button
             android:id="@+id/btn_rankings"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:background="@color/all_rise_green"
-            android:text="Ranglijst"
-            app:layout_constraintBottom_toTopOf="@+id/btn_statistics"
+
+            android:text="@string/ranking"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_welcome" />
+            app:layout_constraintTop_toBottomOf="@+id/btn_workout" />
 
         <Button
             android:id="@+id/btn_statistics"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@color/all_rise_green"
+            android:layout_marginTop="16dp"
 
-            android:text="Mijn statistieken"
-            app:layout_constraintBottom_toTopOf="@+id/btn_history"
+            android:background="@color/all_rise_green"
+            android:text="@string/statistics"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_rankings" />
 
@@ -57,23 +89,23 @@
             android:id="@+id/btn_history"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:background="@color/all_rise_green"
-            android:text="Oefening geschiedenis"
-            app:layout_constraintBottom_toTopOf="@+id/btn_preferences"
+            android:text="@string/history"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
+
             app:layout_constraintTop_toBottomOf="@+id/btn_statistics" />
 
         <Button
             android:id="@+id/btn_preferences"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:background="@color/all_rise_green"
-            android:text="Voorkeuren"
-            app:layout_constraintBottom_toTopOf="@+id/btn_zenmode"
+            android:text="@string/preferences"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
+
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_history" />
 
@@ -81,11 +113,11 @@
             android:id="@+id/btn_zenmode"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+
             android:background="@color/all_rise_green"
-            android:text="Zenmodus"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="@string/zenmode"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_preferences" />
 
@@ -93,35 +125,13 @@
             android:id="@+id/tv_welcome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:textColor="@color/all_rise_orange"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Welkom, Jan" />
+            tools:text="@string/welcome" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <TextView
-        android:id="@+id/tv_valMotion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
-        tools:text="false" />
-
-    <Button
-        android:id="@+id/sign_off"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
-        android:backgroundTint="#00FFFFFF"
-        android:text="@string/sign_off"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
