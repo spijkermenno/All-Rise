@@ -1,9 +1,10 @@
-package nl.topicus.all_rise;
+package nl.topicus.all_rise.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -14,17 +15,25 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.android.volley.VolleyError;
+
 import org.json.JSONObject;
 
 import java.io.InterruptedIOException;
 
+import nl.topicus.all_rise.R;
 import nl.topicus.all_rise.activity.Authentication.InviteCodeActivity;
+import nl.topicus.all_rise.data.DataProvider;
 import nl.topicus.all_rise.data.FileReader;
+import nl.topicus.all_rise.data.response.EmployeeResponse;
+import nl.topicus.all_rise.model.Employee;
+import nl.topicus.all_rise.utility.Data;
 
 public class MainActivity extends AppCompatActivity {
+    private final String LOCALSTORAGEFILENAME = "storage.json";
 
     private Context context;
-    private JSONObject USERDATA;
+    public JSONObject USERDATA;
 
     private SensorManager sensorManager;
     private double prevMagn = 0;
@@ -43,19 +52,63 @@ public class MainActivity extends AppCompatActivity {
         // AUTHENTICATION
         // instatiate filereader
         FileReader fr = new FileReader();
+        Data data = new Data(this);
 
-        checkIfUserLoggedIn(fr);
+        data.checkIfUserLoggedIn(fr);
 
         try {
-            USERDATA = getUserDataFromLocalStorage(fr);
+            USERDATA = data.getUserDataFromLocalStorage(fr);
         } catch (InterruptedIOException e) {
             e.printStackTrace();
         }
 
+        // User is not logged in.
         if (USERDATA == null || USERDATA.toString().equals("{}")) {
-            System.out.println("====== SIGN IN ======");
             Intent overviewIntent = new Intent(MainActivity.this, InviteCodeActivity.class);
             startActivity(overviewIntent);
+        } else {
+            final Context ctx = this;
+            final DataProvider dp = new DataProvider(getApplicationContext());
+
+            dp.request(DataProvider.GET_EMPLOYEE_BY_CODE,
+                    data.getUserData().getActivationCode(), null,
+                    new EmployeeResponse() {
+
+                        @Override
+                        public void response(Employee data) {
+                            try {
+                                if (data != null) {
+                                    JSONObject obj = new JSONObject();
+
+                                    obj.put("id", data.getId());
+                                    obj.put("department_id", data
+                                            .getDepartmentId());
+                                    obj.put("name", data.getName());
+                                    obj.put("surname", data.getSurName());
+                                    obj.put("activationCode", data
+                                            .getActivationCode());
+                                    obj.put("verified", data
+                                            .isVerified());
+
+                                    System.out.println(obj);
+
+                                    // Write user data to local file.
+                                    FileReader fr = new FileReader();
+                                    fr.create(ctx,
+                                            LOCALSTORAGEFILENAME,
+                                            obj.toString());
+                                }
+                            } catch (
+                                    Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void error(VolleyError error) {
+                            error.printStackTrace();
+                        }
+                    });
         }
 
         // MAIN MENU
@@ -137,26 +190,5 @@ public class MainActivity extends AppCompatActivity {
         };
 
         sensorManager.registerListener(motionDetector, sensor, SensorManager.SENSOR_DELAY_NORMAL);
-    }
-
-    protected boolean checkIfUserLoggedIn(FileReader fr) {
-        // check if user is logged in.
-        fr.checkIfLocalStorageActivated(this, FileReader.LOCALSTORAGEFILENAME);
-        String fileData = fr.read(this, FileReader.LOCALSTORAGEFILENAME);
-        return !fileData.equals("{}");
-    }
-
-    protected JSONObject getUserDataFromLocalStorage(FileReader fr) throws InterruptedIOException {
-        fr.checkIfLocalStorageActivated(this, FileReader.LOCALSTORAGEFILENAME);
-        String fileData = fr.read(this, FileReader.LOCALSTORAGEFILENAME);
-
-        JSONObject fileObject;
-        try {
-            return new JSONObject(fileData);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        throw new java.io.InterruptedIOException("Data couldn't be casted to JSONObject.");
     }
 }
