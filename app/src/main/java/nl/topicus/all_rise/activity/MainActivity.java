@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         btnRankings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                // Intent naar RankingsActivity
             }
         });
 
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         btnStatistics.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                // Intent naar StatisticsActivity
             }
         });
 
@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         btnHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                // Intent naar HistoryActivity
             }
         });
 
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
         btnPreferences.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                // Intent naar PreferencesActivity
             }
         });
 
@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
         btnZenmode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                // Intent naar ZenmodeActivity
             }
         });
 
