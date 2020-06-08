@@ -37,6 +37,7 @@ public class Data {
         // check if user is logged in.
         fr.checkIfLocalStorageActivated(ctx, FileReader.LOCALSTORAGEFILENAME);
         String fileData = fr.read(ctx, FileReader.LOCALSTORAGEFILENAME);
+        System.out.println(fileData);
         return !fileData.equals("{}");
     }
 
