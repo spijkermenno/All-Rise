@@ -26,4 +26,29 @@
         app:layout_constraintEnd_toEndOf="@+id/tv_valMotion"
         app:layout_constraintStart_toStartOf="@+id/tv_valMotion" />
 
+    <Button
+        android:id="@+id/button_daily"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Day"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="34dp" />
+
+    <Button
+        android:id="@+id/button_weekly"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Week"
+        app:layout_constraintEnd_toStartOf="@+id/button_monthly"
+        app:layout_constraintStart_toEndOf="@+id/button_daily"
+        tools:layout_editor_absoluteY="34dp" />
+
+    <Button
+        android:id="@+id/button_monthly"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Month"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="34dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,7 +1,5 @@
 package nl.topicus.all_rise.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
@@ -9,17 +7,22 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONObject;
 
 import java.io.InterruptedIOException;
 
 import nl.topicus.all_rise.R;
-import nl.topicus.all_rise.activity.Authentication.InviteCodeActivity;
 import nl.topicus.all_rise.data.FileReader;
 import nl.topicus.all_rise.utility.Data;
+
+import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -51,11 +54,43 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        if (USERDATA == null || USERDATA.toString().equals("{}")) {
-            System.out.println("====== SIGN IN ======");
-            Intent overviewIntent = new Intent(MainActivity.this, InviteCodeActivity.class);
-            startActivity(overviewIntent);
-        }
+//        if (USERDATA == null || USERDATA.toString().equals("{}")) {
+//            System.out.println("====== SIGN IN ======");
+
+//        }
+
+
+        Button buttonday = (Button) findViewById(R.id.button_daily);
+
+        buttonday.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), RankingActivity.class);
+                intent.putExtra("filter", 0);
+                startActivity(intent);
+            }
+        });
+
+        Button buttonweek = (Button) findViewById(R.id.button_weekly);
+
+        buttonweek.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), RankingActivity.class);
+                intent.putExtra("filter", 1);
+                startActivity(intent);
+            }
+        });
+
+        Button buttonmonth = (Button) findViewById(R.id.button_monthly);
+
+        buttonmonth.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), RankingActivity.class);
+                intent.putExtra("filter", 2);
+                startActivity(intent);
+            }
+        });
+
+
 
         // SENSORS
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
