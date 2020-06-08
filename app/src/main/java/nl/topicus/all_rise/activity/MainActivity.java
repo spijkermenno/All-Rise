@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
 
         // User is not logged in.
         if (USERDATA == null || USERDATA.toString().equals("{}")) {
-            System.out.println("====== SIGN IN ======");
             Intent overviewIntent = new Intent(MainActivity.this, InviteCodeActivity.class);
             startActivity(overviewIntent);
         } else {
@@ -106,7 +105,6 @@ public class MainActivity extends AppCompatActivity {
                             error.printStackTrace();
                         }
                     });
-
         }
 
         // SENSORS
@@ -143,39 +141,4 @@ public class MainActivity extends AppCompatActivity {
 
         sensorManager.registerListener(stepDetector, sensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
-
-//    protected boolean checkIfUserLoggedIn(FileReader fr) {
-//        // check if user is logged in.
-//        fr.checkIfLocalStorageActivated(this, FileReader.LOCALSTORAGEFILENAME);
-//        String fileData = fr.read(this, FileReader.LOCALSTORAGEFILENAME);
-//        return !fileData.equals("{}");
-//    }
-//
-//    protected JSONObject getUserDataFromLocalStorage(FileReader fr) throws InterruptedIOException {
-//        fr.checkIfLocalStorageActivated(this, FileReader.LOCALSTORAGEFILENAME);
-//        String fileData = fr.read(this, FileReader.LOCALSTORAGEFILENAME);
-//
-//        JSONObject fileObject;
-//        try {
-//            return new JSONObject(fileData);
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        throw new java.io.InterruptedIOException("Data couldn't be casted to JSONObject.");
-//    }
-//
-//    public JSONObject getUserData() {
-//        try {
-//            FileReader fr = new FileReader();
-//            if (checkIfUserLoggedIn(fr)) {
-//                return getUserDataFromLocalStorage(fr);
-//            } else {
-//                throw new InterruptedIOException("User not signed in.");
-//            }
-//        } catch (InterruptedIOException e) {
-//            e.printStackTrace();
-//        }
-//        return null;
-//    }
 }

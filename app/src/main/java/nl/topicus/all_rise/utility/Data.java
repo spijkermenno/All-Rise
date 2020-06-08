@@ -46,7 +46,6 @@ public class Data {
             if (checkIfUserLoggedIn(fr)) {
                 JSONObject j = getUserDataFromLocalStorage(fr);
 
-                System.out.println(j);
                 return new Employee(j.getInt("id"), j.getInt("department_id"), j.getString("name"), j.getString("surname"), j.getString("activationCode"), j.getBoolean("verified"));
             } else {
                 throw new InterruptedIOException("User not signed in.");

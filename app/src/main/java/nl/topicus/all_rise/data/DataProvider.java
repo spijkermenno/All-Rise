@@ -107,8 +107,6 @@ public class DataProvider {
             jsonObject = new JSONObject(parameters);
         }
 
-        System.out.println(URL);
-
         if (objectRequest) {
             objectRequest(action, URL, jsonObject, providerResponse);
         } else {
@@ -133,9 +131,6 @@ public class DataProvider {
                                     JSONArray t = new JSONArray(response.get("data").toString());
                                     JSONObject j = t.getJSONObject(0);
 
-                                    System.out.println("RECIEVED DATA");
-                                    System.out.println(j);
-
                                     Employee employee = new Employee(
                                             j.getInt("ID"),
                                             j.getInt("Department_ID"),
@@ -145,11 +140,6 @@ public class DataProvider {
                                             j.getInt("Verfied") == 1
                                     );
                                     employeeResponse.response(employee);
-                                    break;
-
-                                case GET_VERIFIED:
-                                    System.out.println(" RESPONSE ");
-                                    System.out.println(response);
                                     break;
                             }
                         } catch (JSONException e) {
@@ -171,8 +161,6 @@ public class DataProvider {
                 Map<String, String> params = new HashMap<String, String>();
                 Data data = new Data(ctx);
 
-
-                System.out.println(URL);
                 if (!URL.contains("/register/") && data.getUserData() == null) {
                     params.put("verify", code);
                 } else if (data.getUserData() != null) {
@@ -239,7 +227,9 @@ public class DataProvider {
                 Map<String, String> params = new HashMap<String, String>();
                 Data data = new Data(ctx);
 
-                if (!URL.contains("/register/")) {
+                if (!URL.contains("/register/") && data.getUserData() == null) {
+                    params.put("verify", code);
+                } else if (data.getUserData() != null) {
                     params.put("verify", data.getUserData().getActivationCode());
                 }
 
