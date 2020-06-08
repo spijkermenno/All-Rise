@@ -17,5 +17,6 @@
     <string name="email_not_valid">Email is not valid.</string>
     <string name="filledCredentialsInvalid">The data entered does not meet the requirements.</string>
     <string name="all_rise_logo">All Rise Logo</string>
+    <string name="sign_off">Sign off</string>
 
 </resources>

@@ -184,9 +184,11 @@ public class DataProvider {
     private void arrayRequest(final String action, final String URL, final JSONObject parameters,
             final ProviderResponse providerResponse) {
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest
-                (Request.Method.GET, URL, null, new Response.Listener<JSONArray>() {
+                (Request.Method.GET, URL, null,
+                        new Response.Listener<JSONArray>() {
+
                     @Override
-                    public void onResponse(final JSONArray response) {
+                    public void onResponse(JSONArray response) {
                         try {
                             final ArrayListResponse arrayListResponse =
                                     (ArrayListResponse) providerResponse;

@@ -2,6 +2,7 @@ package nl.topicus.all_rise.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     TextView tvValMotion, tvWelcome;
     Button btnRankings, btnStatistics, btnHistory, btnPreferences, btnZenmode;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
         // AUTHENTICATION
         // instatiate filereader
-        FileReader fr = new FileReader();
+        final FileReader fr = new FileReader();
         Data data = new Data(this);
 
         data.checkIfUserLoggedIn(fr);
@@ -66,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
         if (USERDATA == null || USERDATA.toString().equals("{}")) {
             Intent overviewIntent = new Intent(MainActivity.this, InviteCodeActivity.class);
             startActivity(overviewIntent);
+            finish();
         } else {
             final Context ctx = this;
             final DataProvider dp = new DataProvider(getApplicationContext());
@@ -90,8 +93,6 @@ public class MainActivity extends AppCompatActivity {
                                     obj.put("verified", data
                                             .isVerified());
 
-                                    System.out.println(obj);
-
                                     // Write user data to local file.
                                     FileReader fr = new FileReader();
                                     fr.create(ctx,
@@ -111,84 +112,107 @@ public class MainActivity extends AppCompatActivity {
                     });
         }
 
-        // MAIN MENU
-        tvWelcome = findViewById(R.id.tv_welcome);
-        //TODO Waar "Jan" staat moet naam van gebruiker komen.
-        tvWelcome.setText("Welkom, " + "Jan");
+        if (data.getUserData() != null) {
 
-        btnRankings = findViewById(R.id.btn_rankings);
-        btnRankings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Intent naar RankingsActivity
-            }
-        });
+            final Context ctx = this;
+            View signOffButton = findViewById(R.id.sign_off);
+            signOffButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    System.out.println("SIGN OFF");
+                    fr.clearFile(ctx, LOCALSTORAGEFILENAME);
 
-        btnStatistics = findViewById(R.id.btn_statistics);
-        btnStatistics.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Intent naar StatisticsActivity
-            }
-        });
-
-        btnHistory = findViewById(R.id.btn_history);
-        btnHistory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Intent naar HistoryActivity
-            }
-        });
-
-        btnPreferences = findViewById(R.id.btn_preferences);
-        btnPreferences.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Intent naar PreferencesActivity
-            }
-        });
-
-        btnZenmode = findViewById(R.id.btn_zenmode);
-        btnZenmode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Intent naar ZenmodeActivity
-            }
-        });
+                    Intent reloadView = new Intent(
+                            MainActivity.this,
+                            MainActivity.class
+                    );
+                    startActivity(reloadView);
+                    finish();
 
 
-        // SENSORS
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        tvValMotion = findViewById(R.id.tv_valMotion);
-
-        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-
-        SensorEventListener motionDetector = new SensorEventListener() {
-            @Override
-            public void onSensorChanged(SensorEvent event) {
-                if (event != null) {
-                    float x_acceleration = event.values[0];
-                    float y_acceleration = event.values[1];
-                    float z_acceleration = event.values[2];
-
-                    double magnitude = Math.sqrt(
-                            x_acceleration * x_acceleration * y_acceleration * y_acceleration
-                                    * z_acceleration * z_acceleration);
-                    double deltaMagn = magnitude - prevMagn;
-                    prevMagn = magnitude;
-
-                    moving = deltaMagn > 6;
-                    tvValMotion.setText("" + moving);
                 }
-            }
+            });
 
-            @Override
-            public void onAccuracyChanged(Sensor sensor, int accuracy) {
+            // MAIN MENU
+            tvWelcome = findViewById(R.id.tv_welcome);
+            //TODO Waar "Jan" staat moet naam van gebruiker komen.
+            tvWelcome.setText("Welkom, " + data.getUserData().getName());
 
-            }
-        };
+            btnRankings = findViewById(R.id.btn_rankings);
+            btnRankings.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Intent naar RankingsActivity
+                }
+            });
 
-        sensorManager.registerListener(motionDetector, sensor, SensorManager.SENSOR_DELAY_NORMAL);
+            btnStatistics = findViewById(R.id.btn_statistics);
+            btnStatistics.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Intent naar StatisticsActivity
+                }
+            });
+
+            btnHistory = findViewById(R.id.btn_history);
+            btnHistory.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Intent naar HistoryActivity
+                }
+            });
+
+            btnPreferences = findViewById(R.id.btn_preferences);
+            btnPreferences.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Intent naar PreferencesActivity
+                }
+            });
+
+            btnZenmode = findViewById(R.id.btn_zenmode);
+            btnZenmode.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Intent naar ZenmodeActivity
+                }
+            });
+
+
+            // SENSORS
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+            tvValMotion = findViewById(R.id.tv_valMotion);
+
+            sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+            Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+
+            SensorEventListener motionDetector = new SensorEventListener() {
+                @Override
+                public void onSensorChanged(SensorEvent event) {
+                    if (event != null) {
+                        float x_acceleration = event.values[0];
+                        float y_acceleration = event.values[1];
+                        float z_acceleration = event.values[2];
+
+                        double magnitude = Math.sqrt(
+                                x_acceleration * x_acceleration * y_acceleration * y_acceleration
+                                        * z_acceleration * z_acceleration);
+                        double deltaMagn = magnitude - prevMagn;
+                        prevMagn = magnitude;
+
+                        moving = deltaMagn > 6;
+                        tvValMotion.setText("" + moving);
+                    }
+                }
+
+                @Override
+                public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+                }
+            };
+
+            sensorManager.registerListener(motionDetector, sensor,
+                    SensorManager.SENSOR_DELAY_NORMAL);
+        }
     }
 }
