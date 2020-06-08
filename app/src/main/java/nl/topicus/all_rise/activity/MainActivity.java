@@ -1,4 +1,4 @@
-package nl.topicus.all_rise;
+package nl.topicus.all_rise.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,13 +16,15 @@ import org.json.JSONObject;
 
 import java.io.InterruptedIOException;
 
+import nl.topicus.all_rise.R;
 import nl.topicus.all_rise.activity.Authentication.InviteCodeActivity;
 import nl.topicus.all_rise.data.FileReader;
+import nl.topicus.all_rise.utility.Data;
 
 public class MainActivity extends AppCompatActivity {
 
     private Context context;
-    private JSONObject USERDATA;
+    public JSONObject USERDATA;
 
     private SensorManager sensorManager;
     private double prevMagn = 0;
@@ -39,11 +41,12 @@ public class MainActivity extends AppCompatActivity {
         // AUTHENTICATION
         // instatiate filereader
         FileReader fr = new FileReader();
+        Data data = new Data(this);
 
-        checkIfUserLoggedIn(fr);
+        data.checkIfUserLoggedIn(fr);
 
         try {
-            USERDATA = getUserDataFromLocalStorage(fr);
+            USERDATA = data.getUserDataFromLocalStorage(fr);
         } catch (InterruptedIOException e) {
             e.printStackTrace();
         }
@@ -89,24 +92,38 @@ public class MainActivity extends AppCompatActivity {
         sensorManager.registerListener(stepDetector, sensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
-    protected boolean checkIfUserLoggedIn(FileReader fr) {
-        // check if user is logged in.
-        fr.checkIfLocalStorageActivated(this, FileReader.LOCALSTORAGEFILENAME);
-        String fileData = fr.read(this, FileReader.LOCALSTORAGEFILENAME);
-        return !fileData.equals("{}");
-    }
-
-    protected JSONObject getUserDataFromLocalStorage(FileReader fr) throws InterruptedIOException {
-        fr.checkIfLocalStorageActivated(this, FileReader.LOCALSTORAGEFILENAME);
-        String fileData = fr.read(this, FileReader.LOCALSTORAGEFILENAME);
-
-        JSONObject fileObject;
-        try {
-            return new JSONObject(fileData);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        throw new java.io.InterruptedIOException("Data couldn't be casted to JSONObject.");
-    }
+//    protected boolean checkIfUserLoggedIn(FileReader fr) {
+//        // check if user is logged in.
+//        fr.checkIfLocalStorageActivated(this, FileReader.LOCALSTORAGEFILENAME);
+//        String fileData = fr.read(this, FileReader.LOCALSTORAGEFILENAME);
+//        return !fileData.equals("{}");
+//    }
+//
+//    protected JSONObject getUserDataFromLocalStorage(FileReader fr) throws InterruptedIOException {
+//        fr.checkIfLocalStorageActivated(this, FileReader.LOCALSTORAGEFILENAME);
+//        String fileData = fr.read(this, FileReader.LOCALSTORAGEFILENAME);
+//
+//        JSONObject fileObject;
+//        try {
+//            return new JSONObject(fileData);
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        throw new java.io.InterruptedIOException("Data couldn't be casted to JSONObject.");
+//    }
+//
+//    public JSONObject getUserData() {
+//        try {
+//            FileReader fr = new FileReader();
+//            if (checkIfUserLoggedIn(fr)) {
+//                return getUserDataFromLocalStorage(fr);
+//            } else {
+//                throw new InterruptedIOException("User not signed in.");
+//            }
+//        } catch (InterruptedIOException e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
 }

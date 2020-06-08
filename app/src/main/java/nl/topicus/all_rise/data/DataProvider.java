@@ -1,6 +1,7 @@
 package nl.topicus.all_rise.data;
 
 import android.content.Context;
+import android.graphics.Color;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -10,6 +11,7 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 
+import nl.topicus.all_rise.activity.MainActivity;
 import nl.topicus.all_rise.data.response.ArrayListResponse;
 import nl.topicus.all_rise.data.response.DepartmentResponse;
 import nl.topicus.all_rise.data.response.WorkoutResponse;
@@ -20,6 +22,8 @@ import nl.topicus.all_rise.data.response.EmployeeResponse;
 import nl.topicus.all_rise.model.Department;
 import nl.topicus.all_rise.model.Workout;
 import nl.topicus.all_rise.model.Employee;
+import nl.topicus.all_rise.utility.Data;
+import nl.topicus.all_rise.utility.Print;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,9 +41,11 @@ public class DataProvider {
     private Context ctx;
 
     //TODO: Add API url
-    private final static String API = "API URL HERE";
+    private final static String API = "http://api.tychoengberink.nl:3001/api";
 
     //Actions
+    public static final String GET_VERIFIED = "GET_VERIFIED";
+    public static final String GET_EMPLOYEE_BY_CODE = "GET_EMPLOYEE_BY_CODE";
     public static final String GET_EMPLOYEE = "GET_EMPLOYEE";
     public static final String GET_EMPLOYEES = "GET_EMPLOYEES";
 
@@ -67,49 +73,39 @@ public class DataProvider {
      */
     public void request(final String action, final String id,
             final HashMap<String, String> parameters, final ProviderResponse providerResponse) {
-        JsonObjectRequest jsonObjectRequest = null;
         String URL = "";
 
         boolean objectRequest = false;
 
         switch (action) {
 
+            case GET_VERIFIED:
+                URL = API + "/register/" + id;
+                objectRequest = true;
+                break;
+
+            case GET_EMPLOYEE_BY_CODE:
+                URL = API + "/employees/code/" + id;
+                objectRequest = true;
+                break;
+
             case GET_EMPLOYEE:
-                URL = API + "/users/" + id;
+                URL = API + "/employees/" + id;
                 objectRequest = true;
                 break;
 
             case GET_EMPLOYEES:
-                URL = API + "/users/";
+                URL = API + "/employees/";
                 break;
 
-            case GET_WORKOUT:
-                URL = API + "/items/" + id;
-                objectRequest = true;
-                break;
-
-            case GET_WORKOUTS:
-                URL = API + "/items/";
-                break;
-
-            case GET_DEPARTMENT:
-                URL = API + "/groups/" + id;
-                objectRequest = true;
-                break;
-
-            case GET_DEPARTMENTS:
-                URL = API + "/groups/";
-                break;
-
-            case GET_INVITECODE:
-                URL = API + "/invitecodes/" + id;
-                objectRequest = true;
-                break;
         }
         JSONObject jsonObject = null;
         if (parameters != null) {
             jsonObject = new JSONObject(parameters);
         }
+
+        System.out.println(URL);
+
         if (objectRequest) {
             objectRequest(action, URL, jsonObject, providerResponse);
         } else {
@@ -119,69 +115,51 @@ public class DataProvider {
 
     private void objectRequest(final String action, String URL, final JSONObject parameters,
             final ProviderResponse providerResponse) {
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                (Request.Method.GET, URL, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL, null,
+                new Response.Listener<JSONObject>() {
+
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
                             switch (action) {
                                 case GET_EMPLOYEE:
+                                case GET_EMPLOYEE_BY_CODE:
                                     EmployeeResponse employeeResponse =
                                             (EmployeeResponse) providerResponse;
+
+                                    JSONArray t = new JSONArray(response.get("data").toString());
+                                    JSONObject j = t.getJSONObject(0);
+
                                     Employee employee = new Employee(
-                                            response.getInt("id"),
-                                            response.getInt("department_id"),
-                                            response.getString("name"),
-                                            response.getString("surname"),
-                                            response.getString("activation_code")
+                                            j.getInt("ID"),
+                                            j.getInt("Department_ID"),
+                                            j.getString("Firstname"),
+                                            j.getString("Lastname"),
+                                            j.getString("Code")
                                     );
                                     employeeResponse.response(employee);
-                                    break;
-
-                                case GET_WORKOUT:
-                                    WorkoutResponse workoutResponse =
-                                            (WorkoutResponse) providerResponse;
-                                    Workout workout = new Workout(
-                                            response.getInt("id"),
-                                            response.getString("name"),
-                                            response.getString("description")
-                                    );
-                                    workoutResponse.response(workout);
-                                    break;
-
-                                case GET_DEPARTMENT:
-                                    DepartmentResponse departmentResponse =
-                                            (DepartmentResponse) providerResponse;
-                                    Department department = new Department(
-                                            response.getInt("id"),
-                                            response.getInt("officeId"),
-                                            response.getString("name"),
-                                            response.getString("description")
-                                    );
-                                    departmentResponse.response(department);
-                                    break;
-
-                                case GET_INVITECODE:
-                                    JsonObjectResponse jsonObjectResponse =
-                                            (JsonObjectResponse) providerResponse;
-                                    jsonObjectResponse.response(response);
                                     break;
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
-                }, new Response.ErrorListener() {
-
+                },
+                new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        if (error.networkResponse.statusCode == 400) {
+                            System.out.println("BAD REQUEST 400");
+                        }
                         providerResponse.error(error);
                     }
                 }) {
             @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
+            public Map<String, String> getHeaders() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("secretcode", "24091999");
+                Data data = new Data(ctx);
+
+                params.put("verify", "87654321");
                 params.put("Content-Type", "application/json");
                 return params;
             }
@@ -211,46 +189,18 @@ public class DataProvider {
                                     for (int i = 0; i < response.length(); i++) {
                                         employees.add(
                                                 new Employee(
-                                                        response.getJSONObject(i).getInt("id"),
-                                                        response.getJSONObject(i).getInt("department_id"),
-                                                        response.getJSONObject(i).getString("name"),
-                                                        response.getJSONObject(i).getString("surname"),
-                                                        response.getJSONObject(i).getString("activation_code")
+                                                        response.getJSONObject(i).getInt("ID"),
+                                                        response.getJSONObject(i).getInt(
+                                                                "Department_ID"),
+                                                        response.getJSONObject(i).getString("Firstname"),
+                                                        response.getJSONObject(i).getString(
+                                                                "Lastname"),
+                                                        response.getJSONObject(i).getString(
+                                                                "Code")
                                                 )
                                         );
                                     }
                                     arrayListResponse.response(employees);
-                                    break;
-
-                                case GET_WORKOUTS:
-                                    ArrayList<Workout> workouts = new ArrayList<>();
-                                    for (int i = 0; i < response.length(); i++) {
-                                        JSONObject jsonObject = response.getJSONObject(i);
-                                        workouts.add(
-                                                new Workout(
-                                                        jsonObject.getInt("id"),
-                                                        jsonObject.getString("name"),
-                                                        jsonObject.getString("description")
-                                                )
-                                        );
-                                    }
-                                    arrayListResponse.response(workouts);
-                                    break;
-
-                                case GET_DEPARTMENTS:
-                                    ArrayList<Department> departments = new ArrayList<>();
-                                    for (int i = 0; i < response.length(); i++) {
-                                        JSONObject jsonObject = response.getJSONObject(i);
-                                        departments.add(
-                                                new Department(
-                                                        jsonObject.getInt("id"),
-                                                        jsonObject.getInt("department_id"),
-                                                        jsonObject.getString("name"),
-                                                        jsonObject.getString("description")
-                                                )
-                                        );
-                                    }
-                                    arrayListResponse.response(departments);
                                     break;
                             }
                         } catch (JSONException e) {
@@ -264,12 +214,15 @@ public class DataProvider {
                     }
                 }) {
             @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("secretcode", "24091999");
+            public Map<String, String> getHeaders() {
+                Map<String, String> params = new HashMap<String, String>();
+                Data data = new Data(ctx);
+
+                params.put("verify", "87654321");
                 params.put("Content-Type", "application/json");
                 return params;
             }
+
 
             @Override
             public byte[] getBody() {
@@ -280,87 +233,5 @@ public class DataProvider {
         NetworkSingleton.getInstance(ctx).addToRequestQueue(jsonArrayRequest);
     }
 
-    public void customObjectRequest(int method, String URL, final JSONObject parameters,
-            final JsonObjectResponse jsonObjectResponse) {
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                (method, API + URL, null, new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            jsonObjectResponse.response(response);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
 
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        jsonObjectResponse.error(error);
-                    }
-                }) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("Content-Type", "application/json");
-                params.put("secretcode", "24091999");
-                return params;
-            }
-
-            @Override
-            public byte[] getBody() {
-                String requestBody = parameters.toString();
-                try {
-                    return requestBody.getBytes("utf-8");
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                    VolleyLog.wtf(
-                            "Unsupported Encoding while trying to get the bytes of %s using %s",
-                            requestBody, "utf-8");
-                    return null;
-                }
-            }
-        };
-        NetworkSingleton.getInstance(ctx).addToRequestQueue(jsonObjectRequest);
-    }
-
-    public void customArrayRequest(int method, String URL, final JSONObject parameters,
-            final JsonArrayResponse jsonArrayResponse) {
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest
-                (method, API + URL, null, new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        jsonArrayResponse.response(response);
-                    }
-                }, new Response.ErrorListener() {
-
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        jsonArrayResponse.error(error);
-                    }
-                }) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("secretcode", "24091999");
-                params.put("Content-Type", "application/json");
-                return params;
-            }
-
-            @Override
-            public byte[] getBody() {
-                String requestBody = parameters.toString();
-                try {
-                    return requestBody.getBytes("utf-8");
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                    VolleyLog.wtf(
-                            "Unsupported Encoding while trying to get the bytes of %s using %s",
-                            requestBody, "utf-8");
-                    return null;
-                }
-            }
-        };
-        NetworkSingleton.getInstance(ctx).addToRequestQueue(jsonArrayRequest);
-    }
 }
