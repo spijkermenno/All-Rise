@@ -1,17 +1,22 @@
 package nl.topicus.all_rise.activity.Workout;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
+import static java.nio.file.Paths.get;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.Activity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import java.util.List;
+import com.android.volley.VolleyError;
+
+import java.util.ArrayList;
 
 import nl.topicus.all_rise.Adapter.WorkoutListAdapter;
 import nl.topicus.all_rise.R;
+import nl.topicus.all_rise.data.DataProvider;
+import nl.topicus.all_rise.data.response.ArrayListResponse;
+import nl.topicus.all_rise.model.Workout;
 
 public class WorkoutActivity extends AppCompatActivity {
 
@@ -20,16 +25,40 @@ public class WorkoutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout);
 
-        ListView listView = findViewById(R.id.ListView);
+        final Activity context = this;
 
-        String[] data = {
-                "test1",
-                "test2",
-                "test3",
-        };
+        final ListView listView = findViewById(R.id.ListView);
 
-        WorkoutListAdapter whatever = new WorkoutListAdapter(this, data);
-        listView = (ListView) findViewById(R.id.ListView);
-        listView.setAdapter(whatever);
+        DataProvider dp = new DataProvider(this);
+
+        System.out.println("REQUESTING WORKOUTS");
+
+        dp.request(DataProvider.GET_WORKOUTS, null, null, new ArrayListResponse() {
+            @Override
+            public void response(ArrayList<?> data) {
+                ArrayList<Workout> workouts = (ArrayList<Workout>) data;
+
+                for (Workout w: workouts) {
+                    System.out.println(w.getExercise());
+                };
+
+                //WorkoutListAdapter whatever = new WorkoutListAdapter(context, workouts);
+                //listView.setAdapter(whatever);
+            }
+
+            @Override
+            public void error(VolleyError error) {
+
+            }
+        });
     }
 }
+
+// for (Object i: data) {
+//                            System.out.println(i);
+//                        }
+//
+//                        ArrayList<Workout> workouts = new ArrayList<>();
+//
+//                        //WorkoutListAdapter whatever = new WorkoutListAdapter(context, workouts);
+//                        //listView.setAdapter(whatever);

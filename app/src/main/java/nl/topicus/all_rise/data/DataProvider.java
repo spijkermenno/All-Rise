@@ -14,12 +14,14 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import nl.topicus.all_rise.activity.MainActivity;
 import nl.topicus.all_rise.data.response.ArrayListResponse;
 import nl.topicus.all_rise.data.response.DepartmentResponse;
+import nl.topicus.all_rise.data.response.ExerciseResponse;
 import nl.topicus.all_rise.data.response.WorkoutResponse;
 import nl.topicus.all_rise.data.response.JsonArrayResponse;
 import nl.topicus.all_rise.data.response.JsonObjectResponse;
 import nl.topicus.all_rise.data.response.ProviderResponse;
 import nl.topicus.all_rise.data.response.EmployeeResponse;
 import nl.topicus.all_rise.model.Department;
+import nl.topicus.all_rise.model.Exercise;
 import nl.topicus.all_rise.model.Workout;
 import nl.topicus.all_rise.model.Employee;
 import nl.topicus.all_rise.utility.Data;
@@ -48,6 +50,9 @@ public class DataProvider {
     public static final String GET_EMPLOYEE_BY_CODE = "GET_EMPLOYEE_BY_CODE";
     public static final String GET_EMPLOYEE = "GET_EMPLOYEE";
     public static final String GET_EMPLOYEES = "GET_EMPLOYEES";
+
+    public static final String GET_EXERCISE = "GET_EXERCISE";
+    public static final String GET_EXERCISES = "GET_EXERCISES";
 
     public static final String GET_WORKOUT = "GET_WORKOUT";
     public static final String GET_WORKOUTS = "GET_WORKOUTS";
@@ -101,7 +106,30 @@ public class DataProvider {
                 URL = API + "/employees/";
                 break;
 
+            case GET_WORKOUT:
+                URL = API + "/workouts/" + id;
+                objectRequest = true;
+                break;
+
+            case GET_WORKOUTS:
+                URL = API + "/workouts/";
+                objectRequest = true;
+                break;
+
+            case GET_EXERCISE:
+                URL = API + "/exercises/" + id;
+                objectRequest = true;
+                break;
+
+            case GET_EXERCISES:
+                URL = API + "/exercises/";
+                objectRequest = true;
+                break;
+
         }
+
+        System.out.println(URL);
+
         JSONObject jsonObject = null;
         if (parameters != null) {
             jsonObject = new JSONObject(parameters);
@@ -112,6 +140,7 @@ public class DataProvider {
         } else {
             arrayRequest(action, URL, jsonObject, providerResponse);
         }
+
     }
 
     private void objectRequest(final String action, final String URL, final JSONObject parameters,
@@ -141,6 +170,45 @@ public class DataProvider {
                                     );
                                     employeeResponse.response(employee);
                                     break;
+
+                                case GET_WORKOUTS:
+                                    ArrayListResponse workoutsResponse =
+                                            (ArrayListResponse) providerResponse;
+
+                                    JSONArray s = new JSONArray(response.getString("data"));
+
+                                    ArrayList<Workout> workouts = new ArrayList<>();
+                                    for (int i = 0; i < s.length(); i++) {
+                                        Workout w = new Workout(
+                                                s.getJSONObject(i).getInt("ID"),
+                                                s.getJSONObject(i).getInt("Exercise_ID"),
+                                                s.getJSONObject(i).getInt("Duration"),
+                                                s.getJSONObject(i).getInt("Points")
+                                        );
+
+                                        if (w.retrieveExercise(ctx)) {
+                                            workouts.add(w);
+                                        }
+                                    }
+
+                                    workoutsResponse.response(workouts);
+                                    break;
+
+                                case GET_EXERCISE:
+                                    ExerciseResponse exerciseResponse =
+                                            (ExerciseResponse) providerResponse;
+
+                                    JSONObject data = new JSONArray(response.getString("data")).getJSONObject(0);
+
+                                    Exercise w = new Exercise(
+                                            data.getInt("ID"),
+                                            data.getInt("Exercise_Type_ID"),
+                                            data.getString("Name"),
+                                            data.getString("Description")
+                                    );
+
+                                    exerciseResponse.response(w);
+                                    break;
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -150,8 +218,10 @@ public class DataProvider {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        if (error.networkResponse.statusCode == 400) {
-                            System.out.println("BAD REQUEST 400");
+                        if (error.networkResponse != null) {
+                            if (error.networkResponse.statusCode == 400) {
+                                System.out.println("BAD REQUEST 400");
+                            }
                         }
                         providerResponse.error(error);
                     }
@@ -183,15 +253,17 @@ public class DataProvider {
 
     private void arrayRequest(final String action, final String URL, final JSONObject parameters,
             final ProviderResponse providerResponse) {
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest
-                (Request.Method.GET, URL, null,
-                        new Response.Listener<JSONArray>() {
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, URL, null,
+                new Response.Listener<JSONArray>() {
 
                     @Override
                     public void onResponse(JSONArray response) {
+
                         try {
                             final ArrayListResponse arrayListResponse =
                                     (ArrayListResponse) providerResponse;
+
                             switch (action) {
                                 case GET_EMPLOYEES:
                                     ArrayList<Employee> employees = new ArrayList<>();
@@ -201,7 +273,8 @@ public class DataProvider {
                                                         response.getJSONObject(i).getInt("ID"),
                                                         response.getJSONObject(i).getInt(
                                                                 "Department_ID"),
-                                                        response.getJSONObject(i).getString("Firstname"),
+                                                        response.getJSONObject(i).getString(
+                                                                "Firstname"),
                                                         response.getJSONObject(i).getString(
                                                                 "Lastname"),
                                                         response.getJSONObject(i).getString(
@@ -213,17 +286,43 @@ public class DataProvider {
                                     }
                                     arrayListResponse.response(employees);
                                     break;
+
+                                case GET_WORKOUTS:
+                                    Object s = response.get(1);
+                                    System.out.print("DATA: ");
+                                    System.out.println(s);
+
+//                                    ArrayList<Workout> workouts = new ArrayList<>();
+//                                    for (int i = 0; i < response.length(); i++) {
+//                                        workouts.add(
+//                                                new Workout(
+//                                                        response.getJSONObject(i).getInt("ID"),
+//                                                        response.getJSONObject(i).getInt(
+//                                                                "Department_ID"),
+//                                                        response.getJSONObject(i).getString
+//                                                        ("Firstname"),
+//                                                        response.getJSONObject(i).getString(
+//                                                                "Lastname"),
+//                                                        response.getJSONObject(i).getString(
+//                                                                "Code"),
+//                                                        response.getJSONObject(i).getBoolean(
+//                                                                "Verfied")
+//                                                )
+//                                        );
+//                                    }
+                                    //arrayListResponse.response(employees);
+                                    break;
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
                 }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        providerResponse.error(error);
-                    }
-                }) {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                providerResponse.error(error);
+            }
+        }) {
             @Override
             public Map<String, String> getHeaders() {
                 Map<String, String> params = new HashMap<String, String>();

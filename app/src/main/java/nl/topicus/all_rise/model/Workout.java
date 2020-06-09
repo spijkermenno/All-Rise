@@ -1,18 +1,25 @@
 package nl.topicus.all_rise.model;
 
+import android.content.Context;
+
+import com.android.volley.VolleyError;
+
 import java.io.Serializable;
+
+import nl.topicus.all_rise.data.DataProvider;
+import nl.topicus.all_rise.data.response.ExerciseResponse;
 
 public class Workout implements Serializable {
 
-    private int id, timeInSeconds;
+    private int id, exercise_id, timeInSeconds, points;
 
-    private String name, description;
+    private Exercise exercise = null;
 
-    public Workout(int id,String name, String description) {
+    public Workout(int id, int exercise_id, int timeInSeconds, int points) {
         this.id = id;
-
-        this.name = name;
-        this.description = description;
+        this.exercise_id = exercise_id;
+        this.timeInSeconds = timeInSeconds;
+        this.points = points;
     }
 
     public int getId() {
@@ -31,19 +38,41 @@ public class Workout implements Serializable {
         this.timeInSeconds = timeInSeconds;
     }
 
-    public String getName() {
-        return name;
+    @Override
+    public String toString() {
+        return "ID: " + this.id + "\n" +
+                "Points: " + this.points + "\n" +
+                "Time: " + this.timeInSeconds;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public Exercise getExercise() {
+        return exercise;
     }
 
-    public String getDescription() {
-        return description;
+    public void setExercise(Exercise exercise) {
+        this.exercise = exercise;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public Boolean retrieveExercise(Context ctx) {
+        DataProvider dp = new DataProvider(ctx);
+        final Workout w = this;
+
+        dp.request(DataProvider.GET_EXERCISE, ("" + this.exercise_id), null,
+                new ExerciseResponse() {
+                    @Override
+                    public void response(Exercise exercise) {
+                        setExercise(exercise);
+                    }
+
+                    @Override
+                    public void error(VolleyError error) {
+                        error.printStackTrace();
+                    }
+                });
+
+        while (this.exercise != null) {
+            return true;
+        }
+        return false;
     }
 }

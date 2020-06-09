@@ -37,7 +37,6 @@ public class Data {
         // check if user is logged in.
         fr.checkIfLocalStorageActivated(ctx, FileReader.LOCALSTORAGEFILENAME);
         String fileData = fr.read(ctx, FileReader.LOCALSTORAGEFILENAME);
-        System.out.println(fileData);
         return !fileData.equals("{}");
     }
 
@@ -52,7 +51,7 @@ public class Data {
                 throw new InterruptedIOException("User not signed in.");
             }
         } catch (InterruptedIOException | JSONException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
         return null;
     }
