@@ -4,11 +4,13 @@ import android.content.Context;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.InterruptedIOException;
 
 import nl.topicus.all_rise.data.FileReader;
+import nl.topicus.all_rise.model.Employee;
 
 public class Data {
     private Context ctx;
@@ -35,18 +37,21 @@ public class Data {
         // check if user is logged in.
         fr.checkIfLocalStorageActivated(ctx, FileReader.LOCALSTORAGEFILENAME);
         String fileData = fr.read(ctx, FileReader.LOCALSTORAGEFILENAME);
+        System.out.println(fileData);
         return !fileData.equals("{}");
     }
 
-    public JSONObject getUserData() {
+    public Employee getUserData() {
         try {
             FileReader fr = new FileReader();
             if (checkIfUserLoggedIn(fr)) {
-                return getUserDataFromLocalStorage(fr);
+                JSONObject j = getUserDataFromLocalStorage(fr);
+
+                return new Employee(j.getInt("id"), j.getInt("department_id"), j.getString("name"), j.getString("surname"), j.getString("activationCode"), j.getBoolean("verified"));
             } else {
                 throw new InterruptedIOException("User not signed in.");
             }
-        } catch (InterruptedIOException e) {
+        } catch (InterruptedIOException | JSONException e) {
             e.printStackTrace();
         }
         return null;

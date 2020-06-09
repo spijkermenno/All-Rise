@@ -1,18 +1,35 @@
 package nl.topicus.all_rise.data;
 
 import android.content.Context;
-import android.util.Log;
+import android.graphics.Color;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+
+import nl.topicus.all_rise.activity.MainActivity;
+import nl.topicus.all_rise.data.response.ArrayListResponse;
+import nl.topicus.all_rise.data.response.DepartmentResponse;
+import nl.topicus.all_rise.data.response.WorkoutResponse;
+import nl.topicus.all_rise.data.response.JsonArrayResponse;
+import nl.topicus.all_rise.data.response.JsonObjectResponse;
+import nl.topicus.all_rise.data.response.ProviderResponse;
+import nl.topicus.all_rise.data.response.EmployeeResponse;
+import nl.topicus.all_rise.model.Department;
+import nl.topicus.all_rise.model.Workout;
+import nl.topicus.all_rise.model.Employee;
+import nl.topicus.all_rise.utility.Data;
+import nl.topicus.all_rise.utility.Print;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,6 +67,8 @@ public class DataProvider {
 
     public static final String GET_INVITECODE = "GET_INVITECODE";
 
+    private String code = "";
+
     public DataProvider(Context ctx) {
         this.ctx = ctx;
         nl.topicus.all_rise.data.NukeSSLCerts.nuke();
@@ -67,6 +86,7 @@ public class DataProvider {
     public void request(final String action, final String id,
                         final HashMap<String, String> parameters, final ProviderResponse providerResponse) {
         String URL = "";
+        this.code = id;
 
         boolean objectRequest = false;
 
@@ -119,9 +139,9 @@ public class DataProvider {
         }
     }
 
-    private void objectRequest(final String action, String URL, final JSONObject parameters,
-                               final ProviderResponse providerResponse) {
-        final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL, null,
+    private void objectRequest(final String action, final String URL, final JSONObject parameters,
+            final ProviderResponse providerResponse) {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL, null,
                 new Response.Listener<JSONObject>() {
 
                     @Override
@@ -140,7 +160,8 @@ public class DataProvider {
                                             j.getInt("Department_ID"),
                                             j.getString("Firstname"),
                                             j.getString("Lastname"),
-                                            j.getString("Code")
+                                            j.getString("Code"),
+                                            j.getInt("Verfied") == 1
                                     );
                                     employeeResponse.response(employee);
                                     break;
@@ -181,7 +202,14 @@ public class DataProvider {
             @Override
             public Map<String, String> getHeaders() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("verify", "12345678");
+                Data data = new Data(ctx);
+
+                if (!URL.contains("/register/") && data.getUserData() == null) {
+                    params.put("verify", code);
+                } else if (data.getUserData() != null) {
+                    params.put("verify", data.getUserData().getActivationCode());
+                }
+
                 params.put("Content-Type", "application/json");
                 return params;
             }
@@ -196,16 +224,17 @@ public class DataProvider {
                 jsonObjectRequest);
     }
 
-    private void arrayRequest(final String action, String URL, final JSONObject parameters,
-                              final ProviderResponse providerResponse) {
+    private void arrayRequest(final String action, final String URL, final JSONObject parameters,
+            final ProviderResponse providerResponse) {
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest
-                (Request.Method.GET, URL, null, new Response.Listener<JSONArray>() {
+                (Request.Method.GET, URL, null,
+                        new Response.Listener<JSONArray>() {
+
                     @Override
-                    public void onResponse(final JSONArray response) {
+                    public void onResponse(JSONArray response) {
                         try {
                             final ArrayListResponse arrayListResponse =
                                     (ArrayListResponse) providerResponse;
-                            Log.d("TEST", "onResponse: " + action);
                             switch (action) {
                                 case GET_EMPLOYEES:
                                     ArrayList<Employee> employees = new ArrayList<>();
@@ -219,15 +248,15 @@ public class DataProvider {
                                                         response.getJSONObject(i).getString(
                                                                 "Lastname"),
                                                         response.getJSONObject(i).getString(
-                                                                "Code")
+                                                                "Code"),
+                                                        response.getJSONObject(i).getBoolean(
+                                                                "Verfied")
                                                 )
                                         );
                                     }
                                     arrayListResponse.response(employees);
                                     break;
                             }
-
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -242,7 +271,14 @@ public class DataProvider {
             @Override
             public Map<String, String> getHeaders() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("verify", "12345678");
+                Data data = new Data(ctx);
+
+                if (!URL.contains("/register/") && data.getUserData() == null) {
+                    params.put("verify", code);
+                } else if (data.getUserData() != null) {
+                    params.put("verify", data.getUserData().getActivationCode());
+                }
+
                 params.put("Content-Type", "application/json");
                 return params;
             }

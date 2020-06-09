@@ -146,14 +146,12 @@ public class InviteCodeActivity extends AppCompatActivity {
     }
 
     void requestUserDataFormAPI(String code, DataProvider dp) {
-        System.out.println("REQUEST: " + code);
         dp.request(DataProvider.GET_EMPLOYEE_BY_CODE,
                 code, null,
                 new EmployeeResponse() {
 
                     @Override
                     public void response(Employee data) {
-                        System.out.println("RESPONSE: " + data.toString());
                         try {
                             if (data != null) {
 
@@ -168,8 +166,9 @@ public class InviteCodeActivity extends AppCompatActivity {
                                 obj.put("surname", data.getSurName());
                                 obj.put("activationCode", data
                                         .getActivationCode());
+                                obj.put("verified", data
+                                        .isVerified());
 
-                                System.out.println(obj.toString());
 
                                 // Write user data to local file.
                                 FileReader fr = new FileReader();

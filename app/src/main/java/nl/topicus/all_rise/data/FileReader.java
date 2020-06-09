@@ -61,21 +61,14 @@ public class FileReader {
         } else {
             boolean isFileCreated = this.create(context, filename, "{}");
             if (isFileCreated) {
-                System.out.println("File created");
                 checkIfLocalStorageActivated(context, filename);
-            } else {
-                System.out.println("ERROR");
-                return false;
+            } else { return false;
             }
         }
         return false;
     }
 
     public void clearFile(Context context, String filename) {
-        if (context.deleteFile(filename)) {
-            System.out.println(filename + ": deleted;");
-        } else {
-            System.out.println(" ====== ERROR ======");
-        }
+        context.deleteFile(filename);
     }
 }

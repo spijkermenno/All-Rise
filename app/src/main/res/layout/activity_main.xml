@@ -6,22 +6,120 @@
     android:layout_height="match_parent"
     tools:context=".activity.MainActivity">
 
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="175dp"
+        android:layout_height="100dp"
+        android:contentDescription="@string/all_rise_logo"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.56"
+        app:srcCompat="@drawable/all_rise_x_small" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="323dp"
+        android:layout_height="450dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/btn_rankings"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/all_rise_green"
+            android:text="Ranglijst"
+            app:layout_constraintBottom_toTopOf="@+id/btn_statistics"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_welcome" />
+
+        <Button
+            android:id="@+id/btn_statistics"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/all_rise_green"
+
+            android:text="Mijn statistieken"
+            app:layout_constraintBottom_toTopOf="@+id/btn_history"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_rankings" />
+
+        <Button
+            android:id="@+id/btn_history"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/all_rise_green"
+            android:text="Oefening geschiedenis"
+            app:layout_constraintBottom_toTopOf="@+id/btn_preferences"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_statistics" />
+
+        <Button
+            android:id="@+id/btn_preferences"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/all_rise_green"
+            android:text="Voorkeuren"
+            app:layout_constraintBottom_toTopOf="@+id/btn_zenmode"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_history" />
+
+        <Button
+            android:id="@+id/btn_zenmode"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/all_rise_green"
+            android:text="Zenmodus"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_preferences" />
+
+        <TextView
+            android:id="@+id/tv_welcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/all_rise_orange"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Welkom, Jan" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <TextView
         android:id="@+id/tv_valMotion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
         tools:text="false" />
 
-    <TextView
-        android:id="@+id/tv_motion"
+    <Button
+        android:id="@+id/sign_off"
+        style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="28dp"
-        android:text="Motion:"
+
         app:layout_constraintBottom_toTopOf="@+id/tv_valMotion"
         app:layout_constraintEnd_toEndOf="@+id/tv_valMotion"
         app:layout_constraintStart_toStartOf="@+id/tv_valMotion" />
