@@ -18,5 +18,9 @@
     <string name="filledCredentialsInvalid">The data entered does not meet the requirements.</string>
     <string name="all_rise_logo">All Rise Logo</string>
     <string name="sign_off">Sign off</string>
+    <string name="rankingDay">Dag</string>
+    <string name="rankingWeek">Week</string>
+    <string name="rankingMonth">Maand</string>
+    <string name="ranking">Ranlijsten</string>
 
 </resources>

@@ -139,16 +139,8 @@ public class MainActivity extends AppCompatActivity {
 
             // MAIN MENU
             tvWelcome = findViewById(R.id.tv_welcome);
-            //TODO Waar "Jan" staat moet naam van gebruiker komen.
             tvWelcome.setText("Welkom, " + data.getUserData().getName());
 
-            btnRankings = findViewById(R.id.btn_rankings);
-            btnRankings.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // Intent naar RankingsActivity
-                }
-            });
 
             btnStatistics = findViewById(R.id.btn_statistics);
             btnStatistics.setOnClickListener(new View.OnClickListener() {
@@ -181,12 +173,6 @@ public class MainActivity extends AppCompatActivity {
                     // Intent naar ZenmodeActivity
                 }
             });
-
-//        if (USERDATA == null || USERDATA.toString().equals("{}")) {
-//            System.out.println("====== SIGN IN ======");
-
-//        }
-
 
         Button buttonday = (Button) findViewById(R.id.button_daily);
 
