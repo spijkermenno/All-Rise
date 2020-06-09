@@ -37,6 +37,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import nl.topicus.all_rise.data.response.ArrayListResponse;
+import nl.topicus.all_rise.data.response.EmployeeResponse;
+import nl.topicus.all_rise.data.response.JsonObjectResponse;
+import nl.topicus.all_rise.data.response.ProviderResponse;
+import nl.topicus.all_rise.model.Employee;
+
 //TODO Fix Object or Array Nightmare
 public class DataProvider {
 
@@ -53,6 +59,10 @@ public class DataProvider {
 
     public static final String GET_EXERCISE = "GET_EXERCISE";
     public static final String GET_EXERCISES = "GET_EXERCISES";
+
+    public static final String GET_POINTS_DAILY = "GET_POINTS_DAILY";
+    public static final String GET_POINTS_WEEKLY = "GET_POINTS_WEEKLY";
+    public static final String GET_POINTS_MONTHLY = "GET_POINTS_MONTHLY";
 
     public static final String GET_WORKOUT = "GET_WORKOUT";
     public static final String GET_WORKOUTS = "GET_WORKOUTS";
@@ -79,7 +89,7 @@ public class DataProvider {
      *                         ProviderResponse interface depending on the action.
      */
     public void request(final String action, final String id,
-            final HashMap<String, String> parameters, final ProviderResponse providerResponse) {
+                        final HashMap<String, String> parameters, final ProviderResponse providerResponse) {
         String URL = "";
         this.code = id;
 
@@ -106,6 +116,21 @@ public class DataProvider {
                 URL = API + "/employees/";
                 break;
 
+            case GET_POINTS_DAILY:
+                URL = API + "/departments/" + id + "/points/day";
+                objectRequest = true;
+                break;
+
+            case GET_POINTS_WEEKLY:
+                URL = API + "/departments/" + id + "/points/week";
+                objectRequest = true;
+                break;
+
+            case GET_POINTS_MONTHLY:
+                URL = API + "/departments/" + id + "/points/month";
+                objectRequest = true;
+                break;
+
             case GET_WORKOUT:
                 URL = API + "/workouts/" + id;
                 objectRequest = true;
@@ -127,9 +152,6 @@ public class DataProvider {
                 break;
 
         }
-
-        System.out.println(URL);
-
         JSONObject jsonObject = null;
         if (parameters != null) {
             jsonObject = new JSONObject(parameters);
@@ -140,7 +162,6 @@ public class DataProvider {
         } else {
             arrayRequest(action, URL, jsonObject, providerResponse);
         }
-
     }
 
     private void objectRequest(final String action, final String URL, final JSONObject parameters,
@@ -220,6 +241,24 @@ public class DataProvider {
 
                                     exerciseResponse.response(w);
                                     break;
+
+                                case GET_POINTS_DAILY:
+                                    JsonObjectResponse dailyResponse =
+                                            (JsonObjectResponse) providerResponse;
+                                    dailyResponse.response(response);
+                                    break;
+
+                                case GET_POINTS_WEEKLY:
+                                    JsonObjectResponse weeklyResponse =
+                                            (JsonObjectResponse) providerResponse;
+                                    weeklyResponse.response(response);
+                                    break;
+
+                                case GET_POINTS_MONTHLY:
+                                    JsonObjectResponse monthlyResponse =
+                                            (JsonObjectResponse) providerResponse;
+                                    monthlyResponse.response(response);
+                                    break;
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -235,6 +274,7 @@ public class DataProvider {
                             }
                         }
                         providerResponse.error(error);
+                        error.printStackTrace();
                     }
                 }) {
             @Override
@@ -329,6 +369,12 @@ public class DataProvider {
                         }
                     }
                 }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        providerResponse.error(error);
+                        error.printStackTrace();
+                    }
+                }) {
             @Override
             public void onErrorResponse(VolleyError error) {
                 providerResponse.error(error);

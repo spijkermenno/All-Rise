@@ -62,16 +62,44 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_welcome" />
 
         <Button
-            android:id="@+id/btn_rankings"
+            android:id="@+id/button_daily"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:layout_marginTop="16dp"
             android:background="@color/all_rise_green"
+            android:text="@string/rankingDay"
+            app:layout_constraintEnd_toStartOf="@+id/button_weekly"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+        <Button
+            android:id="@+id/button_weekly"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/all_rise_green"
+            android:text="@string/rankingWeek"
+            app:layout_constraintEnd_toStartOf="@+id/button_monthly"
+            app:layout_constraintStart_toEndOf="@+id/button_daily"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+        <Button
+            android:id="@+id/button_monthly"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/all_rise_green"
+            android:text="@string/rankingMonth"
 
             android:text="@string/ranking"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_workout" />
+            app:layout_constraintStart_toEndOf="@+id/button_weekly"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
 
         <Button
             android:id="@+id/btn_statistics"
@@ -83,7 +111,7 @@
             android:text="@string/statistics"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_rankings" />
+            app:layout_constraintTop_toBottomOf="@+id/button_weekly" />
 
         <Button
             android:id="@+id/btn_history"
@@ -133,5 +161,41 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/welcome" />
 
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/ranking"
+            android:textColor="@color/all_rise_orange"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_welcome" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tv_valMotion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        tools:text="false" />
+
+    <Button
+        android:id="@+id/sign_off"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="28dp"
+
+        app:layout_constraintBottom_toTopOf="@+id/tv_valMotion"
+        app:layout_constraintEnd_toEndOf="@+id/tv_valMotion"
+        app:layout_constraintStart_toStartOf="@+id/tv_valMotion" />
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
