@@ -89,7 +89,7 @@ public class DataProvider {
      *                         ProviderResponse interface depending on the action.
      */
     public void request(final String action, final String id,
-                        final HashMap<String, String> parameters, final ProviderResponse providerResponse) {
+            final HashMap<String, String> parameters, final ProviderResponse providerResponse) {
         String URL = "";
         this.code = id;
 
@@ -369,15 +369,10 @@ public class DataProvider {
                         }
                     }
                 }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        providerResponse.error(error);
-                        error.printStackTrace();
-                    }
-                }) {
             @Override
             public void onErrorResponse(VolleyError error) {
                 providerResponse.error(error);
+                error.printStackTrace();
             }
         }) {
             @Override

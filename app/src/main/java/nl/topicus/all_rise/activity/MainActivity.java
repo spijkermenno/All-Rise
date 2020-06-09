@@ -108,7 +108,8 @@ public class MainActivity extends AppCompatActivity {
                                         System.out.println("SIGN OFF");
                                         fr.clearFile(ctx, LOCALSTORAGEFILENAME);
 
-                                        Intent reloadView = new Intent(MainActivity.this, InviteCodeActivity.class);
+                                        Intent reloadView = new Intent(MainActivity.this,
+                                                InviteCodeActivity.class);
                                         startActivity(reloadView);
                                         finish();
                                     }
@@ -126,7 +127,8 @@ public class MainActivity extends AppCompatActivity {
                                 System.out.println("SIGN OFF");
                                 fr.clearFile(ctx, LOCALSTORAGEFILENAME);
 
-                                Intent reloadView = new Intent(MainActivity.this, InviteCodeActivity.class);
+                                Intent reloadView = new Intent(MainActivity.this,
+                                        InviteCodeActivity.class);
                                 startActivity(reloadView);
                                 finish();
                             }
@@ -173,14 +175,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
-            btnRankings = findViewById(R.id.btn_rankings);
-            btnRankings.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // Intent naar RankingsActivity
-                }
-            });
-
             btnStatistics = findViewById(R.id.btn_statistics);
             btnStatistics.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -213,72 +207,35 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
-        Button buttonday = (Button) findViewById(R.id.button_daily);
+            Button buttonday = (Button) findViewById(R.id.button_daily);
 
-        buttonday.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), RankingActivity.class);
-                intent.putExtra("filter", 0);
-                startActivity(intent);
-            }
-        });
-
-        Button buttonweek = (Button) findViewById(R.id.button_weekly);
-
-        buttonweek.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), RankingActivity.class);
-                intent.putExtra("filter", 1);
-                startActivity(intent);
-            }
-        });
-
-        Button buttonmonth = (Button) findViewById(R.id.button_monthly);
-
-        buttonmonth.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), RankingActivity.class);
-                intent.putExtra("filter", 2);
-                startActivity(intent);
-            }
-        });
-
-
-
-            // SENSORS
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-            tvValMotion = findViewById(R.id.tv_valMotion);
-
-            sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-            Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-
-            SensorEventListener motionDetector = new SensorEventListener() {
-                @Override
-                public void onSensorChanged(SensorEvent event) {
-                    if (event != null) {
-                        float x_acceleration = event.values[0];
-                        float y_acceleration = event.values[1];
-                        float z_acceleration = event.values[2];
-
-                        double magnitude = Math.sqrt(
-                                x_acceleration * x_acceleration * y_acceleration * y_acceleration
-                                        * z_acceleration * z_acceleration);
-                        double deltaMagn = magnitude - prevMagn;
-                        prevMagn = magnitude;
-
-                        moving = deltaMagn > 6;
-                        tvValMotion.setText("" + moving);
-                    }
+            buttonday.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), RankingActivity.class);
+                    intent.putExtra("filter", 0);
+                    startActivity(intent);
                 }
+            });
 
-                @Override
-                public void onAccuracyChanged(Sensor sensor, int accuracy) {
+            Button buttonweek = (Button) findViewById(R.id.button_weekly);
 
+            buttonweek.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), RankingActivity.class);
+                    intent.putExtra("filter", 1);
+                    startActivity(intent);
                 }
-            };
+            });
 
-            sensorManager.registerListener(motionDetector, sensor,
-                    SensorManager.SENSOR_DELAY_NORMAL);
+            Button buttonmonth = (Button) findViewById(R.id.button_monthly);
+
+            buttonmonth.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), RankingActivity.class);
+                    intent.putExtra("filter", 2);
+                    startActivity(intent);
+                }
+            });
         }
     }
 }
