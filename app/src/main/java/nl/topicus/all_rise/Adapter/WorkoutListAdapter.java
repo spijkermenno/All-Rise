@@ -29,12 +29,11 @@ public class WorkoutListAdapter extends ArrayAdapter<Workout> {
             view = LayoutInflater.from(getContext()).inflate(R.layout.list_row, parent, false);
         }
 
-        System.out.println(workout.toString());
-
         //this code gets references to objects in the listview_row.xml file
         TextView workoutTextField = (TextView) view.findViewById(R.id.workoutName);
 
         //this code sets the values of the objects to values from the arrays
+
         workoutTextField.setText(workout.getExercise().getName());
 
         return view;

@@ -49,8 +49,6 @@ public class Exercise {
     @NonNull
     @Override
     public String toString() {
-        return "ID: " + this.id + "\n" +
-                "Name: " + this.name + "\n" +
-                "Description: " + this.description;
+        return "ID: " + this.id + " | Name: " + this.name + " | Description: " + this.description;
     }
 }

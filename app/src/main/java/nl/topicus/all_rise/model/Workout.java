@@ -30,6 +30,10 @@ public class Workout implements Serializable {
         this.id = id;
     }
 
+    public int getExercise_id() {
+        return exercise_id;
+    }
+
     public int getTimeInSeconds() {
         return timeInSeconds;
     }
@@ -40,9 +44,7 @@ public class Workout implements Serializable {
 
     @Override
     public String toString() {
-        return "ID: " + this.id + "\n" +
-                "Points: " + this.points + "\n" +
-                "Time: " + this.timeInSeconds;
+        return "WORKOUT = " + "ID: " + this.id + " | Points: " + this.points + " | Time: " + this.timeInSeconds + " | Exercise: " + exercise;
     }
 
     public Exercise getExercise() {
@@ -51,28 +53,5 @@ public class Workout implements Serializable {
 
     public void setExercise(Exercise exercise) {
         this.exercise = exercise;
-    }
-
-    public Boolean retrieveExercise(Context ctx) {
-        DataProvider dp = new DataProvider(ctx);
-        final Workout w = this;
-
-        dp.request(DataProvider.GET_EXERCISE, ("" + this.exercise_id), null,
-                new ExerciseResponse() {
-                    @Override
-                    public void response(Exercise exercise) {
-                        setExercise(exercise);
-                    }
-
-                    @Override
-                    public void error(VolleyError error) {
-                        error.printStackTrace();
-                    }
-                });
-
-        while (this.exercise != null) {
-            return true;
-        }
-        return false;
     }
 }

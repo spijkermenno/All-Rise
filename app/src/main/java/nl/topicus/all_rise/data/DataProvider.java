@@ -112,7 +112,7 @@ public class DataProvider {
                 break;
 
             case GET_WORKOUTS:
-                URL = API + "/workouts/";
+                URL = API + "/workouts/exercises/";
                 objectRequest = true;
                 break;
 
@@ -178,6 +178,9 @@ public class DataProvider {
                                     JSONArray s = new JSONArray(response.getString("data"));
 
                                     ArrayList<Workout> workouts = new ArrayList<>();
+
+                                    System.out.println(s);
+
                                     for (int i = 0; i < s.length(); i++) {
                                         Workout w = new Workout(
                                                 s.getJSONObject(i).getInt("ID"),
@@ -186,9 +189,16 @@ public class DataProvider {
                                                 s.getJSONObject(i).getInt("Points")
                                         );
 
-                                        if (w.retrieveExercise(ctx)) {
-                                            workouts.add(w);
-                                        }
+                                        w.setExercise(
+                                                new Exercise(
+                                                        w.getExercise_id(),
+                                                        s.getJSONObject(i).getInt(
+                                                                "Exercise_Type_ID"),
+                                                        s.getJSONObject(i).getString("Name"),
+                                                        s.getJSONObject(i).getString("Description")
+                                                ));
+
+                                        workouts.add(w);
                                     }
 
                                     workoutsResponse.response(workouts);
@@ -198,7 +208,8 @@ public class DataProvider {
                                     ExerciseResponse exerciseResponse =
                                             (ExerciseResponse) providerResponse;
 
-                                    JSONObject data = new JSONArray(response.getString("data")).getJSONObject(0);
+                                    JSONObject data = new JSONArray(
+                                            response.getString("data")).getJSONObject(0);
 
                                     Exercise w = new Exercise(
                                             data.getInt("ID"),

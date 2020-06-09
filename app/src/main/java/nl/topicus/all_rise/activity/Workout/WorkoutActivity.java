@@ -38,17 +38,15 @@ public class WorkoutActivity extends AppCompatActivity {
             public void response(ArrayList<?> data) {
                 ArrayList<Workout> workouts = (ArrayList<Workout>) data;
 
-                for (Workout w: workouts) {
-                    System.out.println(w.getExercise());
-                };
+                System.out.println(workouts);
 
-                //WorkoutListAdapter whatever = new WorkoutListAdapter(context, workouts);
-                //listView.setAdapter(whatever);
+                WorkoutListAdapter whatever = new WorkoutListAdapter(context, workouts);
+                listView.setAdapter(whatever);
             }
 
             @Override
             public void error(VolleyError error) {
-
+                error.printStackTrace();
             }
         });
     }

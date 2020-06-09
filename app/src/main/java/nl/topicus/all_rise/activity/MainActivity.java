@@ -79,35 +79,53 @@ public class MainActivity extends AppCompatActivity {
                     new EmployeeResponse() {
 
                         @Override
-                        public void response(Employee data) {
+                        public void response(Employee employee) {
                             try {
-                                if (data != null) {
+                                if (employee != null) {
                                     JSONObject obj = new JSONObject();
 
-                                    obj.put("id", data.getId());
-                                    obj.put("department_id", data
+                                    obj.put("id", employee.getId());
+                                    obj.put("department_id", employee
                                             .getDepartmentId());
-                                    obj.put("name", data.getName());
-                                    obj.put("surname", data.getSurName());
-                                    obj.put("activationCode", data
+                                    obj.put("name", employee.getName());
+                                    obj.put("surname", employee.getSurName());
+                                    obj.put("activationCode", employee
                                             .getActivationCode());
-                                    obj.put("verified", data
+                                    obj.put("verified", employee
                                             .isVerified());
 
-                                    // Write user data to local file.
                                     FileReader fr = new FileReader();
-                                    fr.create(ctx,
-                                            LOCALSTORAGEFILENAME,
-                                            obj.toString());
+                                    if (employee.isVerified()) {
+                                        System.out.println(employee);
+
+                                        // Write user data to local file.
+                                        fr.create(ctx, LOCALSTORAGEFILENAME, obj.toString());
+                                    } else {
+                                        System.out.println("SIGN OFF");
+                                        fr.clearFile(ctx, LOCALSTORAGEFILENAME);
+
+                                        Intent reloadView = new Intent(MainActivity.this, InviteCodeActivity.class);
+                                        startActivity(reloadView);
+                                        finish();
+                                    }
                                 }
-                            } catch (
-                                    Exception e) {
+                            } catch (Exception e) {
+                                System.out.println("ERROR");
                                 e.printStackTrace();
                             }
                         }
 
                         @Override
                         public void error(VolleyError error) {
+                            System.out.println("VOLLEY ERROR: " + error.networkResponse.statusCode);
+                            if (error.networkResponse.statusCode == 401) {
+                                System.out.println("SIGN OFF");
+                                fr.clearFile(ctx, LOCALSTORAGEFILENAME);
+
+                                Intent reloadView = new Intent(MainActivity.this, InviteCodeActivity.class);
+                                startActivity(reloadView);
+                                finish();
+                            }
                             error.printStackTrace();
                         }
                     });
@@ -136,7 +154,6 @@ public class MainActivity extends AppCompatActivity {
 
             // MAIN MENU
             tvWelcome = findViewById(R.id.tv_welcome);
-            //TODO Waar "Jan" staat moet naam van gebruiker komen.
             tvWelcome.setText("Welkom, " + data.getUserData().getName());
 
             btnWorkout = findViewById(R.id.btn_workout);
