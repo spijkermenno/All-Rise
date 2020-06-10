@@ -1,4 +1,4 @@
-package nl.topicus.all_rise.adapters;
+package nl.topicus.all_rise.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

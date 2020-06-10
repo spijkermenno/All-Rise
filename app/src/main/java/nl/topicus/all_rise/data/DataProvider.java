@@ -1,35 +1,17 @@
 package nl.topicus.all_rise.data;
 
 import android.content.Context;
-import android.graphics.Color;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
-
-import nl.topicus.all_rise.activity.MainActivity;
-import nl.topicus.all_rise.data.response.ArrayListResponse;
-import nl.topicus.all_rise.data.response.DepartmentResponse;
-import nl.topicus.all_rise.data.response.WorkoutResponse;
-import nl.topicus.all_rise.data.response.JsonArrayResponse;
-import nl.topicus.all_rise.data.response.JsonObjectResponse;
-import nl.topicus.all_rise.data.response.ProviderResponse;
-import nl.topicus.all_rise.data.response.EmployeeResponse;
-import nl.topicus.all_rise.model.Department;
-import nl.topicus.all_rise.model.Workout;
-import nl.topicus.all_rise.model.Employee;
-import nl.topicus.all_rise.utility.Data;
-import nl.topicus.all_rise.utility.Print;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,6 +22,7 @@ import nl.topicus.all_rise.data.response.EmployeeResponse;
 import nl.topicus.all_rise.data.response.JsonObjectResponse;
 import nl.topicus.all_rise.data.response.ProviderResponse;
 import nl.topicus.all_rise.model.Employee;
+import nl.topicus.all_rise.utility.Data;
 
 //TODO Fix Object or Array Nightmare
 public class DataProvider {
@@ -58,6 +41,7 @@ public class DataProvider {
     public static final String GET_POINTS_DAILY = "GET_POINTS_DAILY";
     public static final String GET_POINTS_WEEKLY = "GET_POINTS_WEEKLY";
     public static final String GET_POINTS_MONTHLY = "GET_POINTS_MONTHLY";
+    public static final String GET_SETTINGS = "GET_SETTINGS";
 
     public static final String GET_WORKOUT = "GET_WORKOUT";
     public static final String GET_WORKOUTS = "GET_WORKOUTS";
@@ -126,6 +110,11 @@ public class DataProvider {
                 objectRequest = true;
                 break;
 
+            case GET_SETTINGS:
+                URL = API + "/settings";
+                objectRequest = true;
+                break;
+
         }
         JSONObject jsonObject = null;
         if (parameters != null) {
@@ -182,6 +171,12 @@ public class DataProvider {
                                     JsonObjectResponse monthlyResponse =
                                             (JsonObjectResponse) providerResponse;
                                     monthlyResponse.response(response);
+                                    break;
+
+                                case GET_SETTINGS:
+                                    JsonObjectResponse settingsResponse =
+                                            (JsonObjectResponse) providerResponse;
+                                    settingsResponse.response(response);
                                     break;
                             }
                         } catch (JSONException e) {

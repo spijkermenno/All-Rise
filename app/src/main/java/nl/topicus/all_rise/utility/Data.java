@@ -2,8 +2,6 @@ package nl.topicus.all_rise.utility;
 
 import android.content.Context;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -55,5 +53,27 @@ public class Data {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public String getStringSettingFromDb(String key, JSONObject data) throws JSONException {
+        String value = null;
+        for (int i = 0; i < data.getJSONArray("data").length(); i++) {
+            JSONObject obj = data.getJSONArray("data").getJSONObject(i);
+            if (obj.getString("Key").equals(key)) {
+                value = obj.getString("Value");
+            }
+        }
+        return value;
+    }
+
+    public int getIntSettingFromDb(String key, JSONObject data) throws JSONException {
+        int value = -1;
+        for (int i = 0; i < data.getJSONArray("data").length(); i++) {
+            JSONObject obj = data.getJSONArray("data").getJSONObject(i);
+            if (obj.getString("Key").equals(key)) {
+                value = obj.getInt("Value");
+            }
+        }
+        return value;
     }
 }
