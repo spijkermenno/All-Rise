@@ -7,7 +7,8 @@
     <string name="continue_text">Continue</string>
     <string name="user_username">Name</string>
     <string name="user_email">Email</string>
-
+    <string name="notification_title">Te weinig beweging</string>
+    <string name="notification_content">Start nu een workout en klim omhoog in de ranglijsten!</string>
     <string name="coppied">Coppied!</string>
     <string name="click_to_copy">Click the text to copy</string>
     <string name="create_invitecode">Generate invitecode</string>
@@ -39,5 +40,8 @@
     <string name="rankingDay">Dag</string>
     <string name="rankingWeek">Week</string>
     <string name="rankingMonth">Maand</string>
+
+    <string name="main_service_content">Deze service houdt alle bewegingen bij.</string>
+    <string name="main_service_title">Bewegings Service</string>
 
 </resources>

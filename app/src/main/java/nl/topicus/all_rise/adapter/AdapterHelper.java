@@ -1,4 +1,4 @@
-package nl.topicus.all_rise.adapters;
+package nl.topicus.all_rise.adapter;
 
 import android.widget.ArrayAdapter;
 

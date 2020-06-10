@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.android.volley.VolleyError;
 
@@ -31,6 +32,7 @@ import nl.topicus.all_rise.data.DataProvider;
 import nl.topicus.all_rise.data.FileReader;
 import nl.topicus.all_rise.data.response.EmployeeResponse;
 import nl.topicus.all_rise.model.Employee;
+import nl.topicus.all_rise.service.NotificationService;
 import nl.topicus.all_rise.utility.Data;
 
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
@@ -40,12 +42,10 @@ public class MainActivity extends AppCompatActivity {
 
     private Context context;
     public JSONObject USERDATA;
-
-    private SensorManager sensorManager;
-    private double prevMagn = 0;
-    boolean moving = false;
     TextView tvValMotion, tvWelcome;
     Button btnWorkout, btnRankings, btnStatistics, btnHistory, btnPreferences, btnZenmode;
+    Button btnStatistics, btnHistory, btnPreferences, btnZenmode;
+
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -158,6 +158,9 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
+            Intent serviceIntent = new Intent(context, NotificationService.class);
+            ContextCompat.startForegroundService(context, serviceIntent);
+
             // MAIN MENU
             tvWelcome = findViewById(R.id.tv_welcome);
             tvWelcome.setText("Welkom, " + data.getUserData().getName());
@@ -237,5 +240,20 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+        buttonmonth.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), RankingActivity.class);
+                intent.putExtra("filter", 2);
+                startActivity(intent);
+            }
+        });
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Intent serviceIntent = new Intent(this, NotificationService.class);
+        stopService(serviceIntent);
     }
 }
