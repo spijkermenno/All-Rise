@@ -146,7 +146,8 @@ public class MainActivity extends AppCompatActivity {
             btnStatistics.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // Intent naar StatisticsActivity
+                    Intent intent = new Intent(v.getContext(), StatisticsActivity.class);
+                    startActivity(intent);
                 }
             });
 

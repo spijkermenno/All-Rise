@@ -12,9 +12,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".activity.StatisticsActivity"></activity>
         <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,8 +26,7 @@
         <activity
             android:name=".activity.Authentication.InviteCodeActivity"
             tools:ignore="InnerClassSeparator" />
-        <activity
-            android:name=".activity.RankingActivity" />
+        <activity android:name=".activity.RankingActivity" />
     </application>
 
 </manifest>
