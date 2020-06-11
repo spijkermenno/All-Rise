@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
     public JSONObject USERDATA;
     TextView tvValMotion, tvWelcome;
     Button btnWorkout, btnRankings, btnStatistics, btnHistory, btnPreferences, btnZenmode;
-    Button btnStatistics, btnHistory, btnPreferences, btnZenmode;
 
 
     @SuppressLint("SetTextI18n")
@@ -239,14 +238,6 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
-        }
-        buttonmonth.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), RankingActivity.class);
-                intent.putExtra("filter", 2);
-                startActivity(intent);
-            }
-        });
         }
     }
 

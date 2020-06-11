@@ -7,8 +7,8 @@
     tools:context=".activity.Authentication.InviteCodeActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="328dp"
-        android:layout_height="360dp"
+        android:layout_width="335dp"
+        android:layout_height="412dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -56,7 +56,17 @@
             android:id="@+id/invite_code_help"
             android:layout_width="213dp"
             android:layout_height="93dp"
-            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/invite_code_submit" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/disclaimer_gdpr"
+            app:layout_constraintBottom_toTopOf="@+id/invite_code_help"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/invite_code_submit" />

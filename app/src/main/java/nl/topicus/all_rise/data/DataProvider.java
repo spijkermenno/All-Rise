@@ -346,32 +346,6 @@ public class DataProvider {
                                     }
                                     arrayListResponse.response(employees);
                                     break;
-
-                                case GET_WORKOUTS:
-                                    Object s = response.get(1);
-                                    System.out.print("DATA: ");
-                                    System.out.println(s);
-
-//                                    ArrayList<Workout> workouts = new ArrayList<>();
-//                                    for (int i = 0; i < response.length(); i++) {
-//                                        workouts.add(
-//                                                new Workout(
-//                                                        response.getJSONObject(i).getInt("ID"),
-//                                                        response.getJSONObject(i).getInt(
-//                                                                "Department_ID"),
-//                                                        response.getJSONObject(i).getString
-//                                                        ("Firstname"),
-//                                                        response.getJSONObject(i).getString(
-//                                                                "Lastname"),
-//                                                        response.getJSONObject(i).getString(
-//                                                                "Code"),
-//                                                        response.getJSONObject(i).getBoolean(
-//                                                                "Verfied")
-//                                                )
-//                                        );
-//                                    }
-                                    //arrayListResponse.response(employees);
-                                    break;
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

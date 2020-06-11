@@ -12,7 +12,7 @@ import com.android.volley.VolleyError;
 
 import java.util.ArrayList;
 
-import nl.topicus.all_rise.Adapter.WorkoutListAdapter;
+import nl.topicus.all_rise.adapter.WorkoutListAdapter;
 import nl.topicus.all_rise.R;
 import nl.topicus.all_rise.data.DataProvider;
 import nl.topicus.all_rise.data.response.ArrayListResponse;

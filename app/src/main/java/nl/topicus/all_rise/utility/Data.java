@@ -54,6 +54,10 @@ public class Data {
         return null;
     }
 
+    public void initializeWorkoutData() {
+
+    }
+
     public String getStringSettingFromDb(String key, JSONObject data) throws JSONException {
         String value = null;
         for (int i = 0; i < data.getJSONArray("data").length(); i++) {
