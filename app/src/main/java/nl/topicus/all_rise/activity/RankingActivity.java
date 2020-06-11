@@ -1,7 +1,6 @@
 package nl.topicus.all_rise.activity;
 
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,8 +15,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import nl.topicus.all_rise.R;
-import nl.topicus.all_rise.adapters.AdapterHelper;
-import nl.topicus.all_rise.adapters.RankListAdapter;
+import nl.topicus.all_rise.adapter.AdapterHelper;
+import nl.topicus.all_rise.adapter.RankListAdapter;
 import nl.topicus.all_rise.data.DataProvider;
 import nl.topicus.all_rise.data.response.JsonObjectResponse;
 import nl.topicus.all_rise.model.RankEntry;
