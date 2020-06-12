@@ -43,6 +43,10 @@ public class DataProvider {
     public static final String GET_POINTS_MONTHLY = "GET_POINTS_MONTHLY";
     public static final String GET_SETTINGS = "GET_SETTINGS";
 
+    public static final String GET_WORKOUTS_DAILY = "GET_WORKOUTS_DAILY";
+    public static final String GET_WORKOUTS_WEEKLY = "GET_WORKOUTS_WEEKLY";
+    public static final String GET_WORKOUTS_MONTHLY = "GET_WORKOUTS_MONTHLY";
+
     public static final String GET_WORKOUT = "GET_WORKOUT";
     public static final String GET_WORKOUTS = "GET_WORKOUTS";
 
@@ -110,6 +114,21 @@ public class DataProvider {
                 objectRequest = true;
                 break;
 
+            case GET_WORKOUTS_DAILY:
+                URL = API + "/employees/"+ id + "/workouts/day";
+                objectRequest = true;
+                break;
+
+            case GET_WORKOUTS_WEEKLY:
+                URL = API + "/employees/" + id + "/workouts/week";
+                objectRequest = true;
+                break;
+
+            case GET_WORKOUTS_MONTHLY:
+                URL = API + "/employees/" + id + "/workouts/month";
+                objectRequest = true;
+                break;
+
             case GET_SETTINGS:
                 URL = API + "/settings";
                 objectRequest = true;
@@ -172,6 +191,21 @@ public class DataProvider {
                                             (JsonObjectResponse) providerResponse;
                                     monthlyResponse.response(response);
                                     break;
+
+                                case GET_WORKOUTS_DAILY:
+                                    JsonObjectResponse dailyWOResponse =
+                                            (JsonObjectResponse) providerResponse;
+                                    dailyWOResponse.response(response);
+
+                                case GET_WORKOUTS_WEEKLY:
+                                    JsonObjectResponse weeklyWOResponse =
+                                            (JsonObjectResponse) providerResponse;
+                                    weeklyWOResponse.response(response);
+
+                                case GET_WORKOUTS_MONTHLY:
+                                    JsonObjectResponse monthlyWOResponse =
+                                            (JsonObjectResponse) providerResponse;
+                                    monthlyWOResponse.response(response);
 
                                 case GET_SETTINGS:
                                     JsonObjectResponse settingsResponse =

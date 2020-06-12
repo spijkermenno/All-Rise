@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         // AUTHENTICATION
         // instatiate filereader
         final FileReader fr = new FileReader();
-        Data data = new Data(this);
+        final Data data = new Data(this);
 
         data.checkIfUserLoggedIn(fr);
 
@@ -149,6 +149,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(v.getContext(), StatisticsActivity.class);
+                    intent.putExtra("userID", data.getUserData().getId());
                     startActivity(intent);
                 }
             });

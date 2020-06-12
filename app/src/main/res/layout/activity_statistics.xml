@@ -37,28 +37,12 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_MijnStatistieken" />
 
     <TextView
-        android:id="@+id/timeWalking"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="U heeft 1 uur gewandeld" />
-
-    <TextView
-        android:id="@+id/timeSitting"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/timeWalking"
-        app:layout_constraintStart_toStartOf="@+id/timeWalking"
-        tools:text="U heeft 2 uur gezeten" />
-
-    <TextView
         android:id="@+id/timeExercise"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/timeSitting"
-        app:layout_constraintStart_toStartOf="@+id/timeSitting"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         tools:text="U heeft 2 uur aan oefeningen gedaan" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
