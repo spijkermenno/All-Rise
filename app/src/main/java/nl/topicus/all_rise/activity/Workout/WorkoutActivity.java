@@ -1,21 +1,14 @@
 package nl.topicus.all_rise.activity.Workout;
 
-import static java.nio.file.Paths.get;
-
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.widget.ListView;
 
 import com.android.volley.VolleyError;
 
-import java.util.ArrayList;
-
-import nl.topicus.all_rise.adapter.WorkoutListAdapter;
 import nl.topicus.all_rise.R;
 import nl.topicus.all_rise.data.DataProvider;
-import nl.topicus.all_rise.data.response.ArrayListResponse;
+import nl.topicus.all_rise.data.response.WorkoutResponse;
 import nl.topicus.all_rise.model.Workout;
 
 public class WorkoutActivity extends AppCompatActivity {
@@ -25,23 +18,15 @@ public class WorkoutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout);
 
-        final Activity context = this;
-
-        final ListView listView = findViewById(R.id.ListView);
+        final String workoutId = getIntent().getExtras().get("workout_id").toString();
 
         DataProvider dp = new DataProvider(this);
 
-        System.out.println("REQUESTING WORKOUTS");
-
-        dp.request(DataProvider.GET_WORKOUTS, null, null, new ArrayListResponse() {
+        dp.request(DataProvider.GET_WORKOUT, workoutId, null, new WorkoutResponse() {
             @Override
-            public void response(ArrayList<?> data) {
-                ArrayList<Workout> workouts = (ArrayList<Workout>) data;
-
-                System.out.println(workouts);
-
-                WorkoutListAdapter whatever = new WorkoutListAdapter(context, workouts);
-                listView.setAdapter(whatever);
+            public void response(Workout workout) {
+                System.out.println("WORKOUT VIEW");
+                System.out.println(workout);
             }
 
             @Override
@@ -51,12 +36,3 @@ public class WorkoutActivity extends AppCompatActivity {
         });
     }
 }
-
-// for (Object i: data) {
-//                            System.out.println(i);
-//                        }
-//
-//                        ArrayList<Workout> workouts = new ArrayList<>();
-//
-//                        //WorkoutListAdapter whatever = new WorkoutListAdapter(context, workouts);
-//                        //listView.setAdapter(whatever);

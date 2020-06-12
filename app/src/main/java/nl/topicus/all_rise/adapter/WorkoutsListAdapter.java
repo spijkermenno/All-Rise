@@ -1,25 +1,33 @@
 package nl.topicus.all_rise.adapter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.ArrayList;
 
 import nl.topicus.all_rise.R;
+import nl.topicus.all_rise.activity.Workout.WorkoutActivity;
+import nl.topicus.all_rise.activity.Workout.WorkoutsActivity;
+import nl.topicus.all_rise.model.Exercise;
 import nl.topicus.all_rise.model.Workout;
 
-public class WorkoutListAdapter extends ArrayAdapter<Workout> {
+public class WorkoutsListAdapter extends ArrayAdapter<Workout> {
+    WorkoutsActivity w;
 
-    public WorkoutListAdapter(Activity context, ArrayList<Workout> workouts) {
+    public WorkoutsListAdapter(Activity context, ArrayList<Workout> workouts, WorkoutsActivity w) {
         super(context, 0, workouts);
+        this.w = w;
     }
 
-    public View getView(int position, View view, ViewGroup parent) {
-        Workout workout = getItem(position);
+    public View getView(int position, View view, final ViewGroup parent) {
+        final Workout workout = getItem(position);
 
         if (view == null) {
             view = LayoutInflater.from(getContext()).inflate(R.layout.list_row, parent, false);
@@ -31,6 +39,13 @@ public class WorkoutListAdapter extends ArrayAdapter<Workout> {
         //this code sets the values of the objects to values from the arrays
 
         workoutTextField.setText(workout.getExercise().getName());
+
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                w.openWorkoutIntent(workout);
+            }
+        });
 
         return view;
     }

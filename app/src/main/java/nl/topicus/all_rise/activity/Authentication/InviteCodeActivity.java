@@ -172,19 +172,21 @@ public class InviteCodeActivity extends AppCompatActivity {
 
                                 // Write user data to local file.
                                 FileReader fr = new FileReader();
-                                fr.create(
+                                if (fr.create(
                                         InviteCodeActivity.this,
                                         LOCALSTORAGEFILENAME,
-                                        obj.toString());
+                                        obj.toString())) {
 
-                                // Open new Intent with main screen.
-                                Intent overviewIntent = new Intent(
-                                        InviteCodeActivity.this,
-                                        MainActivity.class
-                                );
-                                overviewIntent.putExtra("userId",
-                                        data.getId());
-                                startActivity(overviewIntent);
+                                    // Open new Intent with main screen.
+                                    Intent overviewIntent = new Intent(
+                                            InviteCodeActivity.this,
+                                            MainActivity.class
+                                    );
+                                    overviewIntent.putExtra("userId",
+                                            data.getId());
+                                    startActivity(overviewIntent);
+                                    finish();
+                                }
                             } else {
                                 inviteCodeHelpText.setTextColor
                                         (Color.RED);

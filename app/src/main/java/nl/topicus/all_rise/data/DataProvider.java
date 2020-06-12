@@ -195,6 +195,14 @@ public class DataProvider {
                                     employeeResponse.response(employee);
                                     break;
 
+                                case GET_WORKOUT:
+                                    WorkoutResponse workoutResponse =
+                                            (WorkoutResponse) providerResponse;
+
+                                    JSONObject workout = new JSONArray(response.get("data").toString()).getJSONObject(0);
+
+                                    break;
+
                                 case GET_WORKOUTS:
                                     ArrayListResponse workoutsResponse =
                                             (ArrayListResponse) providerResponse;
@@ -243,6 +251,29 @@ public class DataProvider {
                                     );
 
                                     exerciseResponse.response(w);
+                                    break;
+
+                                case GET_EXERCISES:
+                                    ArrayListResponse exercisesResponse =
+                                            (ArrayListResponse) providerResponse;
+
+                                    JSONArray arrayData = new JSONArray(response.getString("data"));
+
+                                    ArrayList<Exercise> exercises = new ArrayList<>();
+
+                                    for (int i = 0; i < arrayData.length(); i++) {
+                                        Exercise e = new Exercise(
+                                                arrayData.getJSONObject(i).getInt(
+                                                        "ID"),
+                                                arrayData.getJSONObject(i).getInt(
+                                                        "Exercise_Type_ID"),
+                                                arrayData.getJSONObject(i).getString("Name"),
+                                                arrayData.getJSONObject(i).getString("Description")
+                                        );
+                                        exercises.add(e);
+                                    }
+
+                                    exercisesResponse.response(exercises);
                                     break;
 
                                 case GET_POINTS_DAILY:

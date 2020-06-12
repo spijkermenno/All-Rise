@@ -5,18 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.android.volley.VolleyError;
@@ -27,15 +20,13 @@ import java.io.InterruptedIOException;
 
 import nl.topicus.all_rise.R;
 import nl.topicus.all_rise.activity.Authentication.InviteCodeActivity;
-import nl.topicus.all_rise.activity.Workout.WorkoutActivity;
+import nl.topicus.all_rise.activity.Workout.WorkoutsActivity;
 import nl.topicus.all_rise.data.DataProvider;
 import nl.topicus.all_rise.data.FileReader;
 import nl.topicus.all_rise.data.response.EmployeeResponse;
 import nl.topicus.all_rise.model.Employee;
 import nl.topicus.all_rise.service.NotificationService;
 import nl.topicus.all_rise.utility.Data;
-
-import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 public class MainActivity extends AppCompatActivity {
     private final String LOCALSTORAGEFILENAME = "storage.json";
@@ -171,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
                     // Intent naar WorkoutActivity
                     Intent view = new Intent(
                             MainActivity.this,
-                            WorkoutActivity.class
+                            WorkoutsActivity.class
                     );
                     startActivity(view);
                 }
