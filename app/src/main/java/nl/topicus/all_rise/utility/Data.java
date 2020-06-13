@@ -46,7 +46,9 @@ public class Data {
 
                 return new Employee(j.getInt("id"), j.getInt("department_id"), j.getString("name"), j.getString("surname"), j.getString("activationCode"), j.getBoolean("verified"));
             } else {
-                throw new InterruptedIOException("User not signed in.");
+                JSONObject j = getUserDataFromLocalStorage(fr);
+                throw new InterruptedIOException("User not signed in. " + j);
+
             }
         } catch (InterruptedIOException | JSONException e) {
             System.out.println(e.getMessage());

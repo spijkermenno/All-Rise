@@ -196,10 +196,31 @@ public class DataProvider {
                                     break;
 
                                 case GET_WORKOUT:
-                                    WorkoutResponse workoutResponse =
+                                    final WorkoutResponse workoutResponse =
                                             (WorkoutResponse) providerResponse;
 
-                                    JSONObject workout = new JSONArray(response.get("data").toString()).getJSONObject(0);
+                                    JSONObject workoutData = new JSONArray(
+                                            response.get("data").toString()).getJSONObject(0);
+                                    final Workout workout = new Workout(
+                                            workoutData.getInt("ID"),
+                                            workoutData.getInt("Exercise_ID"),
+                                            workoutData.getInt("Duration"),
+                                            workoutData.getInt("Points")
+                                    );
+
+                                    request(GET_EXERCISE, "" + workout.getExercise_id(), null,
+                                            new ExerciseResponse() {
+                                                @Override
+                                                public void response(Exercise exercise) {
+                                                    workout.setExercise(exercise);
+                                                    workoutResponse.response(workout);
+                                                }
+
+                                                @Override
+                                                public void error(VolleyError error) {
+                                                    error.printStackTrace();
+                                                }
+                                            });
 
                                     break;
 

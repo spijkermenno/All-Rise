@@ -88,7 +88,10 @@ public class MainActivity extends AppCompatActivity {
                                     obj.put("verified", employee
                                             .isVerified());
 
+                                    System.out.println(obj);
+
                                     FileReader fr = new FileReader();
+
                                     if (employee.isVerified()) {
                                         System.out.println(employee);
 
@@ -103,6 +106,8 @@ public class MainActivity extends AppCompatActivity {
                                         startActivity(reloadView);
                                         finish();
                                     }
+                                } else {
+                                    System.out.println("BLA BLA EMPLOYEE EMPTY");
                                 }
                             } catch (Exception e) {
                                 System.out.println("ERROR");

@@ -45,4 +45,5 @@
     <string name="main_service_title">Bewegings Service</string>
 
     <string name="disclaimer_gdpr">By logging in you agree to our privacy policy.</string>
+    <string name="startWorkout">Start workout</string>
 </resources>

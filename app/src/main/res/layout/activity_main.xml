@@ -43,7 +43,7 @@
             android:layout_width="311dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:background="@color/all_rise_green"
+            android:background="@color/all_rise_yellow"
             android:text="@string/workout"
             app:layout_constraintBottom_toTopOf="@+id/btn_statistics"
             app:layout_constraintEnd_toEndOf="parent"
@@ -55,7 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:layout_marginTop="16dp"
-            android:background="@color/all_rise_green"
+            android:background="@color/all_rise_yellow"
             android:text="@string/rankingDay"
             app:layout_constraintBottom_toTopOf="@+id/btn_workout"
             app:layout_constraintStart_toStartOf="parent" />
@@ -65,7 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:background="@color/all_rise_green"
+            android:background="@color/all_rise_yellow"
             android:text="@string/rankingWeek"
             app:layout_constraintBottom_toTopOf="@+id/btn_workout"
             app:layout_constraintEnd_toStartOf="@+id/button_monthly"
@@ -76,7 +76,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:background="@color/all_rise_green"
+            android:background="@color/all_rise_yellow"
 
             android:text="@string/rankingMonth"
             app:layout_constraintBottom_toTopOf="@+id/btn_workout"
@@ -88,7 +88,7 @@
             android:layout_height="wrap_content"
 
             android:layout_marginBottom="16dp"
-            android:background="@color/all_rise_green"
+            android:background="@color/all_rise_yellow"
             android:text="@string/statistics"
             app:layout_constraintBottom_toTopOf="@+id/btn_history" />
 
@@ -97,7 +97,7 @@
             android:layout_width="311dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:background="@color/all_rise_green"
+            android:background="@color/all_rise_yellow"
 
             android:text="@string/history"
             app:layout_constraintBottom_toTopOf="@+id/btn_preferences" />
@@ -107,7 +107,7 @@
             android:layout_width="311dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:background="@color/all_rise_green"
+            android:background="@color/all_rise_yellow"
 
             android:text="@string/preferences"
             app:layout_constraintBottom_toTopOf="@+id/btn_zenmode" />
@@ -118,7 +118,7 @@
             android:layout_height="wrap_content"
 
             android:layout_marginBottom="16dp"
-            android:background="@color/all_rise_green"
+            android:background="@color/all_rise_yellow"
             android:text="@string/zenmode"
             app:layout_constraintBottom_toBottomOf="parent" />
 
@@ -127,7 +127,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:textColor="@color/all_rise_orange"
+            android:textColor="@color/black"
             android:textSize="24sp"
             app:layout_constraintBottom_toTopOf="@+id/textView"
             app:layout_constraintEnd_toEndOf="parent"
@@ -141,7 +141,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:text="@string/ranking"
-            android:textColor="@color/all_rise_orange"
+            android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/button_weekly"
             app:layout_constraintEnd_toEndOf="parent"
