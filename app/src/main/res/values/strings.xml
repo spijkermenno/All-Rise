@@ -22,7 +22,7 @@
     <string name="rankingDay">Dag</string>
     <string name="rankingWeek">Week</string>
     <string name="rankingMonth">Maand</string>
-    <string name="ranking">Ranlijsten</string>
+    <string name="ranking">Ranglijsten</string>
     <string name="main_service_content">Deze service houdt alle bewegingen bij.</string>
     <string name="main_service_title">Bewegings Service</string>
 
