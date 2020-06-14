@@ -30,7 +30,7 @@ import nl.topicus.all_rise.data.response.JsonObjectResponse;
 public class StatisticsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     PieChart pieChart;
     Spinner spinner;
-    TextView timeExercise, timeSitting, timeWalking;
+    TextView timeExercise;
     private final String[] spinnerOptions = {"Vandaag", "Deze week", "Deze maand"};
     private DataProvider dataProvider;
     private ArrayAdapter<String> sortBySpinnerAdapter;
@@ -96,13 +96,12 @@ public class StatisticsActivity extends AppCompatActivity implements AdapterView
                 pieChart.setEntryLabelColor(Color.TRANSPARENT);
 
                 JSONArray array = data.getJSONArray("data");
-                ArrayList<PieEntry> yvalues = new ArrayList<>();
-
+                ArrayList<PieEntry> chartValues = new ArrayList<>();
                 for (int i = 0; i < array.length(); i++) {
-                    yvalues.add(new PieEntry(array.getJSONObject(i).getInt("Duration"), array.getJSONObject(i).getString("Name")));
+                    chartValues.add(new PieEntry(array.getJSONObject(i).getInt("Duration"), array.getJSONObject(i).getString("Name")));
                 }
 
-                PieDataSet dataSet = new PieDataSet(yvalues, "");
+                PieDataSet dataSet = new PieDataSet(chartValues, "");
                 dataSet.setSliceSpace(3f);
                 dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
 
@@ -112,6 +111,8 @@ public class StatisticsActivity extends AppCompatActivity implements AdapterView
 
                 pieChart.setData(pieData);
                 pieChart.invalidate();
+
+                //get total duration
                 int duration = 0;
                 for (int i = 0; i < array.length(); i++) {
                     duration = duration + array.getJSONObject(i).getInt("Duration");
