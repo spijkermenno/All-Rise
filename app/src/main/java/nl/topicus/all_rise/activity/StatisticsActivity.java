@@ -28,9 +28,9 @@ import nl.topicus.all_rise.data.DataProvider;
 import nl.topicus.all_rise.data.response.JsonObjectResponse;
 
 public class StatisticsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    PieChart pieChart;
-    Spinner spinner;
-    TextView timeExercise;
+    private PieChart pieChart;
+    private Spinner spinner;
+    private TextView timeExercise;
     private final String[] spinnerOptions = {"Vandaag", "Deze week", "Deze maand"};
     private DataProvider dataProvider;
     private ArrayAdapter<String> sortBySpinnerAdapter;
