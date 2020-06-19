@@ -18,16 +18,16 @@ import nl.topicus.all_rise.activity.Workout.WorkoutsActivity;
 import nl.topicus.all_rise.model.Exercise;
 import nl.topicus.all_rise.model.Workout;
 
-public class WorkoutsListAdapter extends ArrayAdapter<Workout> {
+public class WorkoutsListAdapter extends ArrayAdapter<Exercise> {
     WorkoutsActivity w;
 
-    public WorkoutsListAdapter(Activity context, ArrayList<Workout> workouts, WorkoutsActivity w) {
-        super(context, 0, workouts);
+    public WorkoutsListAdapter(Activity context, ArrayList<Exercise> exercises, WorkoutsActivity w) {
+        super(context, 0, exercises);
         this.w = w;
     }
 
     public View getView(int position, View view, final ViewGroup parent) {
-        final Workout workout = getItem(position);
+        final Exercise exercise = getItem(position);
 
         if (view == null) {
             view = LayoutInflater.from(getContext()).inflate(R.layout.list_row, parent, false);
@@ -38,12 +38,12 @@ public class WorkoutsListAdapter extends ArrayAdapter<Workout> {
 
         //this code sets the values of the objects to values from the arrays
 
-        workoutTextField.setText(workout.getExercise().getName());
+        workoutTextField.setText(exercise.getName());
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                w.openWorkoutIntent(workout);
+                w.openWorkoutIntent(exercise);
             }
         });
 

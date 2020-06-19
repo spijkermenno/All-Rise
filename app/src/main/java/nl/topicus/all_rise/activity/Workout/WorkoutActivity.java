@@ -2,41 +2,59 @@ package nl.topicus.all_rise.activity.Workout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 
 import nl.topicus.all_rise.R;
 import nl.topicus.all_rise.data.DataProvider;
+import nl.topicus.all_rise.data.response.ExerciseResponse;
 import nl.topicus.all_rise.data.response.WorkoutResponse;
+import nl.topicus.all_rise.model.Exercise;
 import nl.topicus.all_rise.model.Workout;
 
 public class WorkoutActivity extends AppCompatActivity {
     TextView title, description;
+    Button workoutButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout);
 
-        final String workoutId = getIntent().getExtras().get("workout_id").toString();
+        final String exercise_id = getIntent().getExtras().get("exercise_id").toString();
 
-        System.out.println(workoutId);
+        System.out.println(exercise_id);
 
         DataProvider dp = new DataProvider(this);
 
         title = findViewById(R.id.workoutTitle);
         description = findViewById(R.id.workoutDescription);
+        workoutButton = findViewById(R.id.startWorkout);
+        workoutButton.setEnabled(false);
 
-        dp.request(DataProvider.GET_WORKOUT, workoutId, null, new WorkoutResponse() {
+        workoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void response(Workout workout) {
-                System.out.print("WORKOUT VIEW: ");
-                System.out.println(workout);
+            public void onClick(View v) {
+                Intent overviewIntent = new Intent(
+                        WorkoutActivity.this,
+                        RunningWorkoutActivity.class
+                );
+                overviewIntent.putExtra("exercise_id", exercise_id);
+                startActivity(overviewIntent);
+            }
+        });
 
-                title.setText(workout.getExercise().getName());
-                description.setText(workout.getExercise().getDescription());
+        dp.request(DataProvider.GET_EXERCISE, exercise_id, null, new ExerciseResponse() {
+            @Override
+            public void response(Exercise exercise) {
+                title.setText(exercise.getName());
+                description.setText(exercise.getDescription());
+                workoutButton.setEnabled(true);
             }
 
             @Override

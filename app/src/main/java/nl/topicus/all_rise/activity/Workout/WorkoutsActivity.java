@@ -31,12 +31,12 @@ public class WorkoutsActivity extends AppCompatActivity {
 
         DataProvider dp = new DataProvider(this);
 
-        dp.request(DataProvider.GET_WORKOUTS, null, null, new ArrayListResponse() {
+        dp.request(DataProvider.GET_EXERCISES, null, null, new ArrayListResponse() {
             @Override
             public void response(ArrayList<?> data) {
-                ArrayList<Workout> workouts = (ArrayList<Workout>) data;
+                ArrayList<Exercise> exercises = (ArrayList<Exercise>) data;
 
-                WorkoutsListAdapter whatever = new WorkoutsListAdapter(context, workouts, self);
+                WorkoutsListAdapter whatever = new WorkoutsListAdapter(context, exercises, self);
                 listView.setAdapter(whatever);
             }
 
@@ -47,12 +47,12 @@ public class WorkoutsActivity extends AppCompatActivity {
         });
     }
 
-    public void openWorkoutIntent(Workout workout) {
+    public void openWorkoutIntent(Exercise exercise) {
         Intent overviewIntent = new Intent(
                 WorkoutsActivity.this,
                 WorkoutActivity.class
         );
-        overviewIntent.putExtra("workout_id", workout.getId());
+        overviewIntent.putExtra("exercise_id", exercise.getId());
         startActivity(overviewIntent);
     }
 }

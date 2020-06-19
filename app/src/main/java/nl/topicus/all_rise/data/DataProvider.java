@@ -70,6 +70,9 @@ public class DataProvider {
 
     public static final String GET_INVITECODE = "GET_INVITECODE";
 
+    public static final String POST_WORKOUT = "POST_WORKOUT";
+    public static final String POST_HISTORY = "POST_HISTORY";
+
     private String code = "";
 
     public DataProvider(Context ctx) {
@@ -92,6 +95,7 @@ public class DataProvider {
         this.code = id;
 
         boolean objectRequest = false;
+        boolean postReq = false;
 
         switch (action) {
 
@@ -154,6 +158,23 @@ public class DataProvider {
                 objectRequest = true;
                 break;
 
+            case POST_WORKOUT:
+                // duration
+                // points
+                // exercise_id
+
+                URL = API + "/workouts";
+                postReq = true;
+                break;
+
+            case POST_HISTORY:
+                // workout_id
+                // employee_id
+
+                URL = API + "/histories";
+                postReq = true;
+                break;
+
         }
         JSONObject jsonObject = null;
         if (parameters != null) {
@@ -162,9 +183,62 @@ public class DataProvider {
 
         if (objectRequest) {
             objectRequest(action, URL, jsonObject, providerResponse);
+        } else if (postReq) {
+            System.out.println(URL);
+            postRequest(action, URL, jsonObject, providerResponse);
         } else {
             arrayRequest(action, URL, jsonObject, providerResponse);
         }
+    }
+
+    private void postRequest(final String action, final String URL, final JSONObject parameters,
+            final ProviderResponse providerResponse) {
+        System.out.println(parameters);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, URL, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            switch (action) {
+                                case POST_WORKOUT:
+                                case POST_HISTORY:
+                                    JsonObjectResponse jsonObjectResponse = (JsonObjectResponse) providerResponse;
+                                    jsonObjectResponse.response(response);
+
+                                    break;
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        providerResponse.error(error);
+                        error.printStackTrace();
+                    }
+                }) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> params = new HashMap<String, String>();
+                Data data = new Data(ctx);
+
+                params.put("verify", data.getUserData().getActivationCode());
+
+                params.put("Content-Type", "application/json");
+                return params;
+            }
+
+            @Override
+            public byte[] getBody() {
+                String requestBody = parameters.toString();
+                return requestBody.getBytes(StandardCharsets.UTF_8);
+            }
+        };
+        NetworkSingleton.getInstance(ctx).addToRequestQueue(
+                jsonObjectRequest);
+        ;
     }
 
     private void objectRequest(final String action, final String URL, final JSONObject parameters,

@@ -12,12 +12,12 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity.Workout.WorkoutActivity"></activity>
+        <activity android:name=".activity.Workout.RunningWorkoutActivity"></activity>
+        <activity android:name=".activity.Workout.WorkoutActivity" />
         <activity
             android:name=".activity.Workout.WorkoutsActivity"
             android:label="@string/title_activity_workout"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,12 +25,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activity.Authentication.InviteCodeActivity"
             tools:ignore="InnerClassSeparator" />
-
         <activity android:name=".activity.RankingActivity" />
+
         <receiver
             android:name=".reciever.OnNotificationDismissBroadcastReceiver"
             android:exported="true">
@@ -39,14 +38,15 @@
                 <action android:name="android.intent.action.INPUT_METHOD_CHANGED" />
             </intent-filter>
         </receiver>
+
         <service
             android:name=".service.NotificationService"
             android:enabled="true"
             android:exported="true" />
     </application>
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
