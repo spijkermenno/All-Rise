@@ -119,7 +119,6 @@ public class NotificationService extends Service {
                         if (!notificationsend) {
 
                             //If the timer isnt started and the idle time isnt at the prefferd value start the time and set started to true.
-                            //TODO change to IdleTime so its readed from db.
                             if (!timerStarted && count != IdleTime) {
                                 timer = new Timer();
                                 timer.schedule(new Task(), 0, 1000);

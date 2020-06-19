@@ -39,10 +39,9 @@ public class FileReader {
                 fos.write(jsonString.getBytes());
             }
             fos.close();
+
             return true;
-        } catch (FileNotFoundException fileNotFound) {
-            return false;
-        } catch (IOException ioException) {
+        } catch (IOException fileNotFound) {
             return false;
         }
 

@@ -106,6 +106,7 @@ public class InviteCodeActivity extends AppCompatActivity {
 
                                 @Override
                                 public void response(JSONObject data) {
+                                    System.out.println(data);
                                     requestUserDataFormAPI(submittedInviteCode, dp);
                                 }
 
@@ -169,22 +170,23 @@ public class InviteCodeActivity extends AppCompatActivity {
                                 obj.put("verified", data
                                         .isVerified());
 
+                                System.out.println(obj);
 
                                 // Write user data to local file.
                                 FileReader fr = new FileReader();
-                                fr.create(
-                                        InviteCodeActivity.this,
-                                        LOCALSTORAGEFILENAME,
-                                        obj.toString());
+                                if (fr.create(InviteCodeActivity.this, LOCALSTORAGEFILENAME, obj.toString())) {
 
-                                // Open new Intent with main screen.
-                                Intent overviewIntent = new Intent(
-                                        InviteCodeActivity.this,
-                                        MainActivity.class
-                                );
-                                overviewIntent.putExtra("userId",
-                                        data.getId());
-                                startActivity(overviewIntent);
+                                    // Open new Intent with main screen.
+                                    Intent overviewIntent = new Intent(
+                                            InviteCodeActivity.this,
+                                            MainActivity.class
+                                    );
+                                    overviewIntent.putExtra("userId", data.getId());
+                                    startActivity(overviewIntent);
+                                    finish();
+                                } else {
+                                    System.out.println("bla bla bla");
+                                }
                             } else {
                                 inviteCodeHelpText.setTextColor
                                         (Color.RED);

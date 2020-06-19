@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
-
-    <color name="all_rise_green">#94C11F</color>
-    <color name="all_rise_orange">#E94E1B</color>
+    <color name="all_rise_yellow">#F8E800</color>
+    <color name="all_rise_gray">#242F36</color>
+    <color name="black">#000</color>
+    <color name="white">#fff</color>
 </resources>
