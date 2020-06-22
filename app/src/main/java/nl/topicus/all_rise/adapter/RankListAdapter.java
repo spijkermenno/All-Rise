@@ -1,6 +1,7 @@
 package nl.topicus.all_rise.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +51,13 @@ public class RankListAdapter extends ArrayAdapter<RankEntry> {
         firstname.setText(rankEntry.getFirstname());
         lastname.setText(rankEntry.getLastname());
         total_points.setText(String.valueOf(rankEntry.getTotal_Points()));
+
+        if (rankEntry.isCurrentuser()) {
+            rank.setTextColor(Color.RED);
+            firstname.setTextColor(Color.RED);
+            lastname.setTextColor(Color.RED);
+            total_points.setTextColor(Color.RED);
+        }
 
         return convertView;
     }

@@ -1,11 +1,13 @@
 package nl.topicus.all_rise.activity.Workout;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.VolleyError;
 
@@ -16,10 +18,9 @@ import nl.topicus.all_rise.adapter.WorkoutsListAdapter;
 import nl.topicus.all_rise.data.DataProvider;
 import nl.topicus.all_rise.data.response.ArrayListResponse;
 import nl.topicus.all_rise.model.Exercise;
-import nl.topicus.all_rise.model.Workout;
 
 public class WorkoutsActivity extends AppCompatActivity {
-
+    Button walkButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +36,7 @@ public class WorkoutsActivity extends AppCompatActivity {
             @Override
             public void response(ArrayList<?> data) {
                 ArrayList<Exercise> exercises = (ArrayList<Exercise>) data;
+                exercises.remove(0);
 
                 WorkoutsListAdapter whatever = new WorkoutsListAdapter(context, exercises, self);
                 listView.setAdapter(whatever);
@@ -43,6 +45,17 @@ public class WorkoutsActivity extends AppCompatActivity {
             @Override
             public void error(VolleyError error) {
                 error.printStackTrace();
+            }
+        });
+        Button walkButton = (Button) findViewById(R.id.walkButton);
+        walkButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent overviewIntent = new Intent(
+                        WorkoutsActivity.this,
+                        WorkoutActivity.class
+                );
+                overviewIntent.putExtra("exercise_id", 1);
+                startActivity(overviewIntent);
             }
         });
     }

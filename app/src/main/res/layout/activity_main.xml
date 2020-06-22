@@ -97,19 +97,9 @@
             android:layout_width="311dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:background="@color/all_rise_yellow"
 
+            android:background="@color/all_rise_yellow"
             android:text="@string/history"
-            app:layout_constraintBottom_toTopOf="@+id/btn_preferences" />
-
-        <Button
-            android:id="@+id/btn_preferences"
-            android:layout_width="311dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:background="@color/all_rise_yellow"
-
-            android:text="@string/preferences"
             app:layout_constraintBottom_toTopOf="@+id/btn_zenmode" />
 
         <Button
@@ -126,13 +116,12 @@
             android:id="@+id/tv_welcome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
             android:textColor="@color/black"
             android:textSize="24sp"
             app:layout_constraintBottom_toTopOf="@+id/textView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/welcome" />
 
         <TextView

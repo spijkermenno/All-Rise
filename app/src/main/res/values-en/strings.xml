@@ -40,4 +40,5 @@
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
     <string name="mijn_statistieken">My statistics</string>
+    <string name="walkbutton">Walking</string>
 </resources>

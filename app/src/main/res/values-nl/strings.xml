@@ -32,7 +32,6 @@
     <string name="rankingDay">Dag</string>
     <string name="rankingWeek">Week</string>
     <string name="rankingMonth">Maand</string>
-
     <string name="main_service_content">Deze service houdt alle bewegingen bij.</string>
     <string name="main_service_title">Bewegings Service</string>
     <string name="disclaimer_gdpr">Door in te loggen gaat u akkoord met de privacy voorwaarden.</string>
@@ -41,4 +40,5 @@
     <string name="save">Opslaan</string>
     <string name="cancel">Afbreken</string>
     <string name="mijn_statistieken">Mijn statistieken</string>
+    <string name="walkbutton">Lopen</string>
 </resources>

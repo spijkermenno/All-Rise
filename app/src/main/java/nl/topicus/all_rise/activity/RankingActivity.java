@@ -33,6 +33,7 @@ public class RankingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ranking);
         list = findViewById(R.id.list);
+
         rankEntries = new ArrayList<>();
         dataProvider = new DataProvider(this);
         final SwipeRefreshLayout pullToRefresh = findViewById(R.id.pullToRefresh);
@@ -78,7 +79,13 @@ public class RankingActivity extends AppCompatActivity {
                         rankEntries.clear();
                         JSONArray array = data.getJSONArray("data");
                         for (int i = 0; i < array.length(); i++) {
-                            RankEntry rankEntry = new RankEntry(i + 1, array.getJSONObject(i).getString("Firstname"), array.getJSONObject(i).getString("Lastname"), array.getJSONObject(i).getInt("total_points"));;
+                            RankEntry rankEntry = null;
+                            System.out.println(array.getJSONObject(i));
+                            if (array.getJSONObject(i).getInt("ID") == getIntent().getExtras().getInt("userID")) {
+                                rankEntry = new RankEntry(i + 1, array.getJSONObject(i).getString("Firstname"), array.getJSONObject(i).getString("Lastname"), array.getJSONObject(i).getInt("total_points"), true);
+                            } else {
+                                rankEntry = new RankEntry(i + 1, array.getJSONObject(i).getString("Firstname"), array.getJSONObject(i).getString("Lastname"), array.getJSONObject(i).getInt("total_points"), false);
+                            }
                            rankEntries.add(rankEntry);
                         }
                         new AdapterHelper().update(adapter, new ArrayList<Object>(rankEntries));

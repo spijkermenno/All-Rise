@@ -33,8 +33,8 @@ public class MainActivity extends AppCompatActivity {
 
     private Context context;
     public JSONObject USERDATA;
-    TextView tvValMotion, tvWelcome;
-    Button btnWorkout, btnRankings, btnStatistics, btnHistory, btnPreferences, btnZenmode;
+    TextView tvWelcome;
+    Button btnWorkout, btnStatistics, btnHistory, btnZenmode;
 
 
     @SuppressLint("SetTextI18n")
@@ -193,14 +193,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
-            btnPreferences = findViewById(R.id.btn_preferences);
-            btnPreferences.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // Intent naar PreferencesActivity
-                }
-            });
-
             btnZenmode = findViewById(R.id.btn_zenmode);
             btnZenmode.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -210,11 +202,11 @@ public class MainActivity extends AppCompatActivity {
             });
 
             Button buttonday = (Button) findViewById(R.id.button_daily);
-
             buttonday.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     Intent intent = new Intent(v.getContext(), RankingActivity.class);
                     intent.putExtra("filter", 0);
+                    intent.putExtra("userID", data.getUserData().getId());
                     startActivity(intent);
                 }
             });
@@ -225,6 +217,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     Intent intent = new Intent(v.getContext(), RankingActivity.class);
                     intent.putExtra("filter", 1);
+                    intent.putExtra("userID", data.getUserData().getId());
                     startActivity(intent);
                 }
             });
@@ -235,6 +228,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     Intent intent = new Intent(v.getContext(), RankingActivity.class);
                     intent.putExtra("filter", 2);
+                    intent.putExtra("userID", data.getUserData().getId());
                     startActivity(intent);
                 }
             });

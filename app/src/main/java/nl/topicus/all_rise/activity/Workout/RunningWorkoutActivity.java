@@ -1,31 +1,23 @@
 package nl.topicus.all_rise.activity.Workout;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
-
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.os.Handler;
-import android.service.autofill.TextValueSanitizer;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.volley.VolleyError;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.Locale;
 
 import nl.topicus.all_rise.R;
 import nl.topicus.all_rise.data.DataProvider;
-import nl.topicus.all_rise.data.response.JsonArrayResponse;
 import nl.topicus.all_rise.data.response.JsonObjectResponse;
 import nl.topicus.all_rise.utility.Data;
 
@@ -44,6 +36,8 @@ public class RunningWorkoutActivity extends AppCompatActivity {
 
         secondsView = findViewById(R.id.secondsTimer);
         startTime = System.currentTimeMillis();
+
+
         final Context c = this;
 
         final Thread thread = new Thread() {
@@ -56,7 +50,22 @@ public class RunningWorkoutActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                secondsView.setText("" + (System.currentTimeMillis() - startTime) / 1000);
+                                long seconds = System.currentTimeMillis() - startTime;
+                                long hours = seconds / 3600;
+                                long minutes = (seconds % 3600) / 60;
+                                long secs = seconds % 60;
+
+                                // Format the seconds into hours, minutes,
+                                // and seconds.
+                                String time
+                                        = String
+                                        .format(Locale.getDefault(),
+                                                "%d:%02d:%02d", hours,
+                                                minutes, secs);
+
+                                // Set the text view text.
+                                secondsView.setText(time);
+                               // secondsView.setText("" + (System.currentTimeMillis() - startTime) / 1000);
                             }
                         });
                     }
