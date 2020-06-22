@@ -40,5 +40,8 @@
     <string name="save">Opslaan</string>
     <string name="cancel">Afbreken</string>
     <string name="mijn_statistieken">Mijn statistieken</string>
+    <string name="time_spend_exercises">Totale hoeveelheid seconden besteed aan oefeningen: </string>
     <string name="walkbutton">Lopen</string>
+    <string name="seconds"> seconden</string>
+    <string name="workout_history">Oefening Geschiedenis</string>
 </resources>

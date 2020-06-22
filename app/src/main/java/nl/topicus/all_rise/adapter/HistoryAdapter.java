@@ -34,10 +34,10 @@ public class HistoryAdapter extends ArrayAdapter<HistoryEntry>{
             convertView = layoutInflater.inflate(R.layout.list_historyentry, null);
         }
 
-        TextView duration = convertView.findViewById(R.id.tv_duration);
+        TextView duration = convertView.findViewById(R.id.tv_workoutvalue);
         TextView exerciseType = convertView.findViewById(R.id.tv_exerciseType);
 
-        duration.setText((historyEntry.getDuration()/1000) + " seconden");
+        duration.setText(String.valueOf(historyEntry.getDuration()/1000));
         exerciseType.setText(historyEntry.getExerciseType());
 
         return convertView;

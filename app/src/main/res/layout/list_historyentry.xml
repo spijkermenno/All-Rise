@@ -10,14 +10,15 @@
         android:id="@+id/tv_duration"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
+        android:text="@string/seconds"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_workoutvalue"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="6 minuten" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/tv_exerciseType"
@@ -26,4 +27,14 @@
         app:layout_constraintStart_toEndOf="@+id/tv_duration"
         app:layout_constraintTop_toTopOf="@+id/tv_duration"
         tools:text="Squats" />
+
+    <TextView
+        android:id="@+id/tv_workoutvalue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="40" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -41,8 +41,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:text="@string/time_spend_exercises"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="U heeft 2 uur aan oefeningen gedaan" />
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_statistics_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/timeExercise"
+        app:layout_constraintTop_toBottomOf="@+id/piechart"
+        tools:text="40" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

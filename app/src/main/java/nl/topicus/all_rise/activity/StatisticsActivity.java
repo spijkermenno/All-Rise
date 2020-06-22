@@ -93,7 +93,7 @@ public class StatisticsActivity extends AppCompatActivity implements AdapterView
                 pieChart.setUsePercentValues(false);
                 pieChart.getDescription().setEnabled(false);
                 pieChart.setExtraOffsets(10, 20, 10, 10);
-                pieChart.setEntryLabelColor(Color.TRANSPARENT);
+                pieChart.setEntryLabelColor(Color.BLACK);
 
                 JSONArray array = data.getJSONArray("data");
                 ArrayList<PieEntry> chartValues = new ArrayList<>();
@@ -117,8 +117,8 @@ public class StatisticsActivity extends AppCompatActivity implements AdapterView
                 for (int i = 0; i < array.length(); i++) {
                     duration = duration + array.getJSONObject(i).getInt("Duration");
                 }
-                timeExercise = findViewById(R.id.timeExercise);
-                timeExercise.setText("U heeft " + (duration/1000)+ " seconden besteed aan oefeningen");
+                timeExercise = findViewById(R.id.tv_statistics_amount);
+                timeExercise.setText(String.valueOf(duration/1000));
             }
         });
     }
