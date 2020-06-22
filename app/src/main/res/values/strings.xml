@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">all-rise</string>
 
+    <string name="empty" />
+
     <string name="invite_code">Invite Code</string>
     <string name="continue_text">Continue</string>
     <string name="user_username">Name</string>
@@ -19,11 +21,36 @@
     <string name="filledCredentialsInvalid">The data entered does not meet the requirements.</string>
     <string name="all_rise_logo">All Rise Logo</string>
     <string name="sign_off">Sign off</string>
+    <string name="workout">Workout</string>
+    <string name="welcome">Welkom</string>
+    <string name="ranking">Ranking</string>
+    <string name="statistics">Statistics</string>
+    <string name="history">Workout history</string>
+    <string name="preferences">Preferences</string>
+    <string name="zenmode">Zen mode</string>
+    <string name="title_activity_workout">WorkoutActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="stopWorkout">Stop workout</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="rankingDay">Dag</string>
     <string name="rankingWeek">Week</string>
     <string name="rankingMonth">Maand</string>
-    <string name="ranking">Ranglijsten</string>
+
     <string name="main_service_content">Deze service houdt alle bewegingen bij.</string>
     <string name="main_service_title">Bewegings Service</string>
 
+    <string name="disclaimer_gdpr">By logging in you agree to our privacy policy.</string>
+    <string name="startWorkout">Start workout</string>
+    <string name="stopWorkoutConfirmation">Are you sure you would like to save your progress?</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".activity.MainActivity">
 
+    <Button
+        android:id="@+id/sign_off"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#00FFFFFF"
+        android:text="@string/sign_off"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="175dp"
@@ -14,151 +26,126 @@
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.525"
         app:srcCompat="@drawable/all_rise_x_small" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="313dp"
-        android:layout_height="407dp"
-        android:layout_marginBottom="28dp"
+        android:layout_height="501dp"
+        android:layout_marginBottom="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent">
 
+        <Button
+            android:id="@+id/btn_workout"
+            android:layout_width="311dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:background="@color/all_rise_yellow"
+            android:text="@string/workout"
+            app:layout_constraintBottom_toTopOf="@+id/btn_statistics"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/button_daily"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="@color/all_rise_green"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/all_rise_yellow"
             android:text="@string/rankingDay"
-            app:layout_constraintEnd_toStartOf="@+id/button_weekly"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintBottom_toTopOf="@+id/btn_workout"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/button_weekly"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:background="@color/all_rise_green"
+            android:layout_marginBottom="16dp"
+            android:background="@color/all_rise_yellow"
             android:text="@string/rankingWeek"
+            app:layout_constraintBottom_toTopOf="@+id/btn_workout"
             app:layout_constraintEnd_toStartOf="@+id/button_monthly"
-            app:layout_constraintStart_toEndOf="@+id/button_daily"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintStart_toEndOf="@+id/button_daily" />
 
         <Button
             android:id="@+id/button_monthly"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:background="@color/all_rise_green"
+            android:layout_marginBottom="16dp"
+            android:background="@color/all_rise_yellow"
+
             android:text="@string/rankingMonth"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/button_weekly"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintBottom_toTopOf="@+id/btn_workout"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <Button
             android:id="@+id/btn_statistics"
-            android:layout_width="0dp"
+            android:layout_width="311dp"
             android:layout_height="wrap_content"
-            android:background="@color/all_rise_green"
 
-            android:text="Mijn statistieken"
-            app:layout_constraintBottom_toTopOf="@+id/btn_history"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button_weekly" />
+            android:layout_marginBottom="16dp"
+            android:background="@color/all_rise_yellow"
+            android:text="@string/statistics"
+            app:layout_constraintBottom_toTopOf="@+id/btn_history" />
 
         <Button
             android:id="@+id/btn_history"
-            android:layout_width="0dp"
+            android:layout_width="311dp"
             android:layout_height="wrap_content"
-            android:background="@color/all_rise_green"
-            android:text="Oefening geschiedenis"
-            app:layout_constraintBottom_toTopOf="@+id/btn_preferences"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_statistics" />
+            android:layout_marginBottom="16dp"
+            android:background="@color/all_rise_yellow"
+
+            android:text="@string/history"
+            app:layout_constraintBottom_toTopOf="@+id/btn_preferences" />
 
         <Button
             android:id="@+id/btn_preferences"
-            android:layout_width="0dp"
+            android:layout_width="311dp"
             android:layout_height="wrap_content"
-            android:background="@color/all_rise_green"
-            android:text="Voorkeuren"
-            app:layout_constraintBottom_toTopOf="@+id/btn_zenmode"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_history" />
+            android:layout_marginBottom="16dp"
+            android:background="@color/all_rise_yellow"
+
+            android:text="@string/preferences"
+            app:layout_constraintBottom_toTopOf="@+id/btn_zenmode" />
 
         <Button
             android:id="@+id/btn_zenmode"
-            android:layout_width="0dp"
+            android:layout_width="311dp"
             android:layout_height="wrap_content"
-            android:background="@color/all_rise_green"
-            android:text="Zenmodus"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_preferences" />
+
+            android:layout_marginBottom="16dp"
+            android:background="@color/all_rise_yellow"
+            android:text="@string/zenmode"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
         <TextView
             android:id="@+id/tv_welcome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textColor="@color/all_rise_orange"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/black"
             android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/textView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Welkom, Jan" />
+            tools:text="@string/welcome" />
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
             android:text="@string/ranking"
-            android:textColor="@color/all_rise_orange"
+            android:textColor="@color/black"
             android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/button_weekly"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_welcome" />
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <TextView
-        android:id="@+id/tv_valMotion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
-        tools:text="false" />
-
-    <Button
-        android:id="@+id/sign_off"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
-
-        app:layout_constraintBottom_toTopOf="@+id/tv_valMotion"
-        app:layout_constraintEnd_toEndOf="@+id/tv_valMotion"
-        app:layout_constraintStart_toStartOf="@+id/tv_valMotion" />
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

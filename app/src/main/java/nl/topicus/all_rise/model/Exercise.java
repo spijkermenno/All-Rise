@@ -1,5 +1,7 @@
 package nl.topicus.all_rise.model;
 
+import androidx.annotation.NonNull;
+
 public class Exercise {
 
     private int id, exerciseTypeId;
@@ -42,5 +44,11 @@ public class Exercise {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "ID: " + this.id + " | Name: " + this.name + " | Description: " + this.description;
     }
 }
