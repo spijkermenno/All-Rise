@@ -118,7 +118,7 @@ public class StatisticsActivity extends AppCompatActivity implements AdapterView
                     duration = duration + array.getJSONObject(i).getInt("Duration");
                 }
                 timeExercise = findViewById(R.id.timeExercise);
-                timeExercise.setText("U heeft " + (duration/1000)+ " minuten besteed aan oefeningen");
+                timeExercise.setText("U heeft " + (duration/1000)+ " seconden besteed aan oefeningen");
             }
         });
     }
