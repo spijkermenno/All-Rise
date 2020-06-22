@@ -1,13 +1,13 @@
 package nl.topicus.all_rise.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.VolleyError;
 
@@ -20,11 +20,9 @@ import java.util.ArrayList;
 import nl.topicus.all_rise.R;
 import nl.topicus.all_rise.adapter.AdapterHelper;
 import nl.topicus.all_rise.adapter.HistoryAdapter;
-import nl.topicus.all_rise.adapter.RankListAdapter;
 import nl.topicus.all_rise.data.DataProvider;
 import nl.topicus.all_rise.data.response.JsonObjectResponse;
 import nl.topicus.all_rise.model.HistoryEntry;
-import nl.topicus.all_rise.model.RankEntry;
 
 public class HistoryActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -54,7 +52,7 @@ public class HistoryActivity extends AppCompatActivity implements AdapterView.On
 
         spinner = findViewById(R.id.spinnerhistory);
         sortBySpinnerAdapter = new ArrayAdapter(this,
-                android.R.layout.simple_spinner_item, spinnerOptions);
+                android.R.layout.simple_spinner_item, new String[]{getResources().getString(R.string.rankingDay), getResources().getString(R.string.rankingWeek), getResources().getString(R.string.rankingMonth), getResources().getString(R.string.total)});
         sortBySpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(sortBySpinnerAdapter);
         spinner.setOnItemSelectedListener(this);

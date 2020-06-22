@@ -14,7 +14,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
-import java.util.Locale;
 
 import nl.topicus.all_rise.R;
 import nl.topicus.all_rise.data.DataProvider;
@@ -22,7 +21,7 @@ import nl.topicus.all_rise.data.response.JsonObjectResponse;
 import nl.topicus.all_rise.utility.Data;
 
 public class RunningWorkoutActivity extends AppCompatActivity {
-    TextView secondsView;
+    TextView secondsView, pointsView;
     Button stopWorkout;
     long startTime, endTime;
 
@@ -35,41 +34,41 @@ public class RunningWorkoutActivity extends AppCompatActivity {
 
 
         secondsView = findViewById(R.id.secondsTimer);
+        pointsView = findViewById(R.id.pointsTimer);
         startTime = System.currentTimeMillis();
 
 
         final Context c = this;
 
         final Thread thread = new Thread() {
-
             @Override
             public void run() {
-                try {
-                    while (!this.isInterrupted()) {
-                        Thread.sleep(1000);
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                long seconds = System.currentTimeMillis() - startTime;
-                                long hours = seconds / 3600;
-                                long minutes = (seconds % 3600) / 60;
-                                long secs = seconds % 60;
-
-                                // Format the seconds into hours, minutes,
-                                // and seconds.
-                                String time
-                                        = String
-                                        .format(Locale.getDefault(),
-                                                "%d:%02d:%02d", hours,
-                                                minutes, secs);
-
-                                // Set the text view text.
-                                secondsView.setText(time);
-                               // secondsView.setText("" + (System.currentTimeMillis() - startTime) / 1000);
-                            }
-                        });
+                while (!this.isInterrupted()) {
+                    try {
+                        Thread.sleep(1);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
-                } catch (InterruptedException ignored) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            long seconds = System.currentTimeMillis() - startTime;
+
+                            int secs = (int) (seconds / 1000);
+                            int minutes = secs / 60;
+                            int milisecs = (int) (seconds % 1000);
+                            secs = secs % 60;
+
+//
+
+
+                            // Set the text view text.
+                            secondsView.setText("" + minutes + ":"
+                                    + String.format("%02d", secs) + ":"
+                                    + String.format("%03d", milisecs));
+                             pointsView.setText("Punten: " + (System.currentTimeMillis() - startTime) / 1000);
+                        }
+                    });
                 }
             }
         };

@@ -44,4 +44,5 @@
     <string name="walkbutton">Lopen</string>
     <string name="seconds"> seconden</string>
     <string name="workout_history">Oefening Geschiedenis</string>
+    <string name="total">Totaal</string>
 </resources>
