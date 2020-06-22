@@ -5,18 +5,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.util.List;
 
 import nl.topicus.all_rise.R;
 import nl.topicus.all_rise.model.HistoryEntry;
-import nl.topicus.all_rise.model.RankEntry;
 
 public class HistoryAdapter extends ArrayAdapter<HistoryEntry>{
 
@@ -40,7 +37,7 @@ public class HistoryAdapter extends ArrayAdapter<HistoryEntry>{
         TextView duration = convertView.findViewById(R.id.tv_duration);
         TextView exerciseType = convertView.findViewById(R.id.tv_exerciseType);
 
-        duration.setText((historyEntry.getDuration()/1000) + " minuten");
+        duration.setText((historyEntry.getDuration()/1000) + " seconden");
         exerciseType.setText(historyEntry.getExerciseType());
 
         return convertView;
