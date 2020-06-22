@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">all-rise</string>
+    <string name="empty"/>
+    <string name="invite_code">Invite Code</string>
+    <string name="continue_text">Verdergaan</string>
+    <string name="user_username">Naam</string>
+    <string name="user_email">E-mail</string>
+    <string name="notification_title">Te weinig beweging</string>
+    <string name="notification_content">Start nu een workout en klim omhoog in de ranglijsten!</string>
+    <string name="coppied">Gekopieerd!</string>
+    <string name="click_to_copy">Klik om te kopieren</string>
+    <string name="code_invalid">De code die u heeft ingevuld is niet correct</string>
+    <string name="code_empty">Het veld mag niet leeg zijn</string>
+    <string name="code_short">De code die u heeft ingevuld is te kort. Alle codes zijn 8 karakters lang</string>
+    <string name="code_long">De code die u heeft ingevuld is te lang. Alle codes zijn 8 karakters lang.</string>
+    <string name="code_inactive">Deze code is al geactiveerd</string>
+    <string name="email_not_valid">Email is niet correct.</string>
+    <string name="filledCredentialsInvalid">De ingevulde data voldoet net aan de eisen</string>
+    <string name="all_rise_logo">All Rise Logo</string>
+    <string name="sign_off">Uitloggen</string>
+    <string name="workout">Workout</string>
+    <string name="welcome">Welkom</string>
+    <string name="ranking">Ranking</string>
+    <string name="statistics">Statistieken</string>
+    <string name="history">Workout geschiedenis</string>
+    <string name="preferences">Voorkeuren</string>
+    <string name="zenmode">Zen mode</string>
+    <string name="title_activity_workout">WorkoutActivity</string>
+    <string name="next">Verder</string>
+    <string name="previous">Vorige</string>
+    <string name="stopWorkout">Stop workout</string>
+    <string name="rankingDay">Dag</string>
+    <string name="rankingWeek">Week</string>
+    <string name="rankingMonth">Maand</string>
+
+    <string name="main_service_content">Deze service houdt alle bewegingen bij.</string>
+    <string name="main_service_title">Bewegings Service</string>
+    <string name="disclaimer_gdpr">Door in te loggen gaat u akkoord met de privacy voorwaarden.</string>
+    <string name="startWorkout">Start workout</string>
+    <string name="stopWorkoutConfirmation">Weet u het zeker dat u het wilt opslaan?</string>
+    <string name="save">Opslaan</string>
+    <string name="cancel">Afbreken</string>
+    <string name="mijn_statistieken">Mijn statistieken</string>
+</resources>
