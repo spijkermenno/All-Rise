@@ -16,14 +16,17 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".activity.HistoryActivity"></activity>
 
-
-        <receiver android:name=".reciever.OnNotificationDismissBroadcastReceiver"  android:exported="true">
+        <receiver
+            android:name=".reciever.OnNotificationDismissBroadcastReceiver"
+            android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.INPUT_METHOD_CHANGED" />
             </intent-filter>
         </receiver>
+
         <service
             android:name=".service.NotificationService"
             android:enabled="true"
@@ -45,7 +48,6 @@
         <activity
             android:name=".activity.Authentication.InviteCodeActivity"
             tools:ignore="InnerClassSeparator" />
-        <activity android:name=".activity.RankingActivity" />
 
         <receiver
             android:name=".reciever.OnNotificationDismissBroadcastReceiver"

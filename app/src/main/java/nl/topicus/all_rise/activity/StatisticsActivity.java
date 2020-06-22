@@ -28,9 +28,9 @@ import nl.topicus.all_rise.data.DataProvider;
 import nl.topicus.all_rise.data.response.JsonObjectResponse;
 
 public class StatisticsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    PieChart pieChart;
-    Spinner spinner;
-    TextView timeExercise;
+    private PieChart pieChart;
+    private Spinner spinner;
+    private TextView timeExercise;
     private final String[] spinnerOptions = {"Vandaag", "Deze week", "Deze maand"};
     private DataProvider dataProvider;
     private ArrayAdapter<String> sortBySpinnerAdapter;
@@ -118,7 +118,7 @@ public class StatisticsActivity extends AppCompatActivity implements AdapterView
                     duration = duration + array.getJSONObject(i).getInt("Duration");
                 }
                 timeExercise = findViewById(R.id.timeExercise);
-                timeExercise.setText("U heeft " + (duration/1000)+ " minuten besteed aan oefeningen");
+                timeExercise.setText("U heeft " + (duration/1000)+ " seconden besteed aan oefeningen");
             }
         });
     }
