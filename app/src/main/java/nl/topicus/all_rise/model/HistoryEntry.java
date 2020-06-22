@@ -16,4 +16,8 @@ public class HistoryEntry {
     public String getExerciseType() {
         return exerciseType;
     }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
 }

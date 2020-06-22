@@ -44,5 +44,8 @@
     <string name="walkbutton">Lopen</string>
     <string name="seconds"> seconden</string>
     <string name="workout_history">Oefening Geschiedenis</string>
+    <string name="today"> Vandaag </string>
+    <string name="this_week"> Deze Week </string>
+    <string name="this_month"> Deze Maand </string>
     <string name="total">Totaal</string>
 </resources>

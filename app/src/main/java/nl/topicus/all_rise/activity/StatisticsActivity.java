@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import nl.topicus.all_rise.R;
 import nl.topicus.all_rise.data.DataProvider;
 import nl.topicus.all_rise.data.response.JsonObjectResponse;
+import nl.topicus.all_rise.model.HistoryEntry;
 
 public class StatisticsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private PieChart pieChart;
@@ -95,9 +96,24 @@ public class StatisticsActivity extends AppCompatActivity implements AdapterView
                 pieChart.setEntryLabelColor(Color.BLACK);
 
                 JSONArray array = data.getJSONArray("data");
+                ArrayList<HistoryEntry> pieValues = new ArrayList<>();
                 ArrayList<PieEntry> chartValues = new ArrayList<>();
                 for (int i = 0; i < array.length(); i++) {
-                    chartValues.add(new PieEntry(array.getJSONObject(i).getInt("Duration"), array.getJSONObject(i).getString("Name")));
+                    pieValues.add(new HistoryEntry(array.getJSONObject(i).getInt("Duration"), array.getJSONObject(i).getString("Name")));
+                }
+
+                for (int i = 0; i < pieValues.size(); i++) {
+                    for (int j = i + 1 ; j < pieValues.size(); j++) {
+                        if (pieValues.get(i).getExerciseType().equals(pieValues.get(j).getExerciseType())) {
+                            pieValues.get(i).setDuration((pieValues.get(i).getDuration() + pieValues.get(j).getDuration()));
+                            pieValues.remove(j);
+                            j--;
+                        }
+                    }
+                }
+
+                for (int i = 0; i < pieValues.size(); i++) {
+                    chartValues.add(new PieEntry(pieValues.get(i).getDuration(), pieValues.get(i).getExerciseType()));
                 }
 
                 PieDataSet dataSet = new PieDataSet(chartValues, "");
@@ -113,8 +129,8 @@ public class StatisticsActivity extends AppCompatActivity implements AdapterView
 
                 //get total duration
                 int duration = 0;
-                for (int i = 0; i < array.length(); i++) {
-                    duration = duration + array.getJSONObject(i).getInt("Duration");
+                for (int i = 0; i < pieValues.size(); i++) {
+                    duration = duration + pieValues.get(i).getDuration();
                 }
                 timeExercise = findViewById(R.id.tv_statistics_amount);
                 timeExercise.setText(String.valueOf(duration/1000));
