@@ -1,7 +1,5 @@
 package nl.topicus.all_rise.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +7,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.VolleyError;
 import com.github.mikephil.charting.charts.PieChart;
@@ -31,7 +31,6 @@ public class StatisticsActivity extends AppCompatActivity implements AdapterView
     private PieChart pieChart;
     private Spinner spinner;
     private TextView timeExercise;
-    private final String[] spinnerOptions = {"Vandaag", "Deze week", "Deze maand"};
     private DataProvider dataProvider;
     private ArrayAdapter<String> sortBySpinnerAdapter;
     private int userID;
@@ -46,7 +45,7 @@ public class StatisticsActivity extends AppCompatActivity implements AdapterView
 
         spinner = findViewById(R.id.spinner);
         sortBySpinnerAdapter = new ArrayAdapter(this,
-                android.R.layout.simple_spinner_item, spinnerOptions);
+                android.R.layout.simple_spinner_item, new String[]{getResources().getString(R.string.rankingDay), getResources().getString(R.string.rankingWeek), getResources().getString(R.string.rankingMonth)});
         sortBySpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(sortBySpinnerAdapter);
         spinner.setOnItemSelectedListener(this);
