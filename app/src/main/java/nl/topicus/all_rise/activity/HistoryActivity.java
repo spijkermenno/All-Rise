@@ -74,7 +74,7 @@ public class HistoryActivity extends AppCompatActivity implements AdapterView.On
                 action = DataProvider.GET_WORKOUTS_MONTHLY;
                 break;
             case 3:
-                action = DataProvider.GET_WORKOUTS;
+                action = DataProvider.GET_WORKOUTS_TOTAL;
         }
         if (action != null) {
             dataProvider.request(action, String.valueOf(userID), null, new JsonObjectResponse() {

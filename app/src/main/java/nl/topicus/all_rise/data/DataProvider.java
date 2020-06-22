@@ -65,6 +65,8 @@ public class DataProvider {
     public static final String GET_WORKOUTS_DAILY = "GET_WORKOUTS_DAILY";
     public static final String GET_WORKOUTS_WEEKLY = "GET_WORKOUTS_WEEKLY";
     public static final String GET_WORKOUTS_MONTHLY = "GET_WORKOUTS_MONTHLY";
+    public static final String GET_WORKOUTS_TOTAL = "GET_WORKOUTS_TOTAL";
+
 
     public static final String GET_WORKOUT = "GET_WORKOUT";
     public static final String GET_WORKOUTS = "GET_WORKOUTS";
@@ -169,6 +171,11 @@ public class DataProvider {
 
             case GET_WORKOUTS_MONTHLY:
                 URL = API + "/employees/" + id + "/workouts/month";
+                objectRequest = true;
+                break;
+
+            case GET_WORKOUTS_TOTAL:
+                URL = API + "/employees/" + id + "/workouts";
                 objectRequest = true;
                 break;
 
@@ -422,6 +429,11 @@ public class DataProvider {
                                     JsonObjectResponse monthlyWOResponse =
                                             (JsonObjectResponse) providerResponse;
                                     monthlyWOResponse.response(response);
+
+                                case GET_WORKOUTS_TOTAL:
+                                    JsonObjectResponse totalWOResponse =
+                                            (JsonObjectResponse) providerResponse;
+                                    totalWOResponse.response(response);
 
                                 case GET_SETTINGS:
                                     JsonObjectResponse settingsResponse =
