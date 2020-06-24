@@ -66,6 +66,7 @@ public class WorkoutsActivity extends AppCompatActivity {
                 WorkoutActivity.class
         );
         overviewIntent.putExtra("exercise_id", exercise.getId());
+        overviewIntent.putExtra("points_multiplier", exercise.getMultiplier());
         startActivity(overviewIntent);
     }
 }

@@ -160,7 +160,7 @@ public class DataProvider {
                 break;
 
             case GET_WORKOUTS_DAILY:
-                URL = API + "/employees/"+ id + "/workouts/day";
+                URL = API + "/employees/" + id + "/workouts/day";
                 objectRequest = true;
                 break;
 
@@ -228,7 +228,8 @@ public class DataProvider {
                             switch (action) {
                                 case POST_WORKOUT:
                                 case POST_HISTORY:
-                                    JsonObjectResponse jsonObjectResponse = (JsonObjectResponse) providerResponse;
+                                    JsonObjectResponse jsonObjectResponse =
+                                            (JsonObjectResponse) providerResponse;
                                     jsonObjectResponse.response(response);
 
                                     break;
@@ -364,12 +365,27 @@ public class DataProvider {
                                     JSONObject data = new JSONArray(
                                             response.getString("data")).getJSONObject(0);
 
-                                    Exercise w = new Exercise(
-                                            data.getInt("ID"),
-                                            data.getInt("Exercise_Type_ID"),
-                                            data.getString("Name"),
-                                            data.getString("Description")
-                                    );
+                                    Exercise w;
+
+
+                                    try {
+                                        System.out.println(data.get("Multiplier"));
+
+                                        w = new Exercise(
+                                                data.getInt("ID"),
+                                                data.getInt("Exercise_Type_ID"),
+                                                data.getString("Name"),
+                                                data.getString("Description"),
+                                                data.getInt("Multiplier")
+                                        );
+                                    } catch (Exception e){
+                                        w = new Exercise(
+                                                data.getInt("ID"),
+                                                data.getInt("Exercise_Type_ID"),
+                                                data.getString("Name"),
+                                                data.getString("Description")
+                                        );
+                                    };
 
                                     exerciseResponse.response(w);
                                     break;
@@ -398,21 +414,11 @@ public class DataProvider {
                                     break;
 
                                 case GET_POINTS_DAILY:
+                                case GET_POINTS_MONTHLY:
+                                case GET_POINTS_WEEKLY:
                                     JsonObjectResponse dailyResponse =
                                             (JsonObjectResponse) providerResponse;
                                     dailyResponse.response(response);
-                                    break;
-
-                                case GET_POINTS_WEEKLY:
-                                    JsonObjectResponse weeklyResponse =
-                                            (JsonObjectResponse) providerResponse;
-                                    weeklyResponse.response(response);
-                                    break;
-
-                                case GET_POINTS_MONTHLY:
-                                    JsonObjectResponse monthlyResponse =
-                                            (JsonObjectResponse) providerResponse;
-                                    monthlyResponse.response(response);
                                     break;
 
                                 case GET_WORKOUTS_DAILY:

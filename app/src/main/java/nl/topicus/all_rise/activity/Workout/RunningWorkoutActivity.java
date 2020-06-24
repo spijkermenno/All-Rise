@@ -31,7 +31,7 @@ public class RunningWorkoutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_running_workout);
 
         final String exercise_id = getIntent().getExtras().get("exercise_id").toString();
-
+        final int points_multiplier = Integer.parseInt(getIntent().getExtras().get("points_multiplier").toString());
 
         secondsView = findViewById(R.id.secondsTimer);
         pointsView = findViewById(R.id.pointsTimer);
@@ -59,14 +59,13 @@ public class RunningWorkoutActivity extends AppCompatActivity {
                             int milisecs = (int) (seconds % 1000);
                             secs = secs % 60;
 
-//
-
+                            long points = points_multiplier * (System.currentTimeMillis() - startTime) / 1000;
 
                             // Set the text view text.
                             secondsView.setText("" + minutes + ":"
                                     + String.format("%02d", secs) + ":"
                                     + String.format("%03d", milisecs));
-                             pointsView.setText("Punten: " + (System.currentTimeMillis() - startTime) / 1000);
+                             pointsView.setText("Punten: " + points);
                         }
                     });
                 }
@@ -84,7 +83,7 @@ public class RunningWorkoutActivity extends AppCompatActivity {
                 System.out.println(endTime - startTime);
 
                 long duration = endTime - startTime;
-                int points = (int) Math.ceil(duration / 1000);
+                int points = (int) ((int) points_multiplier * Math.ceil(duration / 1000));
 
                 final DataProvider dp = new DataProvider(c);
                 final HashMap<String, String> h = new HashMap<String, String>();

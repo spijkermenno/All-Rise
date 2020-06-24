@@ -27,6 +27,7 @@ public class WorkoutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_workout);
 
         final String exercise_id = getIntent().getExtras().get("exercise_id").toString();
+        final String points_multiplier = getIntent().getExtras().get("points_multiplier").toString();
 
         System.out.println(exercise_id);
 
@@ -45,6 +46,7 @@ public class WorkoutActivity extends AppCompatActivity {
                         RunningWorkoutActivity.class
                 );
                 overviewIntent.putExtra("exercise_id", exercise_id);
+                overviewIntent.putExtra("points_multiplier", points_multiplier);
                 startActivity(overviewIntent);
             }
         });

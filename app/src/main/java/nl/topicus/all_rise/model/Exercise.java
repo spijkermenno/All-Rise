@@ -4,14 +4,23 @@ import androidx.annotation.NonNull;
 
 public class Exercise {
 
-    private int id, exerciseTypeId;
+    private int id, exerciseTypeId, pointMultiplier;
     private String name, description;
+
+    public Exercise(int id, int exerciseTypeId, String name, String description, int pointMultiplier) {
+        this.id = id;
+        this.exerciseTypeId = exerciseTypeId;
+        this.name = name;
+        this.description = description;
+        this.pointMultiplier = pointMultiplier;
+    }
 
     public Exercise(int id, int exerciseTypeId, String name, String description) {
         this.id = id;
         this.exerciseTypeId = exerciseTypeId;
         this.name = name;
         this.description = description;
+        this.pointMultiplier = 1;
     }
 
     public int getId() {
@@ -30,25 +39,17 @@ public class Exercise {
         return name;
     }
 
-    public int getExerciseTypeId() {
-        return exerciseTypeId;
-    }
-
-    public void setExerciseTypeId(int exerciseTypeId) {
-        this.exerciseTypeId = exerciseTypeId;
-    }
-
     public String getDescription() {
         return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     @NonNull
     @Override
     public String toString() {
         return "ID: " + this.id + " | Name: " + this.name + " | Description: " + this.description;
+    }
+
+    public int getMultiplier() {
+        return pointMultiplier;
     }
 }

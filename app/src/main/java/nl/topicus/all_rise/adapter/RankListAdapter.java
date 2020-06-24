@@ -34,6 +34,8 @@ public class RankListAdapter extends ArrayAdapter<RankEntry> {
             convertView = layoutInflater.inflate(R.layout.list_rankentry, null);
         }
 
+        convertView.setPadding(20, 20, 20, 20);
+
         ImageView crown = convertView.findViewById(R.id.crown);
         TextView rank = convertView.findViewById(R.id.rank);
         TextView firstname = convertView.findViewById(R.id.firstname);
@@ -53,10 +55,11 @@ public class RankListAdapter extends ArrayAdapter<RankEntry> {
         total_points.setText(String.valueOf(rankEntry.getTotal_Points()));
 
         if (rankEntry.isCurrentuser()) {
-            rank.setTextColor(Color.RED);
-            firstname.setTextColor(Color.RED);
-            lastname.setTextColor(Color.RED);
-            total_points.setTextColor(Color.RED);
+            rank.setTextColor(Color.BLACK);
+            firstname.setTextColor(Color.BLACK);
+            lastname.setTextColor(Color.BLACK);
+            total_points.setTextColor(Color.BLACK);
+            convertView.setBackgroundColor(Color.parseColor("#dddddd"));
         }
 
         return convertView;
