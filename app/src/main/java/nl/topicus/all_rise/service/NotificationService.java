@@ -45,6 +45,7 @@ public class NotificationService extends Service {
     private static boolean notificationsend = false;
     private static int count = 0;
     protected Context context;
+    private String zenValue;
 
 
     public static final String CHANNEL_ID = "MotionRecorder";
@@ -67,7 +68,6 @@ public class NotificationService extends Service {
                 .setContentIntent(pendingIntent)
                 .build();
         startForeground(1, notification);
-
 
         this.context = this;
         this.dataProvider = new DataProvider(context);

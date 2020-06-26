@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.ZenmodeActivity">
+
+    <TextView
+        android:id="@+id/tv_ZenMode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/zenmode"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="313dp"
+        android:layout_height="501dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_ZenMode">
+
+        <Button
+            android:id="@+id/btn_1hourzen"
+            android:layout_width="311dp"
+            android:layout_height="wrap_content"
+            android:text="@string/_1_uur_actief"
+            android:background="@color/all_rise_yellow"
+            app:layout_constraintBottom_toTopOf="@+id/btn_2hourzen"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btn_2hourzen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/_2_uur_actief"
+            android:background="@color/all_rise_yellow"
+            app:layout_constraintBottom_toTopOf="@+id/btn_3hourzen"
+            app:layout_constraintEnd_toEndOf="@+id/btn_1hourzen"
+            app:layout_constraintStart_toStartOf="@+id/btn_1hourzen"
+            app:layout_constraintTop_toBottomOf="@+id/btn_1hourzen" />
+
+        <Button
+            android:id="@+id/btn_3hourzen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/_3_uur_actief"
+            android:background="@color/all_rise_yellow"
+            app:layout_constraintBottom_toTopOf="@+id/btn_4hourzen"
+            app:layout_constraintEnd_toEndOf="@+id/btn_2hourzen"
+            app:layout_constraintStart_toStartOf="@+id/btn_2hourzen"
+            app:layout_constraintTop_toBottomOf="@+id/btn_2hourzen" />
+
+        <Button
+            android:id="@+id/btn_4hourzen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/_4_uur_actief"
+            android:background="@color/all_rise_yellow"
+            app:layout_constraintBottom_toTopOf="@+id/btn_cancelzen"
+            app:layout_constraintEnd_toEndOf="@+id/btn_3hourzen"
+            app:layout_constraintStart_toStartOf="@+id/btn_3hourzen"
+            app:layout_constraintTop_toBottomOf="@+id/btn_3hourzen" />
+
+        <Button
+            android:id="@+id/btn_cancelzen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/annuleer_zenmodus"
+            android:background="@color/design_default_color_error"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/btn_4hourzen"
+            app:layout_constraintStart_toStartOf="@+id/btn_4hourzen"
+            app:layout_constraintTop_toBottomOf="@+id/btn_4hourzen" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

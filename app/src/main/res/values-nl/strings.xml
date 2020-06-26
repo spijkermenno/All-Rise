@@ -48,4 +48,9 @@
     <string name="this_week"> Deze Week </string>
     <string name="this_month"> Deze Maand </string>
     <string name="total">Totaal</string>
+    <string name="_1_uur_actief">1 uur actief</string>
+    <string name="_2_uur_actief">2 uur actief</string>
+    <string name="_3_uur_actief">3 uur actief</string>
+    <string name="_4_uur_actief">4 uur actief</string>
+    <string name="annuleer_zenmodus">Annuleer zenmodus</string>
 </resources>
