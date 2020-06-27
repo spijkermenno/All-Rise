@@ -18,7 +18,7 @@ import nl.topicus.all_rise.model.Exercise;
 import nl.topicus.all_rise.model.Workout;
 
 public class WorkoutActivity extends AppCompatActivity {
-    TextView title, description;
+    TextView title, description, multiplierTextfield;
     Button workoutButton;
 
     @Override
@@ -35,6 +35,11 @@ public class WorkoutActivity extends AppCompatActivity {
 
         title = findViewById(R.id.workoutTitle);
         description = findViewById(R.id.workoutDescription);
+        multiplierTextfield = findViewById(R.id.workoutMultiplier);
+
+        String temp = getString(R.string.multiplierText);
+        multiplierTextfield.setText(temp.replace("%d", points_multiplier));
+
         workoutButton = findViewById(R.id.startWorkout);
         workoutButton.setEnabled(false);
 

@@ -53,4 +53,5 @@
     <string name="_3_uur_actief">3 hours active</string>
     <string name="_4_uur_actief">4 hours active</string>
     <string name="annuleer_zenmodus">Cancel zenmode</string>
+    <string name="multiplierText">This workout will give you %d points per second.</string>
 </resources>

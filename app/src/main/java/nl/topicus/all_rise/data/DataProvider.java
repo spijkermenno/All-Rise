@@ -8,22 +8,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 
-import nl.topicus.all_rise.activity.MainActivity;
-import nl.topicus.all_rise.data.response.ArrayListResponse;
-import nl.topicus.all_rise.data.response.DepartmentResponse;
-import nl.topicus.all_rise.data.response.ExerciseResponse;
-import nl.topicus.all_rise.data.response.WorkoutResponse;
-import nl.topicus.all_rise.data.response.JsonArrayResponse;
-import nl.topicus.all_rise.data.response.JsonObjectResponse;
-import nl.topicus.all_rise.data.response.ProviderResponse;
-import nl.topicus.all_rise.data.response.EmployeeResponse;
-import nl.topicus.all_rise.model.Department;
-import nl.topicus.all_rise.model.Exercise;
-import nl.topicus.all_rise.model.Workout;
-import nl.topicus.all_rise.model.Employee;
-import nl.topicus.all_rise.utility.Data;
-import nl.topicus.all_rise.utility.Print;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,9 +19,13 @@ import java.util.Map;
 
 import nl.topicus.all_rise.data.response.ArrayListResponse;
 import nl.topicus.all_rise.data.response.EmployeeResponse;
+import nl.topicus.all_rise.data.response.ExerciseResponse;
 import nl.topicus.all_rise.data.response.JsonObjectResponse;
 import nl.topicus.all_rise.data.response.ProviderResponse;
+import nl.topicus.all_rise.data.response.WorkoutResponse;
 import nl.topicus.all_rise.model.Employee;
+import nl.topicus.all_rise.model.Exercise;
+import nl.topicus.all_rise.model.Workout;
 import nl.topicus.all_rise.utility.Data;
 
 //TODO Fix Object or Array Nightmare
@@ -349,7 +337,8 @@ public class DataProvider {
                                                         s.getJSONObject(i).getInt(
                                                                 "Exercise_Type_ID"),
                                                         s.getJSONObject(i).getString("Name"),
-                                                        s.getJSONObject(i).getString("Description")
+                                                        s.getJSONObject(i).getString("Description"),
+                                                        s.getJSONObject(i).getInt("Multiplier")
                                                 ));
 
                                         workouts.add(w);
@@ -366,27 +355,13 @@ public class DataProvider {
                                             response.getString("data")).getJSONObject(0);
 
                                     Exercise w;
-
-
-                                    try {
-                                        System.out.println(data.get("Multiplier"));
-
-                                        w = new Exercise(
+                                    w = new Exercise(
                                                 data.getInt("ID"),
                                                 data.getInt("Exercise_Type_ID"),
                                                 data.getString("Name"),
                                                 data.getString("Description"),
                                                 data.getInt("Multiplier")
                                         );
-                                    } catch (Exception e){
-                                        w = new Exercise(
-                                                data.getInt("ID"),
-                                                data.getInt("Exercise_Type_ID"),
-                                                data.getString("Name"),
-                                                data.getString("Description")
-                                        );
-                                    };
-
                                     exerciseResponse.response(w);
                                     break;
 
@@ -405,7 +380,8 @@ public class DataProvider {
                                                 arrayData.getJSONObject(i).getInt(
                                                         "Exercise_Type_ID"),
                                                 arrayData.getJSONObject(i).getString("Name"),
-                                                arrayData.getJSONObject(i).getString("Description")
+                                                arrayData.getJSONObject(i).getString("Description"),
+                                                arrayData.getJSONObject(i).getInt("Multiplier")
                                         );
                                         exercises.add(e);
                                     }

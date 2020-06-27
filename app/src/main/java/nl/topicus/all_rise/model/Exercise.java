@@ -15,14 +15,6 @@ public class Exercise {
         this.pointMultiplier = pointMultiplier;
     }
 
-    public Exercise(int id, int exerciseTypeId, String name, String description) {
-        this.id = id;
-        this.exerciseTypeId = exerciseTypeId;
-        this.name = name;
-        this.description = description;
-        this.pointMultiplier = 1;
-    }
-
     public int getId() {
         return id;
     }
