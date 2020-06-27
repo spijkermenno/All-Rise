@@ -32,16 +32,12 @@ import nl.topicus.all_rise.service.NotificationService;
 import nl.topicus.all_rise.utility.Data;
 
 public class MainActivity extends AppCompatActivity {
-    private static final int REQ_ZENVALUE = 69;
     private final String LOCALSTORAGEFILENAME = "storage.json";
-    private int zenTime = 0;
     private Context context;
     public JSONObject USERDATA;
     TextView tvWelcome;
     Button btnWorkout, btnStatistics, btnHistory, btnZenmode;
-    private boolean notificationIsPauzed = false;
     private int zenValue;
-    TextView testdata;
     Intent serviceIntent;
 
     @SuppressLint("SetTextI18n")
@@ -243,9 +239,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
-        testdata = findViewById(R.id.testdata);
-        testdata.setText(String.valueOf(zenValue));
-
     }
 
     @Override
@@ -261,8 +254,8 @@ public class MainActivity extends AppCompatActivity {
                         ContextCompat.startForegroundService(context, serviceIntent);
                         zenValue = 0;
                     }
-                    //for test purposes 6000ms(10s), should be 3600000
-                }, 6000);
+                    //3600000 = 1 hour
+                }, 24000);
                 break;
             case 2:
                 stopService(serviceIntent);
@@ -272,6 +265,7 @@ public class MainActivity extends AppCompatActivity {
                         ContextCompat.startForegroundService(context, serviceIntent);
                         zenValue = 0;
                     }
+                    //7200000 = 2 hours
                 }, 7200000);
                 break;
             case 3:
@@ -282,6 +276,7 @@ public class MainActivity extends AppCompatActivity {
                         ContextCompat.startForegroundService(context, serviceIntent);
                         zenValue = 0;
                     }
+                    //10800000 = 3 hours
                 }, 10800000);
                 break;
             case 4:
@@ -292,6 +287,7 @@ public class MainActivity extends AppCompatActivity {
                         ContextCompat.startForegroundService(context, serviceIntent);
                         zenValue = 0;
                     }
+                    //14400000 = 4 hours
                 }, 14400000);
                 break;
             case 5:
@@ -315,7 +311,6 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == 1) {
             if (resultCode == Activity.RESULT_OK) {
                 zenValue = data.getIntExtra("Zenvalue", 0);
-                testdata.setText(String.valueOf(zenValue));
             }
         }
     }
