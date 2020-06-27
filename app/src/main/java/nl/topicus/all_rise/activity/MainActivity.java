@@ -20,6 +20,7 @@ import com.android.volley.VolleyError;
 import org.json.JSONObject;
 
 import java.io.InterruptedIOException;
+import java.util.Timer;
 
 import nl.topicus.all_rise.R;
 import nl.topicus.all_rise.activity.Authentication.InviteCodeActivity;
@@ -244,51 +245,61 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        final Handler handler = new Handler();
+        final Timer t = new java.util.Timer();
         switch (zenValue){
             case 1:
                 stopService(serviceIntent);
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        ContextCompat.startForegroundService(context, serviceIntent);
-                        zenValue = 0;
-                    }
-                    //3600000 = 1 hour
-                }, 24000);
+                t.schedule(
+                        new java.util.TimerTask() {
+                            @Override
+                            public void run() {
+                                ContextCompat.startForegroundService(context, serviceIntent);
+                                zenValue = 0;
+                                t.cancel();
+                            }
+                        },
+                        3200000
+                );
                 break;
             case 2:
                 stopService(serviceIntent);
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        ContextCompat.startForegroundService(context, serviceIntent);
-                        zenValue = 0;
-                    }
-                    //7200000 = 2 hours
-                }, 7200000);
+                t.schedule(
+                        new java.util.TimerTask() {
+                            @Override
+                            public void run() {
+                                ContextCompat.startForegroundService(context, serviceIntent);
+                                zenValue = 0;
+                                t.cancel();
+                            }
+                        },
+                        7200000
+                );
                 break;
             case 3:
                 stopService(serviceIntent);
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        ContextCompat.startForegroundService(context, serviceIntent);
-                        zenValue = 0;
-                    }
-                    //10800000 = 3 hours
-                }, 10800000);
+                t.schedule(
+                        new java.util.TimerTask() {
+                            @Override
+                            public void run() {
+                                ContextCompat.startForegroundService(context, serviceIntent);
+                                zenValue = 0;
+                                t.cancel();
+                            }
+                        },
+                10800000);
                 break;
             case 4:
                 stopService(serviceIntent);
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        ContextCompat.startForegroundService(context, serviceIntent);
-                        zenValue = 0;
-                    }
-                    //14400000 = 4 hours
-                }, 14400000);
+                t.schedule(
+                        new java.util.TimerTask() {
+                            @Override
+                            public void run() {
+                                ContextCompat.startForegroundService(context, serviceIntent);
+                                zenValue = 0;
+                                t.cancel();
+                            }
+                        },
+                        14400000);
                 break;
             case 5:
                 stopService(serviceIntent);
