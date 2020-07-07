@@ -48,5 +48,10 @@
     <string name="this_week"> This Week </string>
     <string name="this_month"> This Month </string>
     <string name="total">Total</string>
+    <string name="_1_uur_actief">1 hour active</string>
+    <string name="_2_uur_actief">2 hours active</string>
+    <string name="_3_uur_actief">3 hours active</string>
+    <string name="_4_uur_actief">4 hours active</string>
+    <string name="annuleer_zenmodus">Cancel zenmode</string>
     <string name="multiplierText">This workout will give you %d points per second.</string>
 </resources>

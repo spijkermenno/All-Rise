@@ -1,11 +1,14 @@
 package nl.topicus.all_rise.activity;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -17,6 +20,7 @@ import com.android.volley.VolleyError;
 import org.json.JSONObject;
 
 import java.io.InterruptedIOException;
+import java.util.Timer;
 
 import nl.topicus.all_rise.R;
 import nl.topicus.all_rise.activity.Authentication.InviteCodeActivity;
@@ -30,12 +34,12 @@ import nl.topicus.all_rise.utility.Data;
 
 public class MainActivity extends AppCompatActivity {
     private final String LOCALSTORAGEFILENAME = "storage.json";
-
     private Context context;
     public JSONObject USERDATA;
     TextView tvWelcome;
     Button btnWorkout, btnStatistics, btnHistory, btnZenmode;
-
+    private int zenValue;
+    Intent serviceIntent;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -153,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
-            Intent serviceIntent = new Intent(context, NotificationService.class);
+            serviceIntent = new Intent(context, NotificationService.class);
             ContextCompat.startForegroundService(context, serviceIntent);
 
             // MAIN MENU
@@ -198,6 +202,9 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     // Intent naar ZenmodeActivity
+                    Intent intent = new Intent(v.getContext(), ZenmodeActivity.class);
+                    intent.putExtra("zenval", zenValue);
+                    startActivityForResult(intent, 1);
                 }
             });
 
@@ -236,9 +243,86 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        final Timer t = new java.util.Timer();
+        switch (zenValue){
+            case 1:
+                stopService(serviceIntent);
+                t.schedule(
+                        new java.util.TimerTask() {
+                            @Override
+                            public void run() {
+                                ContextCompat.startForegroundService(context, serviceIntent);
+                                zenValue = 0;
+                                t.cancel();
+                            }
+                        },
+                        3200000
+                );
+                break;
+            case 2:
+                stopService(serviceIntent);
+                t.schedule(
+                        new java.util.TimerTask() {
+                            @Override
+                            public void run() {
+                                ContextCompat.startForegroundService(context, serviceIntent);
+                                zenValue = 0;
+                                t.cancel();
+                            }
+                        },
+                        7200000
+                );
+                break;
+            case 3:
+                stopService(serviceIntent);
+                t.schedule(
+                        new java.util.TimerTask() {
+                            @Override
+                            public void run() {
+                                ContextCompat.startForegroundService(context, serviceIntent);
+                                zenValue = 0;
+                                t.cancel();
+                            }
+                        },
+                10800000);
+                break;
+            case 4:
+                stopService(serviceIntent);
+                t.schedule(
+                        new java.util.TimerTask() {
+                            @Override
+                            public void run() {
+                                ContextCompat.startForegroundService(context, serviceIntent);
+                                zenValue = 0;
+                                t.cancel();
+                            }
+                        },
+                        14400000);
+                break;
+            case 5:
+                stopService(serviceIntent);
+                ContextCompat.startForegroundService(context, serviceIntent);
+                zenValue = 0;
+                break;
+        }
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         Intent serviceIntent = new Intent(this, NotificationService.class);
         stopService(serviceIntent);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if (resultCode == Activity.RESULT_OK) {
+                zenValue = data.getIntExtra("Zenvalue", 0);
+            }
+        }
     }
 }
